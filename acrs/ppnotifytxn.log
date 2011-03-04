@@ -1,0 +1,381 @@
+2008-07-05:10:00:36
+Post data:
+Array
+(
+    [payment_date] => 09:00:32 Jul 05, 2008 PDT
+    [txn_type] => web_accept
+    [last_name] => Registrant
+    [residence_country] => US
+    [item_name] => Test Nationals 2008: Power Unlimited/team aspirant/four minute free
+    [payment_gross] => 350.00
+    [mc_currency] => USD
+    [business] => owner@iac.org
+    [payment_type] => instant
+    [verify_sign] => AFcWxV21C7fd0v3bYYYRCpSSRl31AVPmu0ZUAlwWuzOGBZqSACCQ8hcE
+    [payer_status] => verified
+    [test_ipn] => 1
+    [tax] => 0.00
+    [payer_email] => nationals@iacusn.org
+    [txn_id] => 5NY86794AC3966226
+    [quantity] => 1
+    [receiver_email] => owner@iac.org
+    [first_name] => Nationals
+    [payer_id] => 8VUPRNKS495WE
+    [receiver_id] => 94EN2NQQ9CKYE
+    [item_number] => IAC:430157
+    [payment_status] => Completed
+    [payment_fee] => 10.45
+    [mc_fee] => 10.45
+    [shipping] => 0.00
+    [mc_gross] => 350.00
+    [custom] => 1
+    [charset] => windows-1252
+    [notify_version] => 2.4
+)
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 737
+
+cmd=_notify-validate&payment_date=09%3A00%3A32+Jul+05%2C+2008+PDT&txn_type=web_accept&last_name=Registrant&residence_country=US&item_name=Test+Nationals+2008%3A+Power+Unlimited%2Fteam+aspirant%2Ffour+minute+free&payment_gross=350.00&mc_currency=USD&business=owner%40iac.org&payment_type=instant&verify_sign=AFcWxV21C7fd0v3bYYYRCpSSRl31AVPmu0ZUAlwWuzOGBZqSACCQ8hcE&payer_status=verified&test_ipn=1&tax=0.00&payer_email=nationals%40iacusn.org&txn_id=5NY86794AC3966226&quantity=1&receiver_email=owner%40iac.org&first_name=Nationals&payer_id=8VUPRNKS495WE&receiver_id=94EN2NQQ9CKYE&item_number=IAC%3A430157&payment_status=Completed&payment_fee=10.45&mc_fee=10.45&shipping=0.00&mc_gross=350.00&custom=1&charset=windows-1252&notify_version=2.4
+Verify response:
+HTTP/1.1 200 OK
+Date: Sat, 05 Jul 2008 16:00:36 GMT
+Server: Apache/2.2.8 (Unix) mod_ssl/2.2.8 OpenSSL/0.9.7a mod_fastcgi/2.4.6
+Content-Length: 7
+Set-Cookie: cwrClyrK4LoCV1fydGbAxiNL6iG=iXxRcEjR8BP1MhsZug-4TNqcYTrHVdSzh6rG1nqc63iAK6_0tjqnPuM1Uy1rTF5hvJvdmEjWE3rTTzwvZ42ChGftlafDx5ojGD7pyrgTjEAsCHdoRB9EH_F8ZM6-yx9XshaHZG%7caALT_w8GnbOmk0ROVwGsOOqM4sQwAD_RHMTpjIQx3AQm7hxDP_zuHgv9j4Qy_CHrgJNoX0%7ca3-MxJWJsfdqSFfZFqdmlI9b0JPtwSlj9PkWwEb01tpAaFXBWQW7Gi6tMTS9uauOeOZTgm%7c1215273636; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Tue, 03-Jul-2018 16:00:36 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Fri, 30-Jun-2028 16:00:36 GMT; domain=.paypal.com; path=/
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+valid:false
+doTxn:false
+fail:response from PayPal indicates INVALID notification post, data: POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 737
+
+cmd=_notify-validate&payment_date=09%3A00%3A32+Jul+05%2C+2008+PDT&txn_type=web_accept&last_name=Registrant&residence_country=US&item_name=Test+Nationals+2008%3A+Power+Unlimited%2Fteam+aspirant%2Ffour+minute+free&payment_gross=350.00&mc_currency=USD&business=owner%40iac.org&payment_type=instant&verify_sign=AFcWxV21C7fd0v3bYYYRCpSSRl31AVPmu0ZUAlwWuzOGBZqSACCQ8hcE&payer_status=verified&test_ipn=1&tax=0.00&payer_email=nationals%40iacusn.org&txn_id=5NY86794AC3966226&quantity=1&receiver_email=owner%40iac.org&first_name=Nationals&payer_id=8VUPRNKS495WE&receiver_id=94EN2NQQ9CKYE&item_number=IAC%3A430157&payment_status=Completed&payment_fee=10.45&mc_fee=10.45&shipping=0.00&mc_gross=350.00&custom=1&charset=windows-1252&notify_version=2.4 paypal verification return: HTTP/1.1 200 OK
+Date: Sat, 05 Jul 2008 16:00:36 GMT
+Server: Apache/2.2.8 (Unix) mod_ssl/2.2.8 OpenSSL/0.9.7a mod_fastcgi/2.4.6
+Content-Length: 7
+Set-Cookie: cwrClyrK4LoCV1fydGbAxiNL6iG=iXxRcEjR8BP1MhsZug-4TNqcYTrHVdSzh6rG1nqc63iAK6_0tjqnPuM1Uy1rTF5hvJvdmEjWE3rTTzwvZ42ChGftlafDx5ojGD7pyrgTjEAsCHdoRB9EH_F8ZM6-yx9XshaHZG%7caALT_w8GnbOmk0ROVwGsOOqM4sQwAD_RHMTpjIQx3AQm7hxDP_zuHgv9j4Qy_CHrgJNoX0%7ca3-MxJWJsfdqSFfZFqdmlI9b0JPtwSlj9PkWwEb01tpAaFXBWQW7Gi6tMTS9uauOeOZTgm%7c1215273636; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Tue, 03-Jul-2018 16:00:36 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Fri, 30-Jun-2028 16:00:36 GMT; domain=.paypal.com; path=/
+Keep-Alive: timeout=5, max=100
+Connection: Keep-Alive
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+2008-07-05:13:49:10
+Post data:
+Array
+(
+    [payment_date] => 12:49:03 Jul 05, 2008 PDT
+    [txn_type] => web_accept
+    [last_name] => Registrant
+    [residence_country] => US
+    [item_name] => Test Nationals 2008: Power Unlimited/team aspirant/four minute free
+    [payment_gross] => 350.00
+    [mc_currency] => USD
+    [business] => owner@iac.org
+    [payment_type] => instant
+    [verify_sign] => AoJP0WfnOCMY69quwounwwwmR2VGAnfRdu0MLAXjePU3Lnld2Jsq2.na
+    [payer_status] => verified
+    [test_ipn] => 1
+    [tax] => 0.00
+    [payer_email] => nationals@iacusn.org
+    [txn_id] => 23A9154353258761D
+    [quantity] => 1
+    [receiver_email] => owner@iac.org
+    [first_name] => Nationals
+    [payer_id] => 8VUPRNKS495WE
+    [receiver_id] => 94EN2NQQ9CKYE
+    [item_number] => IAC:430157
+    [payment_status] => Completed
+    [payment_fee] => 10.45
+    [mc_fee] => 10.45
+    [shipping] => 0.00
+    [mc_gross] => 350.00
+    [custom] => 1
+    [charset] => windows-1252
+    [notify_version] => 2.4
+)
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 737
+
+cmd=_notify-validate&payment_date=12%3A49%3A03+Jul+05%2C+2008+PDT&txn_type=web_accept&last_name=Registrant&residence_country=US&item_name=Test+Nationals+2008%3A+Power+Unlimited%2Fteam+aspirant%2Ffour+minute+free&payment_gross=350.00&mc_currency=USD&business=owner%40iac.org&payment_type=instant&verify_sign=AoJP0WfnOCMY69quwounwwwmR2VGAnfRdu0MLAXjePU3Lnld2Jsq2.na&payer_status=verified&test_ipn=1&tax=0.00&payer_email=nationals%40iacusn.org&txn_id=23A9154353258761D&quantity=1&receiver_email=owner%40iac.org&first_name=Nationals&payer_id=8VUPRNKS495WE&receiver_id=94EN2NQQ9CKYE&item_number=IAC%3A430157&payment_status=Completed&payment_fee=10.45&mc_fee=10.45&shipping=0.00&mc_gross=350.00&custom=1&charset=windows-1252&notify_version=2.4
+Verify response:
+HTTP/1.1 200 OK
+Date: Sat, 05 Jul 2008 19:49:10 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 8
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=FfnTo4erUxYrrHhm1dRAdApuV4oJHOif5FBYBu4CSktLv6A5vQfhIrxi1wdKk-QJ4SwkRLnZ2vb1UUFqwKbI1rMr4JfErs1o58D3-kUAnutZF5Ipd3BPcCW4W_ea7J_pFRYFEG%7c5wrWVXamw6XosJVCvdUdYY_et3IFVkoG8jl7WaI3O-8eWdHTLijFTFHfHC9OUXUislGIwm%7c3EsiQ9dSR6nzo6vSevAR472TVkMvxKeOFDmzcetEIM-IcbN-9JG3jtkZVL6ObFh0YyPERG%7c1215287350; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Tue, 03-Jul-2018 19:49:10 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Fri, 30-Jun-2028 19:49:10 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.26351215287350496; path=/; expires=Fri, 23-May-02 13:20:54 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+VERIFIED
+valid:false
+doTxn:false
+fail:Cannot process currency, 
+************************\nLog date, time:2008-07-07:18:38:20
+Post data:
+Array
+(
+)
+
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate
+
+Verify response:
+HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:38:20 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=8YRBoAGr5y1OHNEWUV3s3bNGZB8RzqX0S-Ox9Q87VJck2TnuhRW-y8lXHdqBwsdSlARPxcuQto6PK6cIYfwhE96Gn9sdl3Ifp9dsVyLWzEQb67KYZzjtaQncAoPASTNVpb_uUW%7cGHNn0lvpXAm-5Bs2x5Ca4socYpZeP_lkqViV2NeoqXqvnNkCbYrfAPsE8YNBqYQm-D0iEG%7chebZLZJ4oSDuBXerHDQtcEoun_qg0rW1UlvEamLpGx5oCOcWFWCZEjZmstlkG-uqe8Cs90%7c1215477500; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:38:20 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:38:20 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.196661215477500475; path=/; expires=Sun, 25-May-02 18:10:04 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+
+valid:false
+payment_status:
+fail:response from PayPal indicates INVALID notification post, data: POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate paypal verification return: HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:38:20 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=8YRBoAGr5y1OHNEWUV3s3bNGZB8RzqX0S-Ox9Q87VJck2TnuhRW-y8lXHdqBwsdSlARPxcuQto6PK6cIYfwhE96Gn9sdl3Ifp9dsVyLWzEQb67KYZzjtaQncAoPASTNVpb_uUW%7cGHNn0lvpXAm-5Bs2x5Ca4socYpZeP_lkqViV2NeoqXqvnNkCbYrfAPsE8YNBqYQm-D0iEG%7chebZLZJ4oSDuBXerHDQtcEoun_qg0rW1UlvEamLpGx5oCOcWFWCZEjZmstlkG-uqe8Cs90%7c1215477500; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:38:20 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:38:20 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.196661215477500475; path=/; expires=Sun, 25-May-02 18:10:04 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+************************\n************************\nLog date, time:2008-07-07:18:39:11
+Post data:
+Array
+(
+)
+
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate
+
+Verify response:
+HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:39:10 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=whFI7Bd7ndXjkc91ue8Oj7j8j75GIy8pby1VjEvHNqzCKttIk_Ym0WrzZSeJJf-tmGTHGdfAugbvUnMyh7bGLx5Qt646mSbgoZFxK8RTOakV7NhnF59nJmtyl7MzWK6nZqucUG%7cP-MR9UCm3Jj7nC8S8IjgOhPkxhpkLbeV5_8hPg0leXIlwU2hnhPQx2XaKx4Nzguc3MLtJ0%7cNQlXgw77IQ2D3LeHYXIXNZrcw3R7bcQnLq7L00IckkKp2FhJvYo1VRyl1gj9wMjZo1UXzm%7c1215477551; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:39:11 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:39:11 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.176351215477550954; path=/; expires=Sun, 25-May-02 18:10:54 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+
+valid:false
+payment_status:
+fail:response from PayPal indicates INVALID notification post, data: POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate paypal verification return: HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:39:10 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=whFI7Bd7ndXjkc91ue8Oj7j8j75GIy8pby1VjEvHNqzCKttIk_Ym0WrzZSeJJf-tmGTHGdfAugbvUnMyh7bGLx5Qt646mSbgoZFxK8RTOakV7NhnF59nJmtyl7MzWK6nZqucUG%7cP-MR9UCm3Jj7nC8S8IjgOhPkxhpkLbeV5_8hPg0leXIlwU2hnhPQx2XaKx4Nzguc3MLtJ0%7cNQlXgw77IQ2D3LeHYXIXNZrcw3R7bcQnLq7L00IckkKp2FhJvYo1VRyl1gj9wMjZo1UXzm%7c1215477551; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:39:11 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:39:11 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.176351215477550954; path=/; expires=Sun, 25-May-02 18:10:54 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+************************\n************************\nLog date, time:2008-07-07:18:39:17
+Post data:
+Array
+(
+)
+
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate
+
+Verify response:
+HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:39:17 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=lAx1P9aCWEtLShGfVzQSGvZwfgZyz7anXjRQNovS4GsVTIahgzaNTvOByiUS_liHU-AEuD83lJP-B5UYplc5Req2IT_aUjToHmyTPReEB-EO7Ri_jL2n9EHCiSRnWpInwDiPw0%7chMXBHqashuSohqFHDjo_UnHc6YSpZ8WtKXvVuacRH5KVVQYK_dtjm_y3xrXE2bGrpisZXG%7cQPJKFx9KPlVLoApq4qtpYqBbLXh6oZf0ndTOzPpFNwTJ_7z12Xvm53VIX1R82yG7rhENQW%7c1215477558; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:39:18 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:39:18 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.176141215477557873; path=/; expires=Sun, 25-May-02 18:11:01 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+
+valid:false
+payment_status:
+fail:response from PayPal indicates INVALID notification post, data: POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate paypal verification return: HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:39:17 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=lAx1P9aCWEtLShGfVzQSGvZwfgZyz7anXjRQNovS4GsVTIahgzaNTvOByiUS_liHU-AEuD83lJP-B5UYplc5Req2IT_aUjToHmyTPReEB-EO7Ri_jL2n9EHCiSRnWpInwDiPw0%7chMXBHqashuSohqFHDjo_UnHc6YSpZ8WtKXvVuacRH5KVVQYK_dtjm_y3xrXE2bGrpisZXG%7cQPJKFx9KPlVLoApq4qtpYqBbLXh6oZf0ndTOzPpFNwTJ_7z12Xvm53VIX1R82yG7rhENQW%7c1215477558; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:39:18 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:39:18 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.176141215477557873; path=/; expires=Sun, 25-May-02 18:11:01 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+************************\n************************\nLog date, time:2008-07-07:18:39:37
+Post data:
+Array
+(
+)
+
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate
+
+Verify response:
+HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:39:37 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=QojLJKoZWGnyL23qMXmYT54K1hARtL8iG-hSDPNZna-HhHtlSy0-svuT6O5u1d7yEROIPks7qBWukssit8GXXCTLmSsK54ElU7qYMxh7nW5ot3cZPhCu4I3mRFQnoOOEohnl-0%7cV76i7BSNBCq_5znClZQWJIf_NQFyjver-K_L6XPiVtQna9Gwmtvgfowmpzb8j8y9aDtHJG%7cy76tVzEo0NnUE4KszQdfztfabKAN2efqgGpQImwu5177qglgtzCQLG4Gh_iZXraWXUu7YW%7c1215477578; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:39:38 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:39:38 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.87731215477577868; path=/; expires=Sun, 25-May-02 18:11:21 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+
+valid:false
+payment_status:
+fail:response from PayPal indicates INVALID notification post, data: POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate paypal verification return: HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:39:37 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=QojLJKoZWGnyL23qMXmYT54K1hARtL8iG-hSDPNZna-HhHtlSy0-svuT6O5u1d7yEROIPks7qBWukssit8GXXCTLmSsK54ElU7qYMxh7nW5ot3cZPhCu4I3mRFQnoOOEohnl-0%7cV76i7BSNBCq_5znClZQWJIf_NQFyjver-K_L6XPiVtQna9Gwmtvgfowmpzb8j8y9aDtHJG%7cy76tVzEo0NnUE4KszQdfztfabKAN2efqgGpQImwu5177qglgtzCQLG4Gh_iZXraWXUu7YW%7c1215477578; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:39:38 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:39:38 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.87731215477577868; path=/; expires=Sun, 25-May-02 18:11:21 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+************************\n************************\nLog date, time:2008-07-07:18:40:13
+Post data:
+Array
+(
+)
+
+
+Verify query:
+POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate
+
+Verify response:
+HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:40:13 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=gufTnmuu1SQTHX0LRrnfWfk-dtfQCfvhX8x9HOtclqFqR9ZvNh7sTXJjM3LCUwrUswXin0kRAio-xeE4XgAhUmP7O_0NGY7j8YEzftJcJNCZB-oWJJKEg50e1Ix_3NcNvRQCcG%7cGcsuN7D7WEEkfp37_SWHANYufbfwcR-XwEw2MmeGlhhtrhf1mkiXiQwInZ68C3pG1iPYiG%7ckqd3-npitDLBvO9xsGv837_iC0RtZCyIX0yRA6stlWFNc3JP2COrjGjKN89UOFhBWrJ320%7c1215477613; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:40:13 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:40:13 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.1963812154776138; path=/; expires=Sun, 25-May-02 18:11:57 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+
+valid:false
+payment_status:
+fail:response from PayPal indicates INVALID notification post, data: POST /cgi-bin/webscr HTTP/1.0
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 20
+
+cmd=_notify-validate paypal verification return: HTTP/1.1 200 OK
+Date: Tue, 08 Jul 2008 00:40:13 GMT
+Server: Apache/1.3.33 (Unix) mod_fastcgi/2.4.2 mod_gzip/1.3.26.1a mod_ssl/2.8.22 OpenSSL/0.9.7e
+Content-Length: 7
+Set-Cookie: c9MWDuvPtT9GIMyPc3jwol1VSlO=gufTnmuu1SQTHX0LRrnfWfk-dtfQCfvhX8x9HOtclqFqR9ZvNh7sTXJjM3LCUwrUswXin0kRAio-xeE4XgAhUmP7O_0NGY7j8YEzftJcJNCZB-oWJJKEg50e1Ix_3NcNvRQCcG%7cGcsuN7D7WEEkfp37_SWHANYufbfwcR-XwEw2MmeGlhhtrhf1mkiXiQwInZ68C3pG1iPYiG%7ckqd3-npitDLBvO9xsGv837_iC0RtZCyIX0yRA6stlWFNc3JP2COrjGjKN89UOFhBWrJ320%7c1215477613; domain=.paypal.com; path=/
+Set-Cookie: cookie_check=yes; expires=Fri, 06-Jul-2018 00:40:13 GMT; domain=.paypal.com; path=/
+Set-Cookie: navcmd=_notify-validate; domain=.paypal.com; path=/
+Set-Cookie: navlns=0; expires=Mon, 03-Jul-2028 00:40:13 GMT; domain=.paypal.com; path=/
+Set-Cookie: Apache=10.191.196.11.1963812154776138; path=/; expires=Sun, 25-May-02 18:11:57 GMT
+Connection: close
+Content-Type: text/html; charset=UTF-8
+
+INVALID
+************************\n************************\nLog date, time:2008-07-07:18:56:20
+Access GET from 69.121.146.71 as ************************\n************************
+Log date, time:2008-07-07:19:08:23
+Access GET from 69.121.146.71 as 
+************************
+************************
+Log date, time:2008-07-07:19:10:08
+Access GET from 69.121.146.71 as 
+************************

@@ -1,0 +1,68 @@
+<?php
+session_start();
+require_once ("dbConfig.inc");
+require_once ("dbCommand.inc");
+require_once ("data/encodeSQL.inc");
+require_once ("data/encodeHTML.inc");
+require_once ("securimage.inc");
+require_once ("useful.inc");
+
+function validateNewAccount($registrant, $dbConn)
+{
+   $accountName = crop($registrant['accountName'], 32);
+   if (strlen($accountName) == 0)
+   {
+      $corrMsg .= "<li>Provide an account name.</li>";
+   }
+   $givenName = crop($registrant["givenName"], 80);
+   if (strlen($givenName) == 0)
+   {
+      $corrMsg .= "<li>Provide a given (first) name.</li>";
+   }
+   $familyName = crop($registrant["familyName"], 80);
+   if (strlen($familyName) == 0)
+   {
+      $corrMsg .= "<li>Provide a family (last) name.</li>";
+   }
+   $email = crop($registrant["email"], 320);
+   if (strlen($email) == 0)
+   {
+      $corrMsg .= "<li>Provide an email address.</li>";
+   }
+   else
+   if (!validEmail($email))
+   {
+      $corrMsg .= "<li>The format of the email address is not valid.</li>";
+   }
+   // check non-existing account name
+   $query = "select userID from registrant where accountName = '" .
+   addslashes($accountName) . "';";
+   $result = dbQuery($db_conn, $query);
+   if ($result === false)
+   {
+      $corrMsg .= "<it>" . notifyError('loginAccount.php', dbErrorText()) . "<\it>";
+   }
+   else
+   if (dbCountResult($result) != 0)
+   {
+      $corrMsg .= "<it>The account name is already registered.";
+      $corrMsg .= "<a href='reset.php?email=".strhtml($email)."'> Send password reset </a></it>";
+   }
+   return $corrMsg;
+}
+/*
+ Copyright 2010 International Aerobatic Club, Inc.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+?>

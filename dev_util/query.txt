@@ -1,0 +1,21 @@
+$row = mysql_fetch_assoc($result);
+echo '<ul>;'
+foreach($row as $key => $value)
+{
+   echo '<li>'.$key.' = '.$value.'</li>';
+   $record[$key] = $value;
+}
+echo '</ul>;'
+sqlSetValueToPostData($row['compType'], 'compType', $record);
+sqlSetValueToPostData($row['compClass'], 'compClass', $record);
+sqlSetValueToPostData($row['compCat'], 'compCat', $record);
+sqlSetValueToPostData($row['certType'], 'certType', $record);
+sqlBoolValueToPostData($row['currMedical'], 'currMedical', $record);
+sqlBoolValueToPostData($row['currBiAnn'], 'currBiAnn', $record);
+sqlBoolValueToPostData($row['currPacked'], 'currPacked', $record);
+sqlBoolValueToPostData($row['ownerPilot'], 'ownerPilot', $record);
+sqlSetValueToPostData($row['airworthiness'], 'airworthiness', $record);
+sqlBoolValueToPostData($row['currInspection'], 'currInspection', $record);
+sqlBoolValueToPostData($row['liabilityAmt'], 'liabilityAmt', $record);
+sqlBoolValueToPostData($row['injuryAmt'], 'injuryAmt', $record);
+sqlBoolValueToPostData($row['needAssist'], 'needAssist', $record);

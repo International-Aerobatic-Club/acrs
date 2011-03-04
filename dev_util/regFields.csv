@@ -1,0 +1,48 @@
+text,Given name,givenName,varchar(72),32,72
+text,Family name,familyName,varchar(72),32,72
+text,Cell Phone number,contactPhone,char(16),16,16
+text,Street address,address,varchar(72),60,72
+text,City,city,varchar(24),18,24
+text,State,state,varchar(24),18,24
+text,Country,country,varchar(24),18,24
+text,Postal code,postalCode,char(12),12,12
+text,Email address,email,char(320),60,320
+text,EAA Number,eaaID,char(12),12,12
+text,IAC Number,iacID,char(12),12,12
+text,FAI Sporting License (Unlimited),faiID,char(12),12,12
+select,Competition type,compType,regrets,competitor,volunteer
+select,Competition class,compClass,power,glider
+select,Competition category,compCat,primary,sportsman,intermediate,advanced,unlimited
+select,Pilot certificate type,certType,student,private,commercial,atp,sport,recreational
+text,Certificate number,certNumber,char(16),16,16
+boolean,Current medical,currMedical,boolean,false
+boolean,Current bi-annual,currBiAnn,boolean,false
+boolean,Current parachute pack,currPacked,boolean,false
+text,Chapter number declaration,chapter,char(6),6,6
+text,Safety pilot name,safety,varchar(72),60,72
+boolean,Owner pilot,ownerPilot,boolean,true
+text,Airplane owner name,ownerName,varchar(72),60,72
+text,Phone number,ownerPhone,char(16),16,16
+text,Street address,ownerAddress,varchar(72),60,72
+text,City,ownerCity,varchar(24),18,24
+text,Country,ownerCountry,varchar(24),18,24
+text,State,ownerState,varchar(24),18,24
+text,Postal code,ownerPostal,char(12),12,12
+text,Make,airplaneMake,varchar(24),18,24
+text,Model,airplaneModel,varchar(24),18,24
+text,Registration,airplaneRegID,char(16),16,16
+text,Color,airplaneColors,varchar(24),24,24
+select,Type of Airworthiness,airworthiness,experimental,acrobatic
+text,Engine Make,engineMake,varchar(24),18,24
+text,Model,engineModel,varchar(24),18,24
+text,Horsepower,engineHP,char(6),6,6
+boolean,Current condition inspection,currInspection,boolean,false
+text,Insurance company,insCompany,varchar(24),24,24
+boolean,$1M min. liability,liabilityAmt,boolean,false
+boolean,$100K min. personal injury,injuryAmt,boolean,false
+text,Insurance expiration (mm/dd/yyyy),insExpires,char(10),10,10
+check,Role,volunteer,judge,assistJudge,recorder,boundary,runner,assistChief,starter,scoring,registration
+check,Judge level,judgeLevel,ps,i,au
+check,Assist level,assistLevel,ps,i,au
+boolean,Need assists,needAssist,boolean,false
+select,Current line judge qualification,judgeQual,none,regional,national

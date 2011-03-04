@@ -1,0 +1,5 @@
+# Cordon-off this directory
+AuthType Basic
+AuthName "Restricted"
+AuthUserFile "/.htpasswd/acrs/auth"
+require valid-user

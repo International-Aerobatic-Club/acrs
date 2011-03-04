@@ -1,0 +1,18 @@
+@CHARSET "ISO-8859-1";
+@page { 
+	margin:0.5in; 
+}
+@media print {
+    body { font-family:Tahoma;color:black;border:none; }
+	.noprint { visibility:hidden; display:none; }
+	.menu { visibility:hidden; display:none; }
+	.footer { visibility:hidden; display:none; }
+    .content { padding-left:0pt; }
+    .break-after { page-break-after:always; }
+    .break-after-half { page-break-after:always; }
+    .headline { visibility:hidden; display:none; }
+    .sideline { visibility:hidden; display:none; }
+    table.pilot-rpt {
+	    margin-top:0in;
+    }
+}

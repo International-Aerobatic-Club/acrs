@@ -1,0 +1,168 @@
+$value = crop($_POST['givenName'], 72);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Given name</li>'
+}
+$value = crop($_POST['familyName'], 72);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Family name</li>'
+}
+$value = crop($_POST['contactPhone'], 16);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Cell Phone number</li>'
+}
+$value = crop($_POST['address'], 72);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Street address</li>'
+}
+$value = crop($_POST['city'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide City</li>'
+}
+$value = crop($_POST['state'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide State</li>'
+}
+$value = crop($_POST['country'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Country</li>'
+}
+$value = crop($_POST['postalCode'], 12);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Postal code</li>'
+}
+$value = crop($_POST['email'], 320);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Email address</li>'
+}
+$value = crop($_POST['eaaID'], 12);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide EAA Number</li>'
+}
+$value = crop($_POST['iacID'], 12);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide IAC Number</li>'
+}
+$value = crop($_POST['faiID'], 12);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide FAI Sporting License (Unlimited)</li>'
+}
+$value = crop($_POST['compCat'], intermediate);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Competition category</li>'
+}
+else
+{
+   $intValue = preg_replace('/[^0-9]/','',$value);
+   if (strlen($value) != strlen($intValue))
+   {
+      $corrMsg .= '<li>Competition category must contain only numbers.</li>'
+   }
+}
+$value = crop($_POST['certNumber'], 16);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Certificate number</li>'
+}
+$value = crop($_POST['chapter'], 6);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Chapter number declaration</li>'
+}
+$value = crop($_POST['safety'], 72);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Safety pilot name</li>'
+}
+$value = crop($_POST['ownerName'], 72);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Airplane owner name</li>'
+}
+$value = crop($_POST['ownerPhone'], 16);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Phone number</li>'
+}
+$value = crop($_POST['ownerAddress'], 72);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Street address</li>'
+}
+$value = crop($_POST['ownerCity'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide City</li>'
+}
+$value = crop($_POST['ownerCountry'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Country</li>'
+}
+$value = crop($_POST['ownerState'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide State</li>'
+}
+$value = crop($_POST['ownerPostal'], 12);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Postal code</li>'
+}
+$value = crop($_POST['airplaneMake'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Make</li>'
+}
+$value = crop($_POST['airplaneModel'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Model</li>'
+}
+$value = crop($_POST['airplaneRegID'], 16);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Registration</li>'
+}
+$value = crop($_POST['airplaneColors'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Color</li>'
+}
+$value = crop($_POST['engineMake'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Engine Make</li>'
+}
+$value = crop($_POST['engineModel'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Model</li>'
+}
+$value = crop($_POST['engineHP'], 6);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Horsepower</li>'
+}
+$value = crop($_POST['insCompany'], 24);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Insurance company</li>'
+}
+$value = crop($_POST['insExpires'], 10);
+if (strlen($value) == 0)
+{
+   $corrMsg .= '<li>Provide Insurance expiration (mm/dd/yyyy)</li>'
+}

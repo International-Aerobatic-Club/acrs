@@ -1,0 +1,98 @@
+h4 {text-align:left;}
+td.form_text input {width:100%; color:black;}
+input.form_check {width:auto; white-space:nowrap;margin-left:10px;}
+input.form_boolean {width:auto; white-space:nowrap;}
+input.submit {width:auto; margin:15px; padding:5px;}
+form.regForm table {width:100%;}
+form.regForm td {vertical-align:bottom;}
+div.regSubmit {vertical-align:middle;}
+form.regForm {background-color:#ddd;}
+form.volunteer {background-color:#ddd;}
+label {display:block}
+fieldset {display:inline;border:none;vertical-align:bottom;margin:0;padding:0}
+p.form_line {margin:0;padding:0}
+.error {font-size:x-large;font-weight:bold;color:red;}
+table.volunteer {border-collapse:collapse;empty-cells:show;}
+th.volunteerCat {border-bottom:1pt solid;}
+th.volunteerRole {text-align:right;}
+td.volunteer {text-align:center;padding-right:8px;}
+div.volunteerJudge {padding-top:10px;padding-left:280px;}
+div.volunteerSubmit {padding-left:200px;}
+table.judgeBallot {margin-top:15px;margin-bottom:15px;}
+th.regionHeader {text-align:left;font-style:capitals;padding-top:5px;}
+div.resv_time {text-align:right;font-family:monospace;font-weight:bold;font-size:large;}
+.resv_empty {height:2ex;}
+div.resv_current {text-align:right;font-weight:bold;}
+.resv_name {text-align:right;}
+td.practiceSlot {padding-right:10px;padding-bottom:5px;vertical-align:top;}
+.basicReg {padding-top:10px;}
+.advancedReg {padding-top:10px;padding-left:60px;font-weight:bold;}
+.userControl {padding-top:10px;font-style:italic;}
+.antiRobot {margin-bottom:8px;margin-left:10px;font-size:24pt;font-weight:bold;font-family:Rockwell,serif;font-variant:small-caps;}
+div.extra {padding:5px;margin:10px;border-size:3px;border-style:solid;font-size:12pt;}
+div.returnButton {padding:4px;}
+.important {font-weight:bold;}
+p.registrant {margin:0;padding:0;}
+h4.registrant {font-variant:small-caps;}
+table.pilot-rpt {
+	empty-cells:show;
+	margin-top:1in;
+    }
+td.pilot-rpt-section {
+    padding-top:0.5in;padding-bottom:12pt;
+    }
+td.pilot-rpt-label {
+    padding:4px;padding-left:12pt;text-align:right;
+    }
+td.pilot-rpt-value {
+    width:2in;padding:4px;border-width:1px;border-bottom-style:solid;
+    }
+table.volunteerTable {
+	padding-top:12pt;
+	margin-left:36pt;
+	empty-cells:show;
+	border-collapse:collapse;
+	font-size:12pt;
+	page-break-inside:avoid;
+    }
+table.volunteerTable thead {
+	padding-bottom:12pt;
+    }
+table.volunteerTable th {
+	text-align:center;text-decoration:underline;
+    }
+table.volunteerTable tr {
+	border-left:36pt hidden;
+	}
+table.volunteerTable td {
+	margin-left:36pt;padding-bottom:3pt;padding-right:14pt;
+    }
+table.volunteerTable tr.prefs {
+    border-bottom:2pt solid black;
+	}
+h3.volunteerRecord {
+	border-top:2pt solid black;
+	margin-top:20pt;
+	padding-top:20pt;
+    }
+.volunteerName { 
+	margin:0pt;padding-top:14pt;font-weight:bold; font-size:large;
+	}
+.volunteerMemberID {
+    margin:0pt;padding-top:4pt;font-weight:bold;
+    }
+.volunteerCompetitor {
+	margin:0pt;padding-top:4pt;padding-bottom:8pt;font-weight:bold;
+    }
+div.break-after-half {
+	height:4in;
+}
+div.volunteerRecord {
+	height:5in;
+}
+table.category { border-collapse:collapse; border:2pt solid black; margin-top:6pt; }
+table.category thead tr th { border:1pt solid black; border-bottom:1.5pt solid black; padding:2pt; }
+table.category tbody tr td { border:0.5pt dotted black; }
+table.category tbody tr td.amt { text-align:right; padding-right:3pt; }
+table.category tbody tr td.bool { text-align:center; }
+table.category tbody tr td.ct { text-align:center; }

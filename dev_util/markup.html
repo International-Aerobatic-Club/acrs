@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html xmlns="http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<title>Site Markup</title>
+<meta content="en-us" http-equiv="Content-Language"/>
+<meta content="text/html; charset=UTF8" http-equiv="Content-Type"/>
+<link href="nationalsStyle.css" type="text/css" rel="stylesheet"/>
+</head>
+<body>
+<table>
+<tbody>
+<tr>
+<td class="headline">
+<img alt="Nationals Logo" src="logos/NationalsLogo200.jpg"/>
+</td>
+<td class="headline">
+<h1>The 2007 United States National Aerobatic Championships</h1>
+<h2>Grayson County Airport (KGYI), Sherman/Denison, Texas</h2>
+<h2>Sunday, September 23 - Saturday, September 29, 2007</h2>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="content">
+<div xmlns="http://www.w3.org/1999/xhtml" class="menu">
+<a href="home.html" class="menu">Home</a>
+<a href="sponsors.html" class="menu">Sponsors</a>
+<a href="contact.html" class="menu">Officials</a>
+<a href="schedule.html" class="menu">Schedule</a>
+<a href="reginfo.html" class="menu">Registration</a>
+<a href="accom.html" class="menu">Location</a>
+<a href="past.html" class="menu">Prior Contests</a>
+<a href="news.html" class="menu">News</a>
+<a href="scores.html" class="menu">Results</a>
+<a href="pictas.html" class="menu">Pictures</a>
+</div>
+<h1 xmlns="http://www.w3.org/1999/xhtml">
+<a href="index.html">Administering the Site</a> : Site Markup</h1>
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Introduction</h3>
+
+<p>The site markup works with the stylesheet, <code>'site.xml'</code> to produce
+html site content.
+The stylesheet produces repeating elements and presentation
+elements, including the scaffolding that goes around every page on the site--
+the logos, title, and site menu.  
+The markup focuses on the content of the page itself.
+</p>
+
+<p>
+The XSLT program combines the site markup with the site stylesheet to
+produce the output html.  The ant build script, <code>build.xml</code>
+takes care of running the XSLT program where required.
+There are two ways to tell that the XSLT program built a page:
+<ol>
+
+<li>Look at the ant build script to see which files it builds.</li>
+
+<li>Look for an <code>.xml</code> file 
+with the same name as the <code>.html</code> file.</li>
+
+</ol>
+The newest pages on the site are all built from markup with XSLT.
+</p>
+
+<p>The most powerful elements of site markup are the
+album, photostory, and article list.  This document will explain
+those in turn, after first introducing the fundamentals.</p>
+
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Generating the Site</h3>
+
+<p>
+Use the <code>ant</code> program with the <code>build.xml</code>
+file to run XSLT with every changed
+XML markup source to produce updated HTML.
+Simply go to the root directory of the site from the command
+line and type, "ant."</p>
+
+<p>The <code>ant</code> program reads the file, <code>build.xml</code>,
+the "build file," that has the program for generating the site.
+</p>
+<p>
+The <code>ant</code> program is part of the Apache group of software
+projects.  Ant is not installed on the hosting server.  Install
+and run it on your local machine, then check-in the updated files.
+Here are some useful links for dealing with <code>ant</code>:
+<ul>
+
+<li>
+<a href="http://ant.apache.org/">The ant project home page</a>
+</li>
+
+<li>
+<a href="http://ant.apache.org/manual/index.html">The manual for ant</a>
+</li>
+
+</ul>
+
+</p>
+
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Basic markup</h3>
+
+<p>The outer, root markup element may have any name.  Start with
+"story."  The attributes on the outer element are more important than
+the name.
+<dl>
+
+<dt>The date attribute</dt>
+
+<dd>Place the edited date here.  One easy way to make sure the edited
+date is current is to let CVS fill it in.  CVS will replace the target,
+<code>$Date: 2008/02/18 02:47:04 $</code> with the current date whenever you check-in a change
+to the file.</dd>
+
+<dt>The title attribute</dt>
+
+<dd>Is the name of the page.  The stylesheet puts this in the heading
+at the top, as well as in the <code>title</code> element of the header, where
+indexing programs and the browser expect to find the title.</dd>
+
+<dt>The style attribute</dt>
+
+<dd>The style attribute is an optional CSS stylesheet name.
+If present, the stylesheet will put a link to the stylesheet in the 
+html headers.</dd>
+
+</dl>
+
+</p>
+
+
+<p>
+In summary, your basic document structure will look like this,
+<pre>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;story 
+ title="Everyone Flies"
+ date="$Date: 2008/02/18 02:47:04 $"
+ style="/index.css"&gt;
+&lt;!-- More content here --&gt;
+&lt;/story&gt;
+
+</pre>
+where you supply your own values for the title, and the optional style.
+</p>
+
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Lineage</h3>
+
+<p>When a user follows a link to a page it is sometimes nice to
+provide a link back.  The <code>parent</code> markup element allows
+you to place multiple navigation links in the title of the document.
+</p>
+
+<p>
+The stylesheet transforms this XML markup:
+<pre>
+
+&lt;parent link="../aeroblog.html" title="Stories"&gt;
+ &lt;parent link="../aero.html" title="Aviation and Aerobatics"&gt;
+  &lt;parent link="/index.html" title="WBreeze"/&gt;
+ &lt;/parent&gt;
+&lt;/parent&gt;
+
+</pre>
+into this HTML markup:
+<pre>
+
+&lt;h1&gt;
+  &lt;a href="/index.html"&gt;WBreeze&lt;/a&gt; :
+  &lt;a href="../aero.html"&gt;Aviation and Aerobatics&lt;/a&gt; :
+  &lt;a href="../aeroblog.html"&gt;Stories&lt;/a&gt; :
+  Title
+&lt;/h1&gt;
+
+</pre>
+The Title comes from the title attribute of the first element in the document.
+</p>
+
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Generics</h3>
+
+<p>
+The generics portion of the style sheet provides some simple markup
+translations and pass-through of many HTML markup elements.
+</p>
+
+<p>First, the style sheet will copy
+any content within an <code>html</code> element 
+into the content of an HTML <code>div</code> element.
+It will copy all of the attributes from the <code>html</code> 
+element onto the attributes of
+the <code>div</code> element.
+The style sheet copies all of the content of the <code>html</code>
+element without further processing.
+</p>
+
+<p>Second, the style sheet will copy a <code>pre</code> or an <code>img</code>
+element, including attributes and any content,
+without any further processing.
+</p>
+
+<p>Third, the style sheet will copy all 
+<code>a, p, dl, dt, dd, ol, ul, li, code, b,</code> and <code>i</code>
+elements as they are, including their attributes, further processing 
+the content within them as site markup.
+Note that the style sheet passes anchors and links 
+(the <code>a</code> element) as standard HTML.
+</p>
+
+<p>The remaining generics supplied by the style sheet are,
+<code>section, subsection,</code> and <code>image</code>.
+The style sheet translates:
+<ul>
+
+<li>the <code>section</code> element into an HTML <code>h2</code>
+element with the <code>class</code> attribute set to 
+<code>"section"</code>.
+</li>
+
+<li>the <code>subsection</code> element into an HTML <code>h3</code>
+element with the <code>class</code> attribute set to
+<code>"subsection"</code>.
+</li>
+
+</ul>
+Use the <code>class</code> attribute to match 
+<code>h2</code> and <code>h3</code>
+elements for styling in a CSS style sheet.
+</p>
+<h4 xmlns="http://www.w3.org/1999/xhtml" class="subsection">image</h4>
+
+<p>The <code>image</code> element enables insertion of an image
+with given size, linked to a full size copy.  
+It has the following attributes:
+<dl>
+
+<dt>image-loc</dt>
+<dd>required. the relative or absolute directory for
+the image.</dd>
+
+<dt>box-size</dt>
+<dd>optional, default 400.  selects the image scaled to
+fit within a <code>box-size</code> pixel square.</dd>
+
+<dt>name</dt>
+<dd>The file name of the image</dd>
+
+<dt>caption</dt>
+<dd>optional, empty default.  caption for the <code>alt</code>
+text and to appear below to the image.</dd>
+
+</dl>
+Essentially, the <code>image</code> element translates to
+<pre>
+&lt;div class="image"&gt;
+  &lt;a href="image-loc/name"&gt;
+    &lt;img class="image" src="image-loc/box-size/name" alt="caption"/&gt;
+  &lt;/a&gt;
+  &lt;div class="image-caption"&gt;caption&lt;/div&gt;
+&lt;/div&gt;
+
+</pre>
+Refer to the section about image management and scaling.
+</p>
+
+<h4 xmlns="http://www.w3.org/1999/xhtml" class="subsection">Photo story</h4>
+
+<p>The photo story enables a series of images, possibly with captions,
+with descriptive text alongside each image.  A site source XML document
+may contain zero or more photo stories.  Use a <code>photostory</code>
+element to enclose a photo story.  Use one or more <code>storyItem</code>
+elements within the <code>photostory</code> element to separate
+groups of images and the content that goes with them.  Use zero or more
+<code>image</code> elements within the <code>storyItem</code> element
+to display images alongside the story item content.
+</p>
+
+<p>The <code>photostory</code> element begins a photo story, that is
+a series of story items.  It has a few attributes to set-up the story.
+<dl>
+
+<dt>text-side</dt>
+<dd>optional, "left" or "right."  By default 
+the text content will show on the left side and the images on the right.</dd>
+
+<dt>box-size</dt>
+<dd>optional, default 400.  selects images scaled to
+fit within a <code>box-size</code> pixel square.</dd>
+
+<dt>image-loc</dt>
+<dd>required. the directory that contains the full-scale
+images.</dd>
+
+</dl>
+
+</p>
+
+<p>The <code>storyItem</code> elements go within the <code>photostory</code>
+element, and group images next to the other content.
+The <code>storyItem</code> may override the <code>image-loc</code>
+and <code>box-size</code> attributes of the <code>photostory</code>.
+It is unusual to do this.
+</p>
+
+<p>Any <code>image</code> elements within the <code>storyItem</code>
+will move to the right or left side next to all other content of the
+<code>storyItem</code>.  Attributes of <code>image</code> elements
+within a <code>storyItem</code> element behave as follows:
+<dl>
+
+<dt>image-loc</dt>
+<dd>optional. overrides the directory location provided
+by the <code>photostory</code> or <code>storyItem</code> element.
+</dd>
+
+<dt>box-size</dt>
+<dd>optional.  overrides the directory location provided
+by the <code>photostory</code> or <code>storyItem</code> element.
+</dd>
+
+<dt>name</dt>
+<dd>required file name of the image</dd>
+
+<dt>caption</dt>
+<dd>optional, empty default.  caption for the <code>alt</code>
+text and to appear below to the image.</dd>
+
+</dl>
+The style sheet will process all other elements within the 
+<code>storyItem</code> element as normal content.  You can even place
+another photo story there.
+</p>
+
+<h4 xmlns="http://www.w3.org/1999/xhtml" class="subsection">styling a photo story</h4>
+
+<p>
+The style sheet outputs a photo story with a structure like the following:
+<pre>
+&lt;table class="photostory"&gt;
+ &lt;tbody class="photostory"&gt;
+  &lt;tr class="photostory"&gt;
+   &lt;td class="photostory-tcell"&gt;
+     ... content ...
+   &lt;/td&gt;
+   &lt;td class="photostory-icell"&gt;
+    &lt;div class="photostory-image-block"&gt;
+     &lt;a href="@image-loc/@name"&gt;
+     &lt;img class="photostory-image" 
+      src="@image-loc/@box-size/@name" 
+      alt="@caption"/&gt;
+     &lt;/a&gt;
+     &lt;span class="photostory-image-caption"&gt;
+       @caption
+     &lt;/span&gt;
+    &lt;/div&gt;
+   &lt;/td&gt;
+  &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+</pre>
+Use the <code>photostory</code> class with the <code>table, tbody,</code>
+and <code>tr</code> elements to alter their appearance with CSS.
+Use the <code>photostory-tcell</code> class to alter the appearance of the
+content side of a photo story <code>storyItem</code>.
+Use the <code>photostory-icell</code> class to alter the appearance of the
+image side of a photo story <code>storyItem</code>.
+The <code>photostory-image-block</code> class marks
+the block surrounding the photo story image and caption.
+The <code>photostory-image</code> class marks the <code>img</code>
+elements within a photo story.
+The <code>photostory-image-caption</code> class marks the <code>span</code>
+element surrounding image captions of a photo story.
+</p>
+
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Article lists</h3>
+<h3 xmlns="http://www.w3.org/1999/xhtml" class="section">Albums</h3>
+
+</div>
+<div xmlns="http://www.w3.org/1999/xhtml" class="footer">
+<p>
+      Copyright &copy;2007 International Aerobatic Club.
+      All logos, trademarks, pictures, and videos are the property 
+      of their respective owners.  Contact
+      <a href="mailto:blue@wbreeze.com" class="footer">Douglas Lovell</a>
+      with comments or questions related to the display
+      or content of this web page.
+    </p>
+</div>
+</body>
+</html>

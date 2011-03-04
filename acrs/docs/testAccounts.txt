@@ -1,0 +1,13 @@
+http://acrs.localhost/
+same as http://www.iacusn.org/acrs/
+
+http://www.iacusn.org/acrs/test/
+430157
+DougT0420
+Test
+JD
+
+
+http://www.iacusn.org/acrs/
+
+password is 'password'

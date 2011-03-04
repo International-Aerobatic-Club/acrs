@@ -1,0 +1,33 @@
+int,Year (YYYY),regYear,smallint unsigned not null,4,4
+text,Name,name,varchar(72) not null,48,72
+text,Registration Deadline(MM/DD),regDeadline,date,5,5
+text,Announcement Web address,homeURL,text(320) not null,48,320
+text,Registration Web address,regURL,text(320) not null,48,320
+text,Registration email contact,regEmail,text(320) not null,48,320
+select,Has judge voting?,hasVoteJudge,yes,no
+boolean,Has judge voting?,hasVoteJudge
+text,Voting email contact,voteEmail,text(320) not null,48,320
+select,Accepts PayPal registration payments?,hasPayPal,yes,no
+boolean,Accepts PayPal registration payments?,hasPayPal
+text,PayPal account identifier,payEmail,text(320) not null,48,320
+select,Accepts practice slot reservations?,hasPracticeReg,yes,no
+boolean,Accepts practice slot reservations?,hasPracticeReg
+int,Practice slot reservation limit,maxPracticeSlots,smallint unsigned,2,2
+select,Category class,class,power,glider,other
+check,Category class,classC,power,glider,other
+select,Category,category,primary,sportsman,intermediate,advanced,unlimited,4min,other
+check,Category,categoryC,primary,sportsman,intermediate,advanced,unlimited,4min,other
+text,Category description,catName,varchar(72),48,72
+boolean,Student registrations?,hasStudentReg
+int,Student registration amount,studentRegAmt,smallint unsigned,4,4
+boolean,Team registrations?,hasTeamReg
+int,Team registration amount,teamRegAmt smallint unsigned,4,4
+int,Regular registration amount,regAmt smallint unsigned,4,4
+boolean,Judge voting?,hasVoteJudge
+text,Judge voting deadline(MM/DD),voteDeadline,date,5,5
+check,Contest role,roles,admin,cd,registrar,vc
+text,Session date(MM/DD),practiceDate,date not null,5,5
+text,Session time(HH:MM),startTime,time not null,5,5
+text,Session end time(HH:MM),endTime,time not null,5,5
+int,Session slot reservation limit,maxSlotsPerSession,smallint unsigned,2,2
+int,Minutes per session,interval,smallint unsigned not null,2,2
