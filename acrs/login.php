@@ -27,7 +27,7 @@ function setSessionVariables($registrant)
     $_SESSION['givenName'] = strhtml($registrant['givenName']);
     $_SESSION['familyName'] = strhtml($registrant['familyName']);
     $_SESSION['email'] = $registrant['email'];
-    $_SESSION['isAdmin'] = sqlIsTrue($registrant['isAdmin']);
+    $_SESSION['isAdmin'] = $registrant['isAdmin'];
     $_SESSION['accountName'] = $registrant['accountName']; 
 }
 
@@ -67,7 +67,7 @@ function getAccountData($db_conn, $accountName, $pwd, & $registrant)
             $registrant['givenName'] = stripslashes($row[1]);
             $registrant['familyName'] = stripslashes($row[2]);
             $registrant['email'] = stripslashes($row[3]);
-            $registrant['isAdmin'] = ($row[4] == 'y');
+            $registrant['isAdmin'] = sqlIsTrue($row[4]);
             $registrant['accountName'] = $accountName;
         }
         else

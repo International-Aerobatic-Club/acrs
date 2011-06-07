@@ -51,7 +51,7 @@ if (isset ($_POST["submit"]))
             $pwd = encodePWD($newPwd);
             $update = "update registrant set password = " . 
                strSQL($pwd, 40) . 
-               " where userID = " . inthtml($registrant['userID']);
+               " where userID = " . intSQL($registrant['userID']);
             $fail = dbExec($db_conn, $update);
             if ($fail == '')
             {

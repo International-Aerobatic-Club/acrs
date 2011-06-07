@@ -25,7 +25,7 @@ function encodePWD($password)
 {
    $password = crop($password, 32);
    $pwd = sha1($password);
-   debug('encodePWD '.$password.' is '.$pwd);
+   // debug('encodePWD '.$password.' is '.$pwd);
    return $pwd;
 }
 

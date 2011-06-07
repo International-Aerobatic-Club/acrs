@@ -38,6 +38,22 @@ function strSQL($string, $maxlen)
     return $strval;
 }
 
+
+function strSQLTest($fieldName, $string, $maxlen)
+{
+  $test = $fieldName;
+  $strVal = strSQL($string, $maxlen);
+  if ($strVal == 'null')
+  {
+    $test .= ' is null';
+  }
+  else
+  {
+    $test .= ' = ' . $strVal;
+  }
+  return $test;
+}
+
 /**
 Convert selection of a set of posted values into comma-separated list
 postData: associative array in post data format
