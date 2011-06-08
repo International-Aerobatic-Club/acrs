@@ -39,7 +39,7 @@ else
 {
   queryUserForm('userList.php');
 }
-echo '<p><a href="/index.php">Return to registration</a></p>';
+echo '<p><a href="index.php">Return to registration</a></p>';
 endContent();
 
 
