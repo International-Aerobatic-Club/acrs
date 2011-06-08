@@ -60,7 +60,7 @@ else
   }
 }
 echo '<p><a href="accountHelp.php">Try another query</a></p>';
-echo '<p><a href="/index.php">Return to registration</a></p>';
+echo '<p><a href="index.php">Return to registration</a></p>';
 endContent();
 
 if ($db_conn)
