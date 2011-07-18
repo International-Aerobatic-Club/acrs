@@ -31,6 +31,7 @@ function clearContest()
     unset ($_SESSION['ctst_name']);
     unset ($_SESSION['ctst_year']);
     unset ($_SESSION['ctst_descr']);
+    unset ($_SESSION['ctst_question']);
     unset ($_SESSION['contest']);
     $roles = explode(",", 'admin,cd,registrar,vc');
     foreach ($roles as $key)
@@ -86,6 +87,7 @@ function setCtstVars($db_conn, $ctstID)
         $_SESSION['ctst_name'] = $ctst['name'];
         $_SESSION['ctst_year'] = $ctst['regYear'];
         $_SESSION['ctst_descr'] = $ctst['regYear'] . ' ' . $ctst['name'];
+        $_SESSION['ctst_question'] = $ctst['question'];
         $_SESSION['contest'] = $ctst;
     }
     return $fail;

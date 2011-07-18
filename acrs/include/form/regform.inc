@@ -66,14 +66,28 @@ function registrationForm($record, $catList, $action)
    echo '</tr></tbody></table>' . "\n";
 
    // Participant type (compType)
+   echo '<div id="compType">';
    echo '<span class="form_select"><label for="input16">Register as:</label><fieldset id="input16" legend="Register as">' . "\n";
    echo '<input ' . $onClickString . ' class="form_select" type="radio" name="compType" value="regrets" ' . isSelected($record, "compType", "regrets") . '>not attending</input>' . "\n";
    echo '<input ' . $onClickString . ' class="form_select" type="radio" name="compType" value="competitor" ' . isSelected($record, "compType", "competitor") . '>competitor</input>' . "\n";
    echo '<input ' . $onClickString . ' class="form_select" type="radio" name="compType" value="volunteer" ' . isSelected($record, "compType", "volunteer") . '>volunteer</input>' . "\n";
    echo '</fieldset></span>' . "\n";
+   echo '</div>';
    
-   // Class (compClass)
+   // Question response
+   echo '<div id="question">';
+   echo '<p>'.$_SESSION['ctst_question'].'</p>';
+   echo '<label for="in_answer">Optional message (text only, no tags):</label>';
+   echo '<textarea id="in_answer" name="answer" cols="78" maxlength="4096" rows="4">';
+   echo $record['answer'];
+   echo "</textarea>\n";
+   echo '</div>';
+
+   // Competitor div disabled for non-competitors
    echo '<div id="competitor">' . "\n";
+
+   // Class (compClass)
+   echo '<div id="compClass">';
    echo '<span class="form_select"><label for="compCat">Competition category:</label><fieldset id="compCat" legend="Competition category">' . "\n";
    $col = 0;
    echo '<table><tbody><tr>';
@@ -90,6 +104,7 @@ function registrationForm($record, $catList, $action)
    }
    echo '</tr></tbody></table>';
    echo '</fieldset></span>' . "\n";
+   echo '</div>';
 
    // Team option
    echo '<div class="extra" id="team">';

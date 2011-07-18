@@ -37,6 +37,8 @@ function addContestForm($record, $action)
    echo "</tr><tr>\n";
    echo "<td colspan=\"2\"  class=\"form_text\"><label for=\"in_regEmail\">Registration email contact:</label><input id=\"in_regEmail\" name=\"regEmail\" value=\"".$record['regEmail']."\" maxlength=\"320\" size=\"32\"/></td>\n";
    echo "</tr><tr>\n";
+   echo "<td colspan=\"2\"  class=\"form_text\"><label for=\"in_question\">Optional announcement, question for response or further information (text only, no tags):</label><textarea id=\"in_question\" name=\"question\" cols=\"78\" maxlength=\"4096\" rows=\"4\">".$record['question']."</textarea></td>\n";
+   echo "</tr><tr>\n";
    echo "<td class=\"form_select\"><label for=\"in_hasPayPal\">Accepts PayPal registration payments?:</label><fieldset id=\"in_hasPayPal\" legend=\"Accepts PayPal registration payments?\">\n";
    echo "<input class=\"form_select\" id=\"in_hasPayPal_yes\" type=\"radio\" name=\"hasPayPal\" value=\"yes\" ".isSelected($record,'hasPayPal','yes').">yes</input>\n";
    echo "<input class=\"form_select\" id=\"in_hasPayPal_no\" type=\"radio\" name=\"hasPayPal\" value=\"no\" ".isSelected($record,'hasPayPal','no').">no</input>\n";

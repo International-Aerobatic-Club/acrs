@@ -62,6 +62,7 @@ function doUpdateContest($db_conn, $ctstInfo, $ctstID)
     $query .= 'endDate = ' . dateSQL($ctstInfo['endDate'] . '/' . $ctstInfo['regYear']) . ',';
     $query .= 'homeURL = ' . strSQL($ctstInfo['homeURL'], 320) . ',';
     $query .= 'regEmail = ' . strSQL($ctstInfo['regEmail'], 320) . ',';
+    $query .= 'question = ' . strSQL($ctstInfo['question'], 4096) . ',';
     $query .= 'hasVoteJudge= ' . boolSQL($ctstInfo, 'hasVoteJudge') . ',';
     $query .= 'voteEmail = ' . strSQL($ctstInfo['voteEmail'], 320) . ',';
     $query .= 'hasPayPal= ' . boolSQL($ctstInfo, 'hasPayPal') . ',';
@@ -80,7 +81,7 @@ function doAddContest($db_conn, $ctstInfo, & $ctstID)
     $query .= 'reqPmtForVoteJudge= ' . boolSQL($ctstInfo, 'reqPmtForVoteJudge') . ',';
     $query .= 'reqPmtForPracticeReg= ' . boolSQL($ctstInfo, 'reqPmtForPracticeReg') . ',';
     $query = "insert into contest (regYear, name, location, chapter, regOpen, regDeadline," .
-    		" startDate, endDate, homeURL, regEmail," .
+    		" startDate, endDate, homeURL, regEmail, question," .
             " hasVoteJudge, voteEmail, hasPayPal, payEmail, hasPracticeReg, maxPracticeSlots," .
             " reqPmtForVoteJudge, reqPmtForPracticeReg" .
             ") values (";
@@ -94,6 +95,7 @@ function doAddContest($db_conn, $ctstInfo, & $ctstID)
     $query .= dateSQL($ctstInfo['endDate'] . '/' . $ctstInfo['regYear']) . ',';
     $query .= strSQL($ctstInfo['homeURL'], 320) . ',';
     $query .= strSQL($ctstInfo['regEmail'], 320) . ',';
+    $query .= strSQL($ctstInfo['question'], 4096) . ',';
     $query .= boolSQL($ctstInfo, 'hasVoteJudge') . ',';
     $query .= strSQL($ctstInfo['voteEmail'], 320) . ',';
     $query .= boolSQL($ctstInfo, 'hasPayPal') . ',';

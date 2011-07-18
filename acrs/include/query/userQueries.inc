@@ -102,9 +102,11 @@ function ensureRegistrationRecord($db_conn, $regID)
  userID: safe integer ID of registrant
  ctstID: safe integer ID of contest
  compType: safe SQL string with registration type regrets, volunteer, or competitor
+ answer: safe SQL string with registrant's message
  return empty string on success, failure message on failure
  */
-function checkExistsCurrentRegistration($db_conn, & $regID, $userID, $ctstID, $compType)
+function checkExistsCurrentRegistration($db_conn, & $regID, $userID,
+$ctstID, $compType, $answer)
 {
    $fail = '';
    $query = 'select regID, compType from reg_type where userID = ' . $userID . ' and ctstID = ' . $ctstID . ';';
@@ -117,9 +119,8 @@ function checkExistsCurrentRegistration($db_conn, & $regID, $userID, $ctstID, $c
    {
       if (dbCountResult($result) == 0)
       {
-         $update = 'insert into reg_type (userID, ctstID, compType) values (' .
-         $userID . ',' . $ctstID . ',' . $compType . ');';
-         //            debug($update);
+         $update = 'insert into reg_type (userID, ctstID, compType, answer) values (' . $userID . ',' . $ctstID . ',' . $compType .  ',' .$answer . ');';
+         debug($update);
          $fail = dbExec($db_conn, $update);
          if ($fail == '')
          {
@@ -131,9 +132,11 @@ function checkExistsCurrentRegistration($db_conn, & $regID, $userID, $ctstID, $c
          $regID = $row[0];
          if ($row[1] != $compType)
          {
-            $update = 'update reg_type set compType = ' . $compType .
-                ' where regID = ' . $regID;
-            //                debug($update);
+            $update = 'update reg_type set ';
+            $update .= 'compType = ' . $compType;
+            $update .= ', answer = ' . $answer;
+            $update .= ' where regID = ' . $regID;
+            debug($update);
             $fail = dbExec($db_conn, $update);
          }
       }
@@ -208,12 +211,14 @@ function updateRegistration($db_conn, $registrant, $userID)
    }
 
    $compType = getCompType($registrant);
+   $answer = strSQL($registrant['answer'], 4096);
    $regID = 0;
 
    // update registration record, create if does not exist
    if ($fail == '')
    {
-      $fail = checkExistsCurrentRegistration($db_conn, $regID, $userID, $ctstID, $compType);
+      $fail = checkExistsCurrentRegistration($db_conn, $regID, $userID,
+         $ctstID, $compType, $answer);
    }
    if ($fail == '' && strcmp($compType, "'competitor'") == 0)
    {
@@ -283,12 +288,14 @@ function updateFlying($db_conn, $registrant, $userID)
    }
 
    $compType = getCompType($registrant);
+   $answer = strSQL($registrant['answer'],4096);
    $regID = 0;
 
    // update registration record, create if does not exist
    if ($fail == '')
    {
-      $fail = checkExistsCurrentRegistration($db_conn, $regID, $userID, $ctstID, $compType);
+      $fail = checkExistsCurrentRegistration($db_conn, $regID, $userID,
+         $ctstID, $compType, $answer);
    }
    if ($fail == '')
    {

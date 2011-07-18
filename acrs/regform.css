@@ -96,3 +96,7 @@ table.category tbody tr td { border:0.5pt dotted black; }
 table.category tbody tr td.amt { text-align:right; padding-right:3pt; }
 table.category tbody tr td.bool { text-align:center; }
 table.category tbody tr td.ct { text-align:center; }
+div#question p { white-space:pre-line; }
+div#question { margin-left:1em; margin-bottom:6pt; }
+div#compClass { margin-left:1em; font-weight:bold; }
+div#compType { margin-left:1em; font-weight:bold; }
