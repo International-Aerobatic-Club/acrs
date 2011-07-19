@@ -47,7 +47,7 @@ Add a judge record to the list of national judges.
 function insertOrUpdateJudge($db_conn, $judge)
 {
     global $_enumSet_region;
-    debugArr('addJudge.insertOrUpdateJudge, data is ', $judge);
+    //debugArr('addJudge.insertOrUpdateJudge, data is ', $judge);
     if (judgeExists($db_conn, $judge))
     {
         $query = 'update judge set ' .
@@ -68,7 +68,7 @@ function insertOrUpdateJudge($db_conn, $judge)
         $query .= strSQL($judge['contactPhone'], 16) . ',';
         $query .= dateSQL($judge['availableDate']) . ')';
     }
-    debug($query);
+    //debug($query);
     return dbExec($db_conn, $query);
 }
 
@@ -151,8 +151,8 @@ function validateForAdd($db_conn, &$judge)
 
 function doPost($db_conn, &$judge)
 {
-        debugArr("judge post data", $judge);
-        debugArr("session data", $_SESSION);
+        //debugArr("judge post data", $judge);
+        //debugArr("session data", $_SESSION);
         
         $corrMsg = '';
         $iacID = crop($judge["iacID"], 12);
