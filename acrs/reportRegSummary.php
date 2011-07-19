@@ -63,6 +63,10 @@ function showRegistrant($record)
     }
     echo '<td class="reportText">Size '. strhtml($record['shirtsize']) . '</td>' . "\n";
     echo '</tr>' . "\n";
+    if ($record['answer'])
+    {
+       echo '<tr><td class="reportText" colspan="5">'.$record['answer'].'</td></tr>';
+    }
 }
 
 function doSummaryReport($db_conn)
@@ -75,7 +79,7 @@ function doSummaryReport($db_conn)
               'b.name, b.catID, b.class, b.category, b.regAmt, b.hasStudentReg, b.studentRegAmt, ' .
               'b.hasTeamReg, b.teamRegAmt, b.hasVoteJudge, ' .
               'b.voteTeamOnly, b.hasFourMinute, b.fourMinRegAmt, ' . 
-              'c.compType, ' . 
+              'c.compType, c.answer, ' . 
               'd.givenName, d.familyName, d.email, d.iacID, d.shirtsize, ' .
               'e.hasPayPal';
     $query .= ' from registration a, ctst_cat b, reg_type c, registrant d, contest e where';
@@ -132,7 +136,7 @@ function doSummaryReport($db_conn)
         }
 
         $query =  'select  ' .
-                  'c.compType, ' . 
+                  'c.compType, c.answer, ' . 
                   'd.givenName, d.familyName, d.email, d.iacID, d.shirtsize, ' .
                   'e.hasPayPal';
         $query .= ' from reg_type c, registrant d, contest e where';
