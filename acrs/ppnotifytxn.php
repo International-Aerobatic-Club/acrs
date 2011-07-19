@@ -4,6 +4,7 @@
  *
  *  Changes:
  *      10/26/2010 jim_ward     use new PAYPAL_SERVER_NAME constant.
+ *      07/19/2011 dclo         remove extra validation of account email
  */
 
 set_include_path('./include');
@@ -73,15 +74,6 @@ function postPayment($db_conn, $txnData)
     if ($fail == '')
     {
         $fail = getRegInfo($db_conn, $regID, $regInfo);
-    }
-
-    if ($fail == '')
-    {
-      $receiver_email = $txnData['receiver_email'];
-      if (strcasecmp($receiver_email, $regInfo['payEmail']) != 0)
-      {
-        $fail = 'Receiver ' . $receiver_email . ' differs from payee ' . $regInfo['payEmail'];
-      }
     }
 
     if ($fail == '')
