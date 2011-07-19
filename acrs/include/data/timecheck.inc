@@ -17,6 +17,7 @@ function isBeforeDate($dateStr)
  */
 function isAfterDate($dateStr)
 {
+  $dateStr .= ' 23:59:59';
 	$dateStamp = strtotime($dateStr);
 	return $dateStamp < time();
 }
