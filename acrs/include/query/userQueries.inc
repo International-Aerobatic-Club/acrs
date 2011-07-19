@@ -95,8 +95,9 @@ function ensureRegistrationRecord($db_conn, $regID)
 }
 
 /**
- Write a new, empty registration record for the current contest if no
+ Write a new registration record for the current user and contest if no
  current contest registration record exists.  Get the registration ID.
+ Initialize with values from the most recent registration for this user.
  db_conn database connection handle
  regID: registration ID of registrant, returned value
  userID: safe integer ID of registrant
@@ -200,14 +201,14 @@ function updateRegistration($db_conn, $registrant, $userID)
             'XL',
             'XXL'
             );
-            $update .= 'shirtsize = ' . enumSQL($registrant['shirtsize'], $_enumSet_shirtsize);
-            $update .= ','.'iceName = ' . strSQL($registrant['iceName'], 72) . ',';
-            $update .= 'icePhone1 = ' . strSQL($registrant['icePhone1'], 16) . ',';
-            $update .= 'icePhone2 = ' . strSQL($registrant['icePhone2'], 16);
-            $update .= " where userID = " . $userID . ";";
+      $update .= 'shirtsize = ' . enumSQL($registrant['shirtsize'], $_enumSet_shirtsize);
+      $update .= ','.'iceName = ' . strSQL($registrant['iceName'], 72) . ',';
+      $update .= 'icePhone1 = ' . strSQL($registrant['icePhone1'], 16) . ',';
+      $update .= 'icePhone2 = ' . strSQL($registrant['icePhone2'], 16);
+      $update .= " where userID = " . $userID . ";";
 
-            //        debug($update);
-            $fail = dbExec($db_conn, $update);
+      //        debug($update);
+      $fail = dbExec($db_conn, $update);
    }
 
    $compType = getCompType($registrant);
@@ -279,12 +280,12 @@ function updateFlying($db_conn, $registrant, $userID)
 	    'sport',
 	    'recreational'
             );
-            $update .= 'certType = ' . enumSQL($registrant['certType'], $_enumSet_certType) . ',';
-            $update .= 'certNumber = ' . strSQL($registrant['certNumber'], 16);
-            $update .= " where userID = " . $userID . ";";
+      $update .= 'certType = ' . enumSQL($registrant['certType'], $_enumSet_certType) . ',';
+      $update .= 'certNumber = ' . strSQL($registrant['certNumber'], 16);
+      $update .= " where userID = " . $userID . ";";
 
-            //debug($update);
-            $fail = dbExec($db_conn, $update);
+      //debug($update);
+      $fail = dbExec($db_conn, $update);
    }
 
    $compType = getCompType($registrant);
@@ -321,19 +322,19 @@ function updateFlying($db_conn, $registrant, $userID)
             'experimental',
             'acrobatic'
             );
-            $update .= 'airworthiness = ' . enumSQL($registrant['airworthiness'], $_enumSet_airworthiness) . ',';
-            $update .= 'engineMake = ' . strSQL($registrant['engineMake'], 24) . ',';
-            $update .= 'engineModel = ' . strSQL($registrant['engineModel'], 24) . ',';
-            $update .= 'engineHP = ' . strSQL($registrant['engineHP'], 6) . ',';
-            $update .= 'currInspection = ' . boolSQL($registrant, 'currInspection') . ',';
-            $update .= 'insCompany = ' . strSQL($registrant['insCompany'], 24) . ',';
-            $update .= 'liabilityAmt= ' . boolSQL($registrant, 'liabilityAmt') . ',';
-            $update .= 'injuryAmt= ' . boolSQL($registrant, 'injuryAmt') . ',';
-            $update .= 'insExpires = ' . strSQL($registrant['insExpires'], 10);
-            $update .= ' where regID = ' . $regID . ';';
+      $update .= 'airworthiness = ' . enumSQL($registrant['airworthiness'], $_enumSet_airworthiness) . ',';
+      $update .= 'engineMake = ' . strSQL($registrant['engineMake'], 24) . ',';
+      $update .= 'engineModel = ' . strSQL($registrant['engineModel'], 24) . ',';
+      $update .= 'engineHP = ' . strSQL($registrant['engineHP'], 6) . ',';
+      $update .= 'currInspection = ' . boolSQL($registrant, 'currInspection') . ',';
+      $update .= 'insCompany = ' . strSQL($registrant['insCompany'], 24) . ',';
+      $update .= 'liabilityAmt= ' . boolSQL($registrant, 'liabilityAmt') . ',';
+      $update .= 'injuryAmt= ' . boolSQL($registrant, 'injuryAmt') . ',';
+      $update .= 'insExpires = ' . strSQL($registrant['insExpires'], 10);
+      $update .= ' where regID = ' . $regID . ';';
 
-            //debug($update);
-            $fail = dbExec($db_conn, $update);
+      //debug($update);
+      $fail = dbExec($db_conn, $update);
    }
    if ($fail == '')
    {
@@ -347,10 +348,10 @@ function updateFlying($db_conn, $registrant, $userID)
 }
 
 /**
- Retrieve latest year registered into $ctstID, zero if never registered.
+ Retrieve most recent registration for user, zero if never registered.
  db_conn database connection handle
  userID: safe integer ID of registrant
- ctstID: reference to latest year
+ ctstID: reference to latest contest registered
  return empty string on success, failure message on failure
  */
 function getLatestReg($db_conn, $userID, & $ctstID)
