@@ -77,7 +77,7 @@ function showMenu($db_conn, $regType, $userID)
       echo "<li><a href='flying.php'>Edit your flying information.</a></li>\n";
    }
    echo "</ul><ul class=\"advancedReg\">\n";
-   if ($needVote)
+   if ($mayVote)
    {
       echo "<li><a href='votejudge.php'>Vote your choice of judges.</a></li>\n";
    }

@@ -19,7 +19,6 @@ Records the payment in the database.
 
 set_include_path ('../acrs/include');
 require_once ('dbConfig.inc');
-require_once ("post/paypal.inc");
 require_once ("dbCommand.inc");
 require_once ("data/encodeSQL.inc");
 require_once ("ui/siteLayout.inc");

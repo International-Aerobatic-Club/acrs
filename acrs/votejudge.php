@@ -284,9 +284,9 @@ else
      //debug('voteJudge.paidInFull:'.checkPaidInFull($voteData) );
      //debug('voteJudge.open voting:'.!isAfterDate($voteData['voteDeadline']) );
      //debug('voteJudge.voteDeadline:'.$voteData['voteDeadline'] );
-     $validVoter = boolChecked($voteData, 'teamAspirant') &&
-                   !boolChecked($voteData, 'hasVotedJudge');
-     $validVoter &= checkPaidInFull($voteData);
+     //$validVoter = boolChecked($voteData, 'teamAspirant') &&
+     //              !boolChecked($voteData, 'hasVotedJudge');
+     $validVoter = checkPaidInFull($voteData);
      $openVoting = (!isAfterDate($voteData['voteDeadline']));
    }
 }
@@ -336,14 +336,16 @@ else if ($openVoting && $validVoter)
       echo '<ul class="error">'.$corrMsg.'</ul>';
    }
    // TODO make content depend on configured voting rules
-   echo '<p>Vote your choice of up to seven judges.  ';
-//   echo 'Select no more than two judges from any one region.  ';
+   echo '<p>Vote your choice of judges.  ';
+   echo 'Attend to the voting limits outlined in the registration information.  ';
    echo 'You will receive an email confirmation of your vote.  ';
-   echo 'The system will count your vote and record that you have ';
-   echo 'voted.  It will not identify who voted for which judges.  ';
+   //echo 'The system will count your vote and record that you have ';
+   //echo 'voted.  It will not identify who voted for which judges.  ';
+   echo 'The system will not identify who voted for which judges.  ';
    echo 'The judge selection chair will receive a copy of your vote.  ';
-   echo 'You will have no opportunity to change your vote after ';
-   echo 'you have registered your vote.</p>';
+   //echo 'You will have no opportunity to change your vote after ';
+   //echo 'you have registered your vote.</p>';
+   echo '</p>';
    $fail = judgeBallot($db_conn, "votejudge.php");
    if ($fail != '')
    {
