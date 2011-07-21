@@ -690,7 +690,15 @@ function retrieveExistingRegData($db_conn, $userID, $ctstID, & $registrant)
       if ($fail == '')
       {
         $catID = $registrant['catID'];
-        $fail = retrieveCategory($db_conn, $registrant, $catID);
+        if (!isset($catID) || $catID == 0)
+        {
+          // legacy recovery
+          $fail = findProperRegCat($db_conn, $ctstID, 'power', 'primary', $catID);
+        }
+        if ($fail == '')
+        {
+          $fail = retrieveCategory($db_conn, $registrant, $catID);
+        }
       }
     }
   }
