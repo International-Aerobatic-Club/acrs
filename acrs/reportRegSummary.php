@@ -19,10 +19,9 @@ require_once ("useful.inc");
 function showRegistrant($record)
 {
     echo '<tr class="reportHead">' . "\n";
-    echo '<td colspan="2" class="reportHead">' . strhtml($record["givenName"]) . ' ' .
+    echo '<td class="reportHead">' . strhtml($record["givenName"]) . ' ' .
     strhtml($record["familyName"]) . '</td>' . "\n";
     echo '<td class="reportText">' . strhtml($record["iacID"]) . '</td>' . "\n";
-    echo '<td class="reportText">' . (isset ($record['catName'])? strhtml ($record['catName']) : '') . '</td>' . "\n";
     if (boolChecked($record, "fourMinFree"))
     {
         echo '<td class="reportText">4 min free' . "</td>\n";
@@ -40,9 +39,9 @@ function showRegistrant($record)
         echo '<td class="reportText">Student</td>' . "\n";
     }
     echo "</tr><tr>\n";
-    echo '<td colspan="2" class="reportText">' . strhtml($record["email"]) . '</td>' . "\n";
-    echo '<td class="reportText">' . (isset ($record["contactPhone"])? strhtml($record["contactPhone"]) : "") . '</td>' . "\n";
-    if (boolChecked($record, "hasPayPal") && isset ($record["paidAmt"]))
+    echo '<td class="reportText">' . strhtml($record["email"]) . '</td>' . "\n";
+    echo '<td class="reportText">' . strhtml($record["contactPhone"]) . '</td>' . "\n";
+    if (boolChecked($record, "hasPayPal"))
     {
         $feePaid = intVal($record['paidAmt']);
         echo '<td class="reportText">$' . $feePaid . '</td>';
@@ -61,11 +60,15 @@ function showRegistrant($record)
             }
         }
     }
+    else
+    {
+      echo '<td colspan="5"/>';
+    }
     echo '<td class="reportText">Size '. strhtml($record['shirtsize']) . '</td>' . "\n";
     echo '</tr>' . "\n";
     if ($record['answer'])
     {
-       echo '<tr><td class="reportText" colspan="5">'.$record['answer'].'</td></tr>';
+       echo '<tr><td class="reportText" colspan="7">'.$record['answer'].'</td></tr>';
     }
 }
 
@@ -81,7 +84,7 @@ function doSummaryReport($db_conn)
               'b.voteTeamOnly, b.hasFourMinute, b.fourMinRegAmt, ' . 
               'c.compType, c.answer, ' . 
               'd.givenName, d.familyName, d.email, d.iacID, d.shirtsize, ' .
-              'e.hasPayPal';
+              'd.contactPhone, e.hasPayPal';
     $query .= ' from registration a, ctst_cat b, reg_type c, registrant d, contest e where';
     $query .= ' c.ctstID = ' . $ctstID;
     $query .= " and c.compType = 'competitor'";
@@ -138,7 +141,7 @@ function doSummaryReport($db_conn)
         $query =  'select  ' .
                   'c.compType, c.answer, ' . 
                   'd.givenName, d.familyName, d.email, d.iacID, d.shirtsize, ' .
-                  'e.hasPayPal';
+                  'd.contactPhone, e.hasPayPal';
         $query .= ' from reg_type c, registrant d, contest e where';
         $query .= ' c.ctstID = ' . $ctstID;
         $query .= " and c.compType = 'volunteer'";
