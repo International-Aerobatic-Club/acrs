@@ -18,6 +18,7 @@ function doFlyingInfo()
   $readRecord = TRUE;
   $corrMsg = '';
   $userID = $_SESSION['userID'];
+  $ctstID = $_SESSION['ctstID'];
   $email = $_SESSION['email'];
   $registrant = $_POST;
   $db_conn = false;
@@ -65,10 +66,10 @@ function doFlyingInfo()
   if ($readRecord)
   {
     // not POST
-    $fail = retrieveRegistrant($db_conn, $registrant, $userID);
+    $fail = retrieveRegistrant($db_conn, $userID, $ctstID, $registrant);
     if ($fail != '')
     {
-       notifyError($fail, "register.php");
+       notifyError($fail, "flying.php");
        $corrMsg ="<it>Internal: failed access to registration record of ".$userID."</it>";
     }
   }

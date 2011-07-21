@@ -1,4 +1,9 @@
 <?php
+/*
+ Changes:
+ 07/21/2011 dcl  readRegistrant now initializes the category
+   read the category list after reading registrant information
+*/
 set_include_path('./include'); 
 require ("ui/validate.inc");
 require ('data/validCtst.inc');
@@ -74,12 +79,6 @@ function doRegistration()
     else
     {
         $readRecord = true;
-        $fail = getCategoryList($db_conn, $ctstID, $catList);
-        if ($fail != '')
-        {
-            notifyError($fail, "register.php");
-            $corrMsg .= "<it>Internal: failed access to category records of " . $ctstID . "</it>";
-        }
         if (isset ($_POST["submit"]) || isset ($_POST["save"]))
         {
             //debugArr('register post',$registrant);
@@ -103,18 +102,25 @@ function doRegistration()
         if ($readRecord)
         {
             // not POST
-            $fail = retrieveRegistrant($db_conn, $registrant, $userID);
+            $fail = retrieveRegistrant($db_conn, $userID, $ctstID, $registrant);
             if ($fail != '')
             {
                 notifyError($fail, "register.php");
                 $corrMsg .= "<it>Internal: failed access to registration record of " . $userID . "</it>";
             }
-            if (!isset($registrant['catID']) || !isset($catList[$registrant['catID']]))
-            {
-                $cats = array_keys($catList);
-                $registrant['catID'] = $cats[0];
-            }
             //debugArr('registrant record ', $registrant);
+        }
+        if ($fail == '')
+        {
+            // need to read cat list after retrieveRegistrant
+            // fixes corner case where retrieveRegistrant adds a category
+            // to a contest that has no categories
+            $fail = getCategoryList($db_conn, $ctstID, $catList);
+            if ($fail != '')
+            {
+                notifyError($fail, "register.php");
+                $corrMsg .= "<it>Internal: failed access to category records of " . $ctstID . "</it>";
+            }
         }
         dbClose($db_conn);
     }

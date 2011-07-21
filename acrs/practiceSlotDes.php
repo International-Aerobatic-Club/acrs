@@ -303,7 +303,7 @@ function doSlotDesignation()
         $corrMsg = "<it>Internal: failed access to contest database</it>";
     } else
     {
-        getRegistrantBasicData($db_conn, $userID, $ctstID, & $registrant);
+        retrieveRegistrant($db_conn, $userID, $ctstID, & $registrant);
     }
     $practiceDate = array ();
     $practiceStart = array ();

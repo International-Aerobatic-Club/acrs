@@ -188,7 +188,7 @@ function doPracticeSlots()
         $corrMsg = "<it>Internal: failed access to contest database</it>";
     } else
     {
-        getRegistrantBasicData($db_conn, $userID, $ctstID, & $registrant);
+        retrieveRegistrant($db_conn, $userID, $ctstID, & $registrant);
         $isRegistered = $registrant && isSelected($registrant, "compType", "competitor");
         $isRegistered &= havePracticeRegistration($_SESSION['contest'], $registrant);
         $isRegistered &= (!sqlIsTrue($contest['reqPmtForPracticeReg']) || checkPaidInFull($reg));

@@ -65,7 +65,7 @@ function doExport($db_conn)
       echo "\n</Pilots>\n";
    } else
    {
-      notifyError($fail, "exportJaSPer:retrieveRegistrant()");
+      notifyError($fail, "exportJaSPer:doExport()");
    }
    return $fail;
 }

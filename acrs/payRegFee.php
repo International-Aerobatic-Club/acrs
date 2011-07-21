@@ -7,6 +7,7 @@
  *                              iacID, givenName and familyName are sent to paypal (these are not reported
  *                              by getRegistrationBasicData()).
  *    10/23/2010 jim_ward       use ADMIN_EMAIL.
+ *    07/20/2011 dclo           use retrieveRegistrant
  */
 
 set_include_path('./include');
@@ -33,7 +34,7 @@ if ($fail != '')
 }
 if ($fail == '')
 {
-    $fail = getRegistrantBasicData($db_conn, $userID, $ctstID, $registrant);
+    $fail = retrieveRegistrant($db_conn, $userID, $ctstID, $registrant);
     if ($fail != '')
     {
         notifyError($fail, "payRegFee.php");

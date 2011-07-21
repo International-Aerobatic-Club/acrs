@@ -254,7 +254,7 @@ else
         }
         else
         {
-            notifyError($fail, "printReg:retrieveRegistrant()");
+            notifyError($fail, "reportVoted");
             echo '<p style="color:red; font-weight:bold">' . $fail . '</p>';
         }
     }

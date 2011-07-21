@@ -3,9 +3,11 @@
  *  person-related query functions
  *
  *  Changes:
- *    10/24/2010 jim_ward       add sport and recreational licenses.  Remove explicit pass-by-reference to
- *                              getRegistrationBasicData, as that's specified in the function decl rather
- *                              than in each call.
+ *    10/24/2010 jim_ward    add sport and recreational licenses.
+ *      Remove explicit pass-by-reference to getRegistrationBasicData, as that's
+ *      specified in the function decl rather than in each call.
+ *    07/20/2011 dclo        rewrite queries so registration data
+ *      carries from one registration to the next
  */
 
 require_once ("data/encodeSQL.inc");
@@ -18,148 +20,85 @@ require_once ("dbCommand.inc");
  */
 
 /**
- Write a new, empty registrant record for the registrant if no
- registration record exists.
+ Read registration record for given regID.
  db_conn database connection handle
- iac_id: IAC member number
- userID: return safe integer ID of registrant
- return empty string if user exists, failure message on failure
- */
-function checkExistsRegistrant($db_conn, $iac_id, & $userID)
+ regID: registration ID of registrant
+ regdata: associative array updated by this call
+ return empty string on success, failure message on failure
+*/
+function getRegType($db_conn, $regID, & $registrant)
 {
    $fail = '';
-   $query = "select userID from registrant where iacID = " . strsql($iac_id, 12);
+   $query = "select * from reg_type where regID = $regID;";
+   debug('getRegType:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
-      $fail .= "<it>" . dbErrorText() . "<\it>";
+      $fail = dbErrorText();
    } else
-   if (dbCountResult($result) != 0)
+   if (dbCountResult($result) == 1)
    {
-      $row = dbFetchRow($result);
-      $userID = $row[0];
-   } else
-   {
-      $fail = "no entry for " . $iac_id;
+      $row = dbFetchAssoc($result);
+      debugArr('getRegType has row:', $row);
+      foreach ($row as $key => $value)
+      {
+         $registrant[$key] = stripslashes($value);
+      }
    }
    return $fail;
 }
 
 /**
- Insert new registrant record into the database
+ Create a new registration record.
  db_conn database connection handle
- email unescaped email address
- givenName unescaped name
- familyName unescaped name
- iac_id IAC member number
- userID return value gives new user identifier if not failure
- returns empty string on success, failure message on failure
- */
-function insertNewRegistrantRecord($db_conn, $email, $givenName, $familyName, $iac_id, & $userID)
+ userID: safe integer ID of registrant
+ ctstID: safe integer ID of contest
+ regID: registration ID of registrant, returned value
+ compType: SQL safe string with comp type 'regrets', 'competitor', or
+ 'volunteer'
+ return empty string on success, failure message on failure
+*/
+function createRegType($db_conn, $userID, $ctstID, & $regID, $compType)
 {
-   $fail = '';
-   $update = "insert into registrant (email, givenName, familyName, iacID) values ('" .
-   addslashes($email) . "','" .
-   addslashes($givenName) . "','" .
-   addslashes($familyName) . "','" .
-   addslashes($iac_id) . "');";
-   //debug($update);
+   $regID = 0;
+   $update = 'insert into reg_type (userID, ctstID, compType, answer) values (';
+   $update .= $userID . ',' . $ctstID.','.strSQL($compType,32).",'');";
+   debug('createRegType:'.$update);
    $fail = dbExec($db_conn, $update);
    if ($fail == '')
    {
-      $userID = dbLastID();
-      $update = "commit";
-      $fail = dbExec($db_conn, $update);
+      $regID = dbLastID();
    }
-
-   return $fail;
-}
-
-function ensureRegistrationRecord($db_conn, $regID)
-{
-   $fail = '';
-   $query = 'select catID from registration where regID = ' . $regID . ';';
-   //    debug($query);
-   $result = dbQuery($db_conn, $query);
-   if ($result === false)
-   {
-      $fail = dbErrorText();
-   } else
-   if (dbCountResult($result) == 0)
-   {
-      $update = 'insert into registration (regID) values (' . $regID . ');';
-      //            debug($update);
-      $fail = dbExec($db_conn, $update);
-   }
-   return $fail;
+   debug("createRegType new regID is $regID, $fail");
 }
 
 /**
- Write a new registration record for the current user and contest if no
- current contest registration record exists.  Get the registration ID.
- Initialize with values from the most recent registration for this user.
+ Update the reg_type record for user and contest
  db_conn database connection handle
- regID: registration ID of registrant, returned value
  userID: safe integer ID of registrant
  ctstID: safe integer ID of contest
- compType: safe SQL string with registration type regrets, volunteer, or competitor
- answer: safe SQL string with registrant's message
+ regID: registration ID of registrant, returned value
+ registrant: registration data
  return empty string on success, failure message on failure
  */
-function checkExistsCurrentRegistration($db_conn, & $regID, $userID,
-$ctstID, $compType, $answer)
+function updateRegType($db_conn, $userID, $ctstID, & $regID, $registrant)
 {
-   $fail = '';
-   $query = 'select regID, compType from reg_type where userID = ' . $userID . ' and ctstID = ' . $ctstID . ';';
-   //    debug($query);
-   $result = dbQuery($db_conn, $query);
-   if ($result === false)
+   $fail = getContestReg($db_conn, $userID, $ctstID, $regID);
+   if ($fail == '' && $regID != 0)
    {
-      $fail = dbErrorText();
-   } else
-   {
-      if (dbCountResult($result) == 0)
-      {
-         $update = 'insert into reg_type (userID, ctstID, compType, answer) values (' . $userID . ',' . $ctstID . ',' . $compType .  ',' .$answer . ');';
-         debug($update);
-         $fail = dbExec($db_conn, $update);
-         if ($fail == '')
-         {
-            $regID = dbLastID();
-         }
-      } else
-      {
-         $row = dbFetchRow($result);
-         $regID = $row[0];
-         if ($row[1] != $compType)
-         {
-            $update = 'update reg_type set ';
-            $update .= 'compType = ' . $compType;
-            $update .= ', answer = ' . $answer;
-            $update .= ' where regID = ' . $regID;
-            debug($update);
-            $fail = dbExec($db_conn, $update);
-         }
-      }
-      if ($fail == '')
-      {
-         $fail = ensureRegistrationRecord($db_conn, $regID);
-      }
-   }
-   return $fail;
-}
-
-/**
- * Return sql ready string containing competition registration type
- */
-function getCompType($registrant)
-{
-   $_enumSet_compType = array (
+     $_enumSet_compType = array (
         'regrets',
         'competitor',
         'volunteer'
-        );
-        return enumSQL($registrant['compType'], $_enumSet_compType);
+      );
+      $update = 'update reg_type set ';
+      $update .= 'compType = ' . enumSQL($registrant['compType'], $_enumSet_compType);
+      $update .= ', answer = ' . strSQL($registrant['answer'],4096);
+      $update .= ' where regID = ' . $regID;
+      debug('updateRegType:'.$update);
+      $fail = dbExec($db_conn, $update);
+   }
+   return $fail;
 }
 
 /**
@@ -206,22 +145,17 @@ function updateRegistration($db_conn, $registrant, $userID)
       $update .= 'icePhone1 = ' . strSQL($registrant['icePhone1'], 16) . ',';
       $update .= 'icePhone2 = ' . strSQL($registrant['icePhone2'], 16);
       $update .= " where userID = " . $userID . ";";
-
-      //        debug($update);
+      debug('updateRegistration:'.$update);
       $fail = dbExec($db_conn, $update);
    }
 
-   $compType = getCompType($registrant);
-   $answer = strSQL($registrant['answer'], 4096);
    $regID = 0;
-
-   // update registration record, create if does not exist
    if ($fail == '')
    {
-      $fail = checkExistsCurrentRegistration($db_conn, $regID, $userID,
-         $ctstID, $compType, $answer);
+      $fail = updateRegType($db_conn, $userID, $ctstID, $regID, $registrant);
    }
-   if ($fail == '' && strcmp($compType, "'competitor'") == 0)
+
+   if ($fail == '' && $regID != 0)
    {
       $update = "update registration set ";
       $update .= 'catID = ' . intSQL($registrant['catID']) . ',';
@@ -239,9 +173,10 @@ function updateRegistration($db_conn, $registrant, $userID)
       $update .= 'program = ' . strSQL($registrant['program'], 32) . ',';
       $update .= 'isFirstTime= ' . boolSQL($registrant, 'isFirstTime');
       $update .= ' where regID = ' . $regID . ';';
-      //        debug($update);
+      debug('updateRegistration:'.$update);
       $fail = dbExec($db_conn, $update);
    }
+
    if ($fail == '')
    {
       $fail = dbCommit($db_conn);
@@ -264,7 +199,6 @@ function updateRegistration($db_conn, $registrant, $userID)
 function updateFlying($db_conn, $registrant, $userID)
 {
    //debugArr('Flying post data', $registrant);
-
    $fail = dbBegin($db_conn);
    $ctstID = $_SESSION['ctstID'];
 
@@ -277,28 +211,24 @@ function updateFlying($db_conn, $registrant, $userID)
             'private',
             'commercial',
             'atp',
-	    'sport',
-	    'recreational'
+            'sport',
+            'recreational'
             );
       $update .= 'certType = ' . enumSQL($registrant['certType'], $_enumSet_certType) . ',';
       $update .= 'certNumber = ' . strSQL($registrant['certNumber'], 16);
       $update .= " where userID = " . $userID . ";";
 
-      //debug($update);
+      debug('updateFlying:'.$update);
       $fail = dbExec($db_conn, $update);
    }
 
-   $compType = getCompType($registrant);
-   $answer = strSQL($registrant['answer'],4096);
    $regID = 0;
-
-   // update registration record, create if does not exist
    if ($fail == '')
    {
-      $fail = checkExistsCurrentRegistration($db_conn, $regID, $userID,
-         $ctstID, $compType, $answer);
+     $fail = updateRegType($db_conn, $userID, $ctstID, $regID, $registrant);
    }
-   if ($fail == '')
+
+   if ($fail == '' && $regID != 0)
    {
       $update = "update registration set ";
       $update .= 'currMedical= ' . boolSQL($registrant, 'currMedical') . ',';
@@ -333,9 +263,10 @@ function updateFlying($db_conn, $registrant, $userID)
       $update .= 'insExpires = ' . strSQL($registrant['insExpires'], 10);
       $update .= ' where regID = ' . $regID . ';';
 
-      //debug($update);
+      debug('updateFlying:'.$update);
       $fail = dbExec($db_conn, $update);
    }
+
    if ($fail == '')
    {
       $fail = dbCommit($db_conn);
@@ -346,24 +277,22 @@ function updateFlying($db_conn, $registrant, $userID)
 
    return $fail;
 }
-
+ 
 /**
- Retrieve most recent registration for user, zero if never registered.
+ Retrieve registration for user and contest, zero if never registered.
  db_conn database connection handle
  userID: safe integer ID of registrant
- ctstID: reference to latest contest registered
+ ctstID: safe integer ID of contest
+ regID: return id of this contest registration
  return empty string on success, failure message on failure
  */
-function getLatestReg($db_conn, $userID, & $ctstID)
+function getContestReg($db_conn, $userID, $ctstID, & $regID)
 {
-   $ctstID = 0;
+   $regID = 0;
    $fail = '';
-   $query = 'select ctstID from reg_type'.
-   ' where regID in ('.
-   ' select max(regID) from reg_type'.
-   ' where userID = ' . $userID . 
-   " and compType = 'competitor');";
-   debug($query);
+   $query = 'select regID from reg_type where userID = ' . $userID . 
+     ' and ctstID = ' . $ctstID . ';';
+   debug('getContestReg:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -372,31 +301,256 @@ function getLatestReg($db_conn, $userID, & $ctstID)
    if (dbCountResult($result) == 1)
    {
       $row = dbFetchRow($result);
-      $ctstID = $row[0];
+      $regID = $row[0];
    }
-   //debug('getLatestReg Contest:'.$ctstID.', fail:'.$fail);
+   debug('getContestReg using regID:'.$regID.', '.$fail);
    return $fail;
 }
 
-function retrieveRegForUserContest($db_conn, $userID, $ctstID, &$registrant, &$haveReg)
+/**
+ Retrieve most recent registration for user, zero if never registered.
+ db_conn database connection handle
+ userID: safe integer ID of registrant
+ regID: return id of most recent prior registration as competitor
+ return empty string on success, failure message on failure
+ */
+function getLatestReg($db_conn, $userID, & $regID)
 {
+   $regID = 0;
    $fail = '';
-   $haveReg = false;
-   $query = 'select * from registration a, reg_type b' .
-        ' where b.userID=' . $userID .
-        ' and b.ctstID = ' . $ctstID .
-        ' and a.regID = b.regID' .
-        ';';
-   //debug('userQueries.retrieveRegForUserContest:'.$query);
+   $query = 'select max(regID) from reg_type where userID = ' . $userID . 
+     " and compType = 'competitor';";
+   debug('getLatestReg:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
       $fail = dbErrorText();
    } else
-   if (dbCountResult($result) != 1)
+   if (dbCountResult($result) == 1)
    {
-      $fail = "no registration for contest id ".$ctstID.", userID ".$userID;
+      $row = dbFetchRow($result);
+      $regID = $row[0];
+   }
+   debug('getLatestReg using regID:'.$regID.', '.$fail);
+   return $fail;
+}
+
+/**
+ Initialize default registration record for user and contest
+ db_conn: database connection handle
+ userID: safe integer ID of registrant
+ ctstID: safe integer ID of contest
+ regID: return id of this contest registration
+ return empty string on success, failure message on failure
+ */
+function initRegDefault($db_conn, $userID, $ctstID, & $regID)
+{
+  $catID = 0;
+  $fail = createRegType($db_conn, $userID, $ctstID, $regID, 'competitor');
+  if ($fail == '')
+  {
+     $fail = findProperRegCat($db_conn, $ctstID, 'power', 'primary', $catID);
+  }
+  if ($fail == '')
+  {
+    $insert = 'insert into registration (regID, catID) values ('
+    . $regID . ',' . $catID . ');';
+    debug("initRegDefault: $insert");
+    $fail = dbExec($db_conn, $insert);
+  }
+  return $fail;
+}
+
+function tryQueryCatID($db_conn, $ctstID, & $catID, $limit)
+{
+   $fail = '';
+   $query = 'select max(catID) from ctst_cat where ctstID = ' . $ctstID;
+   if (0 < strlen(trim($limit)))
+   {
+     $query .= ' and ' . $limit;
+   }
+   $query .= ';';
+   debug('tryQueryCatID:'.$query);
+   $result = dbQuery($db_conn, $query);
+   if ($result === false)
+   {
+      $fail = dbErrorText();
    } else
+   if (dbCountResult($result) == 1)
+   {
+      $row = dbFetchRow($result);
+      $catID = $row[0];
+   }
+   debug("tryQueryCatID has catID: $catID, $fail");
+   return $fail;
+}
+
+/**
+ For the given contest, find the category most nearly matching
+   className, catName
+ db_conn: database connection
+ ctstID: id of contest
+ className: string 'power' or 'glider'
+ catName: string 'primary', 'sportsman', etc.
+ catID: returned id of matching category in contest
+*/
+function findProperRegCat($db_conn, $ctstID, $catClass, $catCategory, & $catID)
+{
+  // matching category and class
+  $className = enumSQL($catClass, array('power', 'glider', 'other'));
+  $catName = enumSQL($catCategory, array('primary','sportsman',
+     'intermediate','advanced','unlimited','4min','other'));
+  $fail = tryQueryCatID($db_conn, $ctstID, $catID,
+    "class = $className and category = $catName");
+  if ($fail == '' && $catID == 0)
+  {
+    // matching class
+    $fail = tryQueryCatID($db_conn, $ctstID, $catID, "class = $className");
+  }
+  if ($fail == '' && $catID == 0)
+  {
+    // matching category
+    $fail = tryQueryCatID($db_conn, $ctstID, $catID, "category = $catName");
+  }
+  if ($fail == '' && $catID == 0)
+  {
+    // any category
+    $fail = tryQueryCatID($db_conn, $ctstID, $catID, '');
+  }
+  if ($fail == '' && $catID == 0)
+  {
+    // this only happens if there are no categories for the contest
+    $name = ucwords($catClass . ' ' . $catCategory);
+    $insert = 'insert into ctst_cat (ctstID, name, class, category) values ('
+    . $ctstID
+    .  ',' . strSQL($name, 72)
+    .  ',' . $className
+    . ',' . $catName
+    . ');';
+    debug("findProperRegCat: $insert");
+    $fail = dbExec($db_conn, $insert);
+    if ($fail == '')
+    {
+      $catID = dbLastID();
+    }
+  }
+  debug("findProperRegCat using category $catID");
+  return $fail;
+}
+
+/**
+ Initialize registration record for user and contest using data from
+   prior contest
+ db_conn: database connection handle
+ userID: safe integer ID of registrant
+ ctstID: safe integer ID of contest
+ latestRegID: safe integer ID of prior registration
+ regID: return id of this contest registration
+ return empty string on success, failure message on failure
+ */
+function initRegFromPrior($db_conn, $userID, $ctstID, $latestRegID, & $regID)
+{
+   $priorReg = array();
+   $catID = 0;
+   $fail = doRetrieveRegistration($db_conn, $latestRegID, $priorReg);
+   if ($fail == '')
+   {
+     //debugArr('initRegFromPrior', $priorReg);
+     $fail = findProperRegCat($db_conn, $ctstID, $priorReg['class'],
+       $priorReg['category'], $catID);
+   }
+   if ($fail == '')
+   {
+     $fail = createRegType($db_conn, $userID, $ctstID, $regID, 'competitor');
+   }
+   if ($fail == '')
+   {
+      $_enumSet_airworthiness = array (
+            'experimental',
+            'acrobatic'
+            );
+      $update = 'insert into registration (regID, catID'
+      . ', safety, chapter, ownerPilot, ownerName, ownerPhone'
+      . ', ownerAddress, ownerCity, ownerCountry, ownerState, ownerPostal'
+      . ', airplaneMake, airplaneModel, airplaneRegID, airplaneColors'
+      . ', airworthiness, engineMake, engineModel, engineHP'
+      . ', insCompany, insExpires'
+      . ') values ('
+      . $regID . ',' . $catID
+      . ',' . strSQL($priorReg['safety'], 72) 
+      . ',' . strSQL($priorReg['chapter'], 6)
+      . ',' . boolSQL($priorReg, 'ownerPilot') 
+      . ',' . strSQL($priorReg['ownerName'], 72) 
+      . ',' . strSQL($priorReg['ownerPhone'], 16) 
+      . ',' . strSQL($priorReg['ownerAddress'], 72) 
+      . ',' . strSQL($priorReg['ownerCity'], 24) 
+      . ',' . strSQL($priorReg['ownerCountry'], 24) 
+      . ',' . strSQL($priorReg['ownerState'], 24) 
+      . ',' . strSQL($priorReg['ownerPostal'], 12) 
+      . ',' . strSQL($priorReg['airplaneMake'], 24) 
+      . ',' . strSQL($priorReg['airplaneModel'], 24) 
+      . ',' . strSQL($priorReg['airplaneRegID'], 16) 
+      . ',' . strSQL($priorReg['airplaneColors'], 24) 
+      . ',' . enumSQL($priorReg['airworthiness'], $_enumSet_airworthiness) 
+      . ',' . strSQL($priorReg['engineMake'], 24) 
+      . ',' . strSQL($priorReg['engineModel'], 24) 
+      . ',' . strSQL($priorReg['engineHP'], 6) 
+      . ',' . strSQL($priorReg['insCompany'], 24) 
+      . ',' . strSQL($priorReg['insExpires'], 10)
+      . ');';
+      debug('initRegFromPrior:'.$update);
+      $fail = dbExec($db_conn, $update);
+   }
+   return $fail;
+}
+
+/**
+  Find the regID.
+  Find the existing registration.
+  Initialize a new registration record if it does not exist.
+  Initialize from a prior registration if possible.
+  Populate $registrant with reg_type data.
+*/
+function doRetrieveRegType($db_conn, $userID, $ctstID, & $regID, & $registrant)
+{
+   $fail = getContestReg($db_conn, $userID, $ctstID, $regID);
+   if ($fail == '' && $regID == 0)
+   {
+      $latestRegID = 0;
+      $fail = getLatestReg($db_conn, $userID, $latestRegID);
+      if ($fail == '')
+      {
+         if ($latestRegID == 0)
+         {
+            $fail = initRegDefault($db_conn, $userID, $ctstID, $regID);
+         }
+         else
+         {
+            $fail = initRegFromPrior($db_conn, $userID, $ctstID,
+              $latestRegID, $regID);
+         }
+      }
+   }
+   if ($fail == '')
+   {
+      $fail = getRegType($db_conn, $regID, $registrant);
+   }
+   return $fail;
+}
+
+// retrieve registration data (unique to regID)
+function doRetrieveRegistration($db_conn, $regID, & $registrant)
+{
+   $fail = '';
+   $query = 'select a.*, b.class, b.category from registration a, ctst_cat b'
+     . ' where a.regID = ' . $regID . ' and b.catID = a.catID;';
+   debug('doRetrieveRegistration:'.$query);
+   $result = dbQuery($db_conn, $query);
+   if ($result === false)
+   {
+      $fail = dbErrorText();
+   } else
+   if (dbCountResult($result) == 1)
    {
       $haveReg = true;
       $row = dbFetchAssoc($result);
@@ -418,73 +572,64 @@ function retrieveRegForUserContest($db_conn, $userID, $ctstID, &$registrant, &$h
       sqlBoolValueToPostData($row['isStudent'], 'isStudent', $registrant);
       sqlBoolValueToPostData($row['isFirstTime'], 'isFirstTime', $registrant);
       sqlBoolValueToPostData($row['hasVotedJudge'], 'hasVotedJudge', $registrant);
-      sqlCheckNullDefault($row['shirtsize'], 'shirtsize', $registrant, 'L');
+   }
+   return $fail;
+}
+
+// retrieve registrant data (unique to userID)
+function doRetrieveRegistrant($db_conn, $userID, & $registrant)
+{
+   $fail = '';
+   $query = 'select * from registrant where userID=' . $userID . ';';
+   debug('doRetrieveRegistrant:'.$query);
+   $result = dbQuery($db_conn, $query);
+   if ($result === false)
+   {
+      $fail = dbErrorText();
+   } else
+   if (dbCountResult($result) != 1)
+   {
+       $fail = "registrant ID ".$userID." is not valid";
+   } else
+   {
+      $row = dbFetchAssoc($result);
+      foreach ($row as $key => $value)
+      {
+         $registrant[$key] = stripslashes($value);
+      }
+      sqlCheckNullDefault($row['certType'], 'certType', $registrant, 'none');
    }
    return $fail;
 }
 
 /**
  Retrieve registration record from the registrant and registration tables
- db_conn database connection handle
- registrant: reference to registrant data in an associative array
+ If registration does not exist, initialize based on
+ most recent registration, if any, lowest competitor category if not.
+ db_conn: database connection handle
  userID: safe integer ID of registrant
- Initializes a record in the registration table with $userID and ctstID = $_SESSION['ctstID']
- if said record does not yet exist.
+ ctstID: safe intereg ID of contest
+ registrant: reference to registrant data in an associative array
  returns empty string on success, failure message on failure
  */
-function retrieveRegistrant($db_conn, & $registrant, $userID)
+function retrieveRegistrant($db_conn, $userID, $ctstID, & $registrant)
 {
-   $fail = '';
-   $ctstID = $_SESSION['ctstID'];
+   debug('retrieveRegistrant...');
+   $fail = doRetrieveRegistrant($db_conn, $userID, $registrant);
 
-   // retrieve registrant data (unique to user id)
-   $query = 'select * from registrant where userID=' . $userID . ';';
-   //debug($query);
-   $result = dbQuery($db_conn, $query);
-   if ($result === false)
-   {
-      $fail = dbErrorText();
-   }
-   else
-   {
-      if (dbCountResult($result) != 1)
-      {
-         $fail = "registrant ID ".$userID." is not valid";
-      } else
-      {
-         $row = dbFetchAssoc($result);
-         foreach ($row as $key => $value)
-         {
-            $registrant[$key] = stripslashes($value);
-         }
-      }
-   }
-
-   $haveReg = false;
+   $regID = 0;
    if ($fail == '')
    {
-      // retrieve registration data (unique to user id, contest id)
-      $fail = retrieveRegForUserContest($db_conn, $userID, $ctstID, $registrant, $haveReg);
-      if (!$haveReg)
-      {
-         // retrieve prior contest data if present
-         $ctstID = 0;
-         $fail = getLatestReg($db_conn, $userID, $ctstID);
-         if ($fail == '' && 0 < $ctstID)
-         {
-            $fail = retrieveRegForUserContest($db_conn, $userID, $ctstID, $registrant, $haveReg);
-         }
-      }
+     // enusures registration initialized and returns regID
+     $fail = doRetrieveRegType($db_conn, $userID, $ctstID, $regID, $registrant);
    }
-   if (!$haveReg)
+
+   if ($fail == '')
    {
-      // set some reasonable defaults for the radio buttons
-      $registrant['compType'] = 'regrets';
-      $registrant['certType'] = 'private';
-      $registrant['judgeQualification'] = 'none';
-      $registrant['shirtsize'] = 'L';
+      $fail = doRetrieveRegistration($db_conn, $regID, $registrant);
    }
-   //debugArr('retrieveRegistration', $registrant);
+   //debugArr("retrieveRegistrant has:", $registrant);
+   debug("...retrieveRegistrant $fail");
 
    return $fail;
 }
@@ -492,8 +637,8 @@ function retrieveRegistrant($db_conn, & $registrant, $userID)
 function initRegistrationBasicData(& $registrant)
 {
    $registrant['paidAmt'] = 0;
-   $registrant['airplaneRegID'] = '';
-   $registrant['insCompany'] = '';
+   $registrant['airplaneRegID'] = ''; 
+   $registrant['insCompany'] = ''; 
    $registrant['compType'] = 'regrets';
    sqlBoolValueToPostData(false, 'isRegistered', $registrant);
    sqlBoolValueToPostData(false, 'teamAspirant', $registrant);
@@ -513,130 +658,39 @@ function initRegistrationBasicData(& $registrant)
    sqlBoolValueToPostData(false, 'catHasVoteJudge', $registrant);
 }
 
-function getRegistrationBasicData($db_conn, $userID, $ctstID, & $registrant)
-{
-   $fail = '';
-   $needInit = true;
-   $query = 'select regID, compType';
-   $query .= ' from reg_type where';
-   $query .= ' userID = ' . $userID;
-   $query .= ' and ctstID = ' . $ctstID;
-   //debug($query);
-   $result = dbQuery($db_conn, $query);
-   if ($result === false)
-   {
-      $fail = dbErrorText();
-   } else
-   {
-      if (dbCountResult($result) == 1)
-      {
-         $registrant['isRegistered'] = true;
-         $row = dbFetchAssoc($result);
-         foreach ($row as $key => $value)
-         {
-            $registrant[$key] = stripslashes($value);
-         }
-         $query = 'select  ' .
-            'b.name, b.catID, b.class, b.category, b.regAmt, b.hasStudentReg, b.studentRegAmt, ' .
-            'b.hasTeamReg, b.teamRegAmt, b.hasVoteJudge, b.maxVotes, ' .
-            'b.voteTeamOnly, b.voteByRegion, b.maxRegion, b.voteDeadline, ' .
-            'b.hasFourMinute, b.fourMinRegAmt, ' .
-            'a.teamAspirant, a.fourMinFree, a.airplaneMake, a.airplaneRegID, a.insCompany, ' .
-            'a.isStudent, a.paidAmt, a.hasVotedJudge ';
-         $query .= ' from registration a, ctst_cat b, ' .
-            'reg_type c where';
-         $query .= ' c.userID = ' . $userID;
-         $query .= ' and c.ctstID = ' . $ctstID;
-         $query .= ' and a.regID = c.regID';
-         $query .= ' and b.catID = a.catID';
-         //debug($query);
-         $result = dbQuery($db_conn, $query);
-         if ($result === false)
-         {
-            $fail = dbErrorText();
-         } else
-         {
-            //debug("have " . dbCountResult($result) . " registration entries.");
-            if (dbCountResult($result) == 1)
-            {
-               $row = dbFetchAssoc($result);
-               foreach ($row as $key => $value)
-               {
-                  $registrant[$key] = stripslashes($value);
-               }
-               sqlBoolValueToPostData($row['hasFourMinute'], 'hasFourMinute', $registrant);
-               sqlBoolValueToPostData($row['hasStudentReg'], 'hasStudentReg', $registrant);
-               sqlBoolValueToPostData($row['hasTeamReg'], 'hasTeamReg', $registrant);
-               sqlBoolValueToPostData($row['hasVoteJudge'], 'hasVoteJudge', $registrant);
-               sqlBoolValueToPostData($row['voteTeamOnly'], 'voteTeamOnly', $registrant);
-               sqlBoolValueToPostData($row['voteByRegion'], 'voteByRegion', $registrant);
-               sqlBoolValueToPostData($row['teamAspirant'], 'teamAspirant', $registrant);
-               sqlBoolValueToPostData($row['fourMinFree'], 'fourMinFree', $registrant);
-               sqlBoolValueToPostData($row['isStudent'], 'isStudent', $registrant);
-               sqlBoolValueToPostData($row['hasVotedJudge'], 'hasVotedJudge', $registrant);
-               $needInit = false;
-            }
-         }
-      }
-   }
-   if ($needInit)
-   {
-      initRegistrationBasicData($registrant);
-   }
-   return $fail;
-}
-
 /**
- Retrieve basic registration status information for the given year
- and registrant id
- db_conn database connection handle
- userID: safe integer ID of registrant
- ctstID: safe integer ID of contest
- registrant: reference to registrant data in an associative array
- registrant will contain:
- givenName, familyName, iacID, email, isRegistered
- compType, compClass, compCat, teamAspirant,
- fourMinFree, isStudent, paidAmt, hasVotedJudge,
- airplaneRegID, insCompany
- returns registrant data in POST data format.
- returns empty string on success, failure message on failure
- */
-function getRegistrantBasicData($db_conn, $userID, $ctstID, & $registrant)
+  Retrieve registration information.
+  Retrieve only what exists.  Do not create any new data.
+  Initialize defaults for what does not exist.
+  Used by the index page to detect what menu items to show.
+*/
+function retrieveExistingRegData($db_conn, $userID, $ctstID, & $registrant)
 {
-   $fail = '';
-   $needInit = true;
-
-   // retrieve registrant data (unique to user id)
-   $query = 'select givenName, familyName, email, iacID from registrant';
-   $query .= ' where userID=' . $userID;
-   //    debug($query);
-   $result = dbQuery($db_conn, $query);
-   if ($result === false)
-   {
-      $fail = dbErrorText();
-   } else
-   if (dbCountResult($result) == 1)
-   {
-      $row = dbFetchAssoc($result);
-      foreach ($row as $key => $value)
-      {
-         $registrant[$key] = stripslashes($value);
-      }
-      if (isset ($ctstID))
-      {
-         $fail = getRegistrationBasicData($db_conn, $userID, $ctstID, $registrant);
-      }
-      $needInit = $fail != '';
-   }
-   if ($needInit)
-   {
-      $registrant['givenName'] = '';
-      $registrant['familyName'] = '';
-      $registrant['email'] = '';
-      $registrant['iacID'] = '';
+  debug('retrieveExistingRegData...');
+  $fail = doRetrieveRegistrant($db_conn, $userID, $registrant);
+  $regID = 0;
+  if ($fail == '')
+  {
+    $fail = getContestReg($db_conn, $userID, $ctstID, $regID);
+  }
+  if ($fail == '')
+  {
+    if ($regID == 0)
+    {
       initRegistrationBasicData($registrant);
-   }
-   return $fail;
+    }
+    else
+    {
+      $fail = getRegType($db_conn, $regID, $registrant);
+      if ($fail == '')
+      {
+        $fail = doRetrieveRegistration($db_conn, $regID, $registrant);
+      }
+    }
+  }
+  //debugArr("retrieveExistingRegData has:", $registrant);
+  debug("...retrieveExistingRegData $fail");
+  return $fail;
 }
 
 function extractCategoryRow($row, & $category)
@@ -870,7 +924,7 @@ function getContestData($db_conn, $ctstID, & $contest)
 }
 
 /*
- Copyright 2008, 2010 International Aerobatic Club, Inc.
+ Copyright 2008, 2010, 2011 International Aerobatic Club, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.

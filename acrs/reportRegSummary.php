@@ -183,7 +183,7 @@ function doSummaryReport($db_conn)
         echo '<p>' . $total . ' total registrant' . ($total == 1? "" : "s") . ".</p>\n";
     } else
     {
-        notifyError($fail, "reportRegSummary:retrieveRegistrant()");
+        notifyError($fail, "reportRegSummary()");
         echo '<p style="color:red; font-weight:bold">' . $fail . '</p>';
     }
 }

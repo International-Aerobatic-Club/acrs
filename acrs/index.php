@@ -238,11 +238,8 @@ if ($fail != '')
    echo "<p>" . $fail . "</p>";
 } else
 {
-   $regType = array ();
-   getRegistrantBasicData($db_conn, $userID, $ctstID, $regType);
-
-   //debugArr("registrant basic data", $regType);
-
+  $regType = array ();
+  $fail = retrieveExistingRegData($db_conn, $userID, $ctstID, $regType);
    verificationHeader("Welcome,");
 
    echo "<table class=\"indexMenu\"><tbody><trow><td>\n";

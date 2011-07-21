@@ -53,7 +53,7 @@ function showPhoneList($db_conn)
       }
    } else
    {
-      notifyError($fail, "reportRegSummary:retrieveRegistrant()");
+      notifyError($fail, "reportRegPhoneList:showPhoneList()");
       echo '<p style="color:red; font-weight:bold">Failed database query.</p>';
    }
 }
