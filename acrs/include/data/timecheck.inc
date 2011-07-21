@@ -32,9 +32,9 @@ function dateBeforeRegClosed($contest)
    return !isAfterDate($contest['regDeadline']);
 }
 
-function isRegOpen()
+function isRegOpen($contest = null)
 {
-    $contest = $_SESSION['contest'];
+    if (!isset($contest)) $contest = $_SESSION['contest'];
     return dateAfterRegOpen($contest) && dateBeforeRegClosed($contest);
 }
 ?>

@@ -108,3 +108,10 @@
   table.indexMenu td { vertical-align:top; }
   p.slotList { margin-left:40px; margin-bottom:0pt;}
   ul.slotList { margin-top:0pt; margin-bottom:0pt; }
+  td.adminMenu { padding-left:3em; }
+  td.adminMenu p { margin-bottom:0pt; }
+  ul.basicReg { margin-bottom:0pt; padding-top:2pt; }
+  div.afterReg { margin-left:3em; }
+  div.afterReg p { margin-bottom:0pt; }
+  ul.advancedReg { margin-top:0pt; }
+  ul.adminReg { margin-top:0pt; margin-bottom:0pt; }

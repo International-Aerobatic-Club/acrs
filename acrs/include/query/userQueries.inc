@@ -13,6 +13,7 @@
 require_once ("data/encodeSQL.inc");
 require_once ("data/encodePOST.inc");
 require_once ("data/encodeHTML.inc");
+require_once ("query/catQueries.inc");
 require_once ("dbCommand.inc");
 
 /**
@@ -30,7 +31,7 @@ function getRegType($db_conn, $regID, & $registrant)
 {
    $fail = '';
    $query = "select * from reg_type where regID = $regID;";
-   debug('getRegType:'.$query);
+   //debug('getRegType:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -39,7 +40,7 @@ function getRegType($db_conn, $regID, & $registrant)
    if (dbCountResult($result) == 1)
    {
       $row = dbFetchAssoc($result);
-      debugArr('getRegType has row:', $row);
+      //debugArr('getRegType has row:', $row);
       foreach ($row as $key => $value)
       {
          $registrant[$key] = stripslashes($value);
@@ -63,13 +64,13 @@ function createRegType($db_conn, $userID, $ctstID, & $regID, $compType)
    $regID = 0;
    $update = 'insert into reg_type (userID, ctstID, compType, answer) values (';
    $update .= $userID . ',' . $ctstID.','.strSQL($compType,32).",'');";
-   debug('createRegType:'.$update);
+   //debug('createRegType:'.$update);
    $fail = dbExec($db_conn, $update);
    if ($fail == '')
    {
       $regID = dbLastID();
    }
-   debug("createRegType new regID is $regID, $fail");
+   //debug("createRegType new regID is $regID, $fail");
 }
 
 /**
@@ -95,7 +96,7 @@ function updateRegType($db_conn, $userID, $ctstID, & $regID, $registrant)
       $update .= 'compType = ' . enumSQL($registrant['compType'], $_enumSet_compType);
       $update .= ', answer = ' . strSQL($registrant['answer'],4096);
       $update .= ' where regID = ' . $regID;
-      debug('updateRegType:'.$update);
+      //debug('updateRegType:'.$update);
       $fail = dbExec($db_conn, $update);
    }
    return $fail;
@@ -145,7 +146,7 @@ function updateRegistration($db_conn, $registrant, $userID)
       $update .= 'icePhone1 = ' . strSQL($registrant['icePhone1'], 16) . ',';
       $update .= 'icePhone2 = ' . strSQL($registrant['icePhone2'], 16);
       $update .= " where userID = " . $userID . ";";
-      debug('updateRegistration:'.$update);
+      //debug('updateRegistration:'.$update);
       $fail = dbExec($db_conn, $update);
    }
 
@@ -173,7 +174,7 @@ function updateRegistration($db_conn, $registrant, $userID)
       $update .= 'program = ' . strSQL($registrant['program'], 32) . ',';
       $update .= 'isFirstTime= ' . boolSQL($registrant, 'isFirstTime');
       $update .= ' where regID = ' . $regID . ';';
-      debug('updateRegistration:'.$update);
+      //debug('updateRegistration:'.$update);
       $fail = dbExec($db_conn, $update);
    }
 
@@ -218,7 +219,7 @@ function updateFlying($db_conn, $registrant, $userID)
       $update .= 'certNumber = ' . strSQL($registrant['certNumber'], 16);
       $update .= " where userID = " . $userID . ";";
 
-      debug('updateFlying:'.$update);
+      //debug('updateFlying:'.$update);
       $fail = dbExec($db_conn, $update);
    }
 
@@ -263,7 +264,7 @@ function updateFlying($db_conn, $registrant, $userID)
       $update .= 'insExpires = ' . strSQL($registrant['insExpires'], 10);
       $update .= ' where regID = ' . $regID . ';';
 
-      debug('updateFlying:'.$update);
+      //debug('updateFlying:'.$update);
       $fail = dbExec($db_conn, $update);
    }
 
@@ -292,7 +293,7 @@ function getContestReg($db_conn, $userID, $ctstID, & $regID)
    $fail = '';
    $query = 'select regID from reg_type where userID = ' . $userID . 
      ' and ctstID = ' . $ctstID . ';';
-   debug('getContestReg:'.$query);
+   //debug('getContestReg:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -303,7 +304,7 @@ function getContestReg($db_conn, $userID, $ctstID, & $regID)
       $row = dbFetchRow($result);
       $regID = $row[0];
    }
-   debug('getContestReg using regID:'.$regID.', '.$fail);
+   //debug('getContestReg using regID:'.$regID.', '.$fail);
    return $fail;
 }
 
@@ -320,7 +321,7 @@ function getLatestReg($db_conn, $userID, & $regID)
    $fail = '';
    $query = 'select max(regID) from reg_type where userID = ' . $userID . 
      " and compType = 'competitor';";
-   debug('getLatestReg:'.$query);
+   //debug('getLatestReg:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -331,7 +332,7 @@ function getLatestReg($db_conn, $userID, & $regID)
       $row = dbFetchRow($result);
       $regID = $row[0];
    }
-   debug('getLatestReg using regID:'.$regID.', '.$fail);
+   //debug('getLatestReg using regID:'.$regID.', '.$fail);
    return $fail;
 }
 
@@ -355,7 +356,7 @@ function initRegDefault($db_conn, $userID, $ctstID, & $regID)
   {
     $insert = 'insert into registration (regID, catID) values ('
     . $regID . ',' . $catID . ');';
-    debug("initRegDefault: $insert");
+    //debug("initRegDefault: $insert");
     $fail = dbExec($db_conn, $insert);
   }
   return $fail;
@@ -370,7 +371,7 @@ function tryQueryCatID($db_conn, $ctstID, & $catID, $limit)
      $query .= ' and ' . $limit;
    }
    $query .= ';';
-   debug('tryQueryCatID:'.$query);
+   //debug('tryQueryCatID:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -381,7 +382,7 @@ function tryQueryCatID($db_conn, $ctstID, & $catID, $limit)
       $row = dbFetchRow($result);
       $catID = $row[0];
    }
-   debug("tryQueryCatID has catID: $catID, $fail");
+   //debug("tryQueryCatID has catID: $catID, $fail");
    return $fail;
 }
 
@@ -427,14 +428,14 @@ function findProperRegCat($db_conn, $ctstID, $catClass, $catCategory, & $catID)
     .  ',' . $className
     . ',' . $catName
     . ');';
-    debug("findProperRegCat: $insert");
+    //debug("findProperRegCat: $insert");
     $fail = dbExec($db_conn, $insert);
     if ($fail == '')
     {
       $catID = dbLastID();
     }
   }
-  debug("findProperRegCat using category $catID");
+  //debug("findProperRegCat using category $catID");
   return $fail;
 }
 
@@ -498,7 +499,7 @@ function initRegFromPrior($db_conn, $userID, $ctstID, $latestRegID, & $regID)
       . ',' . strSQL($priorReg['insCompany'], 24) 
       . ',' . strSQL($priorReg['insExpires'], 10)
       . ');';
-      debug('initRegFromPrior:'.$update);
+      //debug('initRegFromPrior:'.$update);
       $fail = dbExec($db_conn, $update);
    }
    return $fail;
@@ -544,7 +545,7 @@ function doRetrieveRegistration($db_conn, $regID, & $registrant)
    $fail = '';
    $query = 'select a.*, b.class, b.category from registration a, ctst_cat b'
      . ' where a.regID = ' . $regID . ' and b.catID = a.catID;';
-   debug('doRetrieveRegistration:'.$query);
+   //debug('doRetrieveRegistration:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -581,7 +582,7 @@ function doRetrieveRegistrant($db_conn, $userID, & $registrant)
 {
    $fail = '';
    $query = 'select * from registrant where userID=' . $userID . ';';
-   debug('doRetrieveRegistrant:'.$query);
+   //debug('doRetrieveRegistrant:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
    {
@@ -614,7 +615,7 @@ function doRetrieveRegistrant($db_conn, $userID, & $registrant)
  */
 function retrieveRegistrant($db_conn, $userID, $ctstID, & $registrant)
 {
-   debug('retrieveRegistrant...');
+   //debug('retrieveRegistrant...');
    $fail = doRetrieveRegistrant($db_conn, $userID, $registrant);
 
    $regID = 0;
@@ -629,7 +630,7 @@ function retrieveRegistrant($db_conn, $userID, $ctstID, & $registrant)
       $fail = doRetrieveRegistration($db_conn, $regID, $registrant);
    }
    //debugArr("retrieveRegistrant has:", $registrant);
-   debug("...retrieveRegistrant $fail");
+   //debug("...retrieveRegistrant $fail");
 
    return $fail;
 }
@@ -666,7 +667,7 @@ function initRegistrationBasicData(& $registrant)
 */
 function retrieveExistingRegData($db_conn, $userID, $ctstID, & $registrant)
 {
-  debug('retrieveExistingRegData...');
+  //debug('retrieveExistingRegData...');
   $fail = doRetrieveRegistrant($db_conn, $userID, $registrant);
   $regID = 0;
   if ($fail == '')
@@ -686,10 +687,15 @@ function retrieveExistingRegData($db_conn, $userID, $ctstID, & $registrant)
       {
         $fail = doRetrieveRegistration($db_conn, $regID, $registrant);
       }
+      if ($fail == '')
+      {
+        $catID = $registrant['catID'];
+        $fail = retrieveCategory($db_conn, $registrant, $catID);
+      }
     }
   }
   //debugArr("retrieveExistingRegData has:", $registrant);
-  debug("...retrieveExistingRegData $fail");
+  //debug("...retrieveExistingRegData $fail");
   return $fail;
 }
 

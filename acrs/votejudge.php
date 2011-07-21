@@ -279,14 +279,15 @@ else
    }
    else
    {
-     //debug('voteJudge.teamAspirant:'.boolChecked($voteData, 'teamAspirant') );
-     //debug('voteJudge.hasVotedJudge:'.boolChecked($voteData, 'hasVotedJudge') );
-     //debug('voteJudge.paidInFull:'.checkPaidInFull($voteData) );
-     //debug('voteJudge.open voting:'.!isAfterDate($voteData['voteDeadline']) );
-     //debug('voteJudge.voteDeadline:'.$voteData['voteDeadline'] );
-     //$validVoter = boolChecked($voteData, 'teamAspirant') &&
-     //              !boolChecked($voteData, 'hasVotedJudge');
-     $validVoter = checkPaidInFull($voteData);
+     debugArr('voteJudge.voteData:',$voteData);
+     $validVoter = (
+            !boolChecked($voteData, 'hasTeamReg')
+         || !boolChecked($voteData,'voteTeamOnly') 
+         || boolChecked($voteData, 'teamAspirant')
+       ) && (
+            !boolChecked($voteData, 'reqPmtForVoteJudge')
+         || checkPaidInFull($voteData)
+       );
      $openVoting = (!isAfterDate($voteData['voteDeadline']));
    }
 }

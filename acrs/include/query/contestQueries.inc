@@ -5,6 +5,7 @@
  *  Changes:
  *    10/24/2010 jim_ward       sense isset() of $_SESSION['ctst_admin'] and friends before referencing
  *                              them, to suppress PHP notices.
+ *    07/21/2011 dcl  use contest query from setContest.inc
  */
 
 require_once ('data/encodePOST.inc');
@@ -13,39 +14,23 @@ require_once ('post/setContest.inc');
 
 function retrieveContest($db_conn, & $ctstInfo, $ctstID)
 {
-    $fail = '';
-    $query = "select * from contest where ctstID = " . $ctstID;
-    $result = dbQuery($db_conn, $query);
-    if (dbErrorNumber() != 0)
+    $fail = retrieveContestData($db_conn, $ctstID, $ctstInfo);
+    if ($fail == '')
     {
-        $fail .= "<it>" . dbErrorText() . "<\it>";
+      $regD = strtotime($ctstInfo['regOpen']);
+      $ctstInfo['regOpen'] = strftime('%m/%d', $regD);
+      $regD = strtotime($ctstInfo['regDeadline']);
+      $ctstInfo['regDeadline'] = strftime('%m/%d', $regD);
+      $regD = strtotime($ctstInfo['startDate']);
+      $ctstInfo['startDate'] = strftime('%m/%d', $regD);
+      $regD = strtotime($ctstInfo['endDate']);
+      $ctstInfo['endDate'] = strftime('%m/%d', $regD);
+      sqlBoolValueToPostData($ctstInfo['hasVoteJudge'], 'hasVoteJudge', $ctstInfo);
+      sqlBoolValueToPostData($ctstInfo['hasPayPal'], 'hasPayPal', $ctstInfo);
+      sqlBoolValueToPostData($ctstInfo['hasPracticeReg'], 'hasPracticeReg', $ctstInfo);
+      sqlBoolValueToPostData($ctstInfo['reqPmtForVoteJudge'], 'reqPmtForVoteJudge', $ctstInfo);
+      sqlBoolValueToPostData($ctstInfo['reqPmtForPracticeReg'], 'reqPmtForPracticeReg', $ctstInfo);
     }
-    else
-        if (dbCountResult($result) != 0)
-        {
-            $row = dbFetchAssoc($result);
-            foreach ($row as $key => $value)
-            {
-                $ctstInfo[$key] = stripslashes($value);
-            }
-        }
-        else
-        {
-            $fail = "no entry for " . $ctstID;
-        }
-    $regD = strtotime($ctstInfo['regOpen']);
-    $ctstInfo['regOpen'] = strftime('%m/%d', $regD);
-    $regD = strtotime($ctstInfo['regDeadline']);
-    $ctstInfo['regDeadline'] = strftime('%m/%d', $regD);
-    $regD = strtotime($ctstInfo['startDate']);
-    $ctstInfo['startDate'] = strftime('%m/%d', $regD);
-    $regD = strtotime($ctstInfo['endDate']);
-    $ctstInfo['endDate'] = strftime('%m/%d', $regD);
-    sqlBoolValueToPostData($ctstInfo['hasVoteJudge'], 'hasVoteJudge', $ctstInfo);
-    sqlBoolValueToPostData($ctstInfo['hasPayPal'], 'hasPayPal', $ctstInfo);
-    sqlBoolValueToPostData($ctstInfo['hasPracticeReg'], 'hasPracticeReg', $ctstInfo);
-    sqlBoolValueToPostData($ctstInfo['reqPmtForVoteJudge'], 'reqPmtForVoteJudge', $ctstInfo);
-    sqlBoolValueToPostData($ctstInfo['reqPmtForPracticeReg'], 'reqPmtForPracticeReg', $ctstInfo);
     return $fail;
 }
 
@@ -182,7 +167,7 @@ function updateContest($db_conn, $ctstInfo, & $ctstID, $userID)
 }
 
 /*
-   Copyright 2008 International Aerobatic Club, Inc.
+   Copyright 2008, 2011 International Aerobatic Club, Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

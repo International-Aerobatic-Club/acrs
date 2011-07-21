@@ -8,6 +8,7 @@
  *                              by getRegistrationBasicData()).
  *    10/23/2010 jim_ward       use ADMIN_EMAIL.
  *    07/20/2011 dclo           use retrieveRegistrant
+ *    07/21/2011 dclo           use retrieveExistingRegData
  */
 
 set_include_path('./include');
@@ -34,7 +35,7 @@ if ($fail != '')
 }
 if ($fail == '')
 {
-    $fail = retrieveRegistrant($db_conn, $userID, $ctstID, $registrant);
+    $fail = retrieveExistingRegData($db_conn, $userID, $ctstID, $registrant);
     if ($fail != '')
     {
         notifyError($fail, "payRegFee.php");

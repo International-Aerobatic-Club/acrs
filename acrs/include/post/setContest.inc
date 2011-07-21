@@ -4,10 +4,31 @@
  *
  *  Changes:
  *    10/24/2010 jim_ward       correct result test from dbQuery() function value in setRoles().
+ *    07/21/2011 dcl   define and use contest query
  */
 
 require_once ('dbCommand.inc');
 require_once ('useful.inc');
+
+function retrieveContestData($db_conn, $ctstID, & $contest)
+{
+  $fail = '';
+  $query = "select * from contest where ctstID = " . $ctstID;
+  //debug('retrieveContestData:' . $query);
+  $result = dbQuery($db_conn, $query);
+  if (dbErrorNumber() != 0)
+  {
+     $fail = notifyError('Fail query, "' . $query . '" is ' . dbErrorText(), 'form/setContest.inc');
+  } else
+  {
+    $row = dbFetchAssoc($result);
+    foreach ($row as $key => $value)
+    {
+       $contest[$key] = stripslashes($value);
+    }
+  }
+  return $fail;
+}
 
 function setContest($ctstID)
 {
@@ -68,22 +89,10 @@ function setRoles($db_conn, $ctstID)
 
 function setCtstVars($db_conn, $ctstID)
 {
-    $fail = '';
-    $query = "select * from contest where ctstID = " . $ctstID;
-    $result = dbQuery($db_conn, $query);
-    //debug('setCtstVars:' . $query);
-    if (dbErrorNumber() != 0)
+    $ctst = array ();
+    $fail = retrieveContestData($db_conn, $ctstID, $ctst);
+    if ($fail == '')
     {
-        $fail = notifyError('Fail query, "' . $query . '" is ' . dbErrorText(), 'form/setContest.inc');
-    } else
-    {
-        $ctst = array ();
-        $row = dbFetchAssoc($result);
-        foreach ($row as $key => $value)
-        {
-            $ctst[$key] = stripslashes($value);
-        }
-        //debugArr('setCtstVars query result:', $row);
         $_SESSION['ctst_name'] = $ctst['name'];
         $_SESSION['ctst_year'] = $ctst['regYear'];
         $_SESSION['ctst_descr'] = $ctst['regYear'] . ' ' . $ctst['name'];

@@ -10,24 +10,24 @@ require_once ("ui/siteLayout.inc");
 require_once ("query/userQueries.inc");
 require_once ("practice.php");
 
-function showMenu($db_conn, $regType, $userID)
+function showMenu($db_conn, $regType, $contest, $userID, $ctstID)
 {
-   //debugArr('index.showMenu has SESSION:', $_SESSION);
-   $contest = $_SESSION['contest'];
-   //debugArr('index.showMenu has contest:', $contest);
+   debugArr('index.showMenu has regType:', $regType);
+   debugArr('index.showMenu has contest:', $contest);
    $needVolunteer = false;
    $isVolunteer = !isSelected($regType, "compType", "regrets");
    if ($isVolunteer)
    {
       $query = 'select a.catID from volunteer a, ctst_cat b  ' .
-        'where b.ctstID = ' . $_SESSION['ctstID'] .
+        'where b.ctstID = ' . $ctstID .
         ' and userID = ' . $userID .
         ' and a.catID = b.catID';
       //debug($query);
       $result = dbQuery($db_conn, $query);
       if (dbErrorNumber() != 0)
       {
-         echo "<p class='error'>" . notifyError("volunteerQuery:" . dbErrorText(), "index.php") . "</p>";
+         notifyError("volunteerQuery:" . dbErrorText(), "index.php");
+         echo '<p class="error">Failed access volunteer information</p>';
       } else
       {
          $needVolunteer = (dbCountResult($result) == 0);
@@ -41,7 +41,7 @@ function showMenu($db_conn, $regType, $userID)
    if ($isCompetitor)
    {
       $needPayment = sqlIsTrue($contest['hasPayPal']) && !checkPaidInFull($regType);
-      //debugArr('index.php', $contest);
+      $mayVote = $mayVote && (!boolChecked($contest, 'reqPmtForVoteJudge') || !$needPayment);
       $needVote = $mayVote && !boolChecked($regType, 'hasVotedJudge') && (!boolChecked($contest, 'reqPmtForVoteJudge') || !$needPayment);
       $needAirplane = !isset ($regType["airplaneRegID"]) || !isset ($regType["insCompany"]) || $regType["airplaneRegID"] == '' || $regType["insCompany"] == '';
       $needPracticeSlot = havePracticeRegistration($contest, $regType);
@@ -65,7 +65,6 @@ function showMenu($db_conn, $regType, $userID)
    if ($isTeamCategory && !$isTeam)
    $reminders .= '<li>Warning: You are NOT registered as a team aspirant.</li>';
 
-   //debugArr("index.php contest:", $contest);
    echo "<ul class=\"basicReg\">\n";
    echo "<li><a href='register.php'>Edit your registration information.</a></li>\n";
    if ($isVolunteer)
@@ -167,24 +166,29 @@ function showAdminFunctions()
 {
    if (isContestAdmin())
    {
-      echo "<ul class=\"basicReg\">\n";
+      echo '<p>Contest Director and administrator:</p>';
+      echo "<ul class=\"adminReg\">\n";
       echo "<li><a href='addContest.php?edit=true'>Edit contest information.</a></li>\n";
       echo "<li><a href='catTable.php'>Edit contest categories.</a></li>\n";
       echo "<li><a href='prsTable.php'>Edit practice sessions.</a></li>\n";
       echo "<li><a href='practiceSlotDes.php'>Designate practice slots.</a></li>\n";
       echo "<li><a href='addJudge.php'>Edit judging ballot.</a></li>\n";
-      echo "<li><a href='authorize.php'>Authorize contest officials.</a></li>\n";
+      echo "<li><a href='authorize.php'>Designate CD, Registrar, VC.</a></li>\n";
       echo '</ul>';
    }
-   echo "<ul class=\"basicReg\">\n";
    if (isRegistrar())
    {
+      echo '<p>Registrar:</p>';
+      echo "<ul class=\"adminReg\">\n";
       echo "<li><a href='reportRegIAC.php'>All IAC registration forms as PDF.</a></li>\n";
-      echo "<li><a href='reportRegSummary.php'>Summary report of registration information.</a></li>\n";
       echo "<li><a href='reportRegPhoneList.php'>Spreadsheet importable contact list of competitors only.</a></li>\n";
       echo "<li><a href='exportRegistrants.php'>Spreadsheet importable contact list of all registrants.</a></li>\n";
       echo "<li><a href='exportJaSPer.php'>JaSPer importable list of competitors.</a></li>\n";
+      echo '</ul>';
    }
+   echo '<p>Volunteer Coordinator:</p>';
+   echo "<ul class=\"adminReg\">\n";
+   echo "<li><a href='reportRegSummary.php'>Summary report of registration information.</a></li>\n";
    echo "<li><a href='broadcast.php'>Broadcast email to all registrants.</a></li>\n";
    echo "<li><a href='reportVolunteers.php'>Report volunteers.</a></li>\n";
    echo "<li><a href='reportPracticeSlots.php'>Report practice slots.</a></li>\n";
@@ -209,7 +213,7 @@ function showPracticeSlots($db_conn, $userID, $ctstID)
    {
       if (0 < dbCountResult($result))
       {
-         echo '<li>Your practice slot ';
+         echo '<p>Your practice slot ';
          if (1 < dbCountResult($result)) echo 'reservations:'; else echo 'reservation:';
          echo '<ul class="slotList">';
          while ($curRcd = dbFetchAssoc($result))
@@ -221,7 +225,7 @@ function showPracticeSlots($db_conn, $userID, $ctstID)
             makeDescription($curRcd['practiceDate'], $curRcd['startTime'], $curRcd['slotIndex'], $curRcd['minutesPer'])
             . '</li>';
          }
-         echo '</ul></li>';
+         echo '</ul></p>';
       }
    }
 }
@@ -233,23 +237,30 @@ echo "<h1>Registration</h1>";
 $fail = dbConnect($db_conn);
 $userID = $_SESSION['userID'];
 $ctstID = $_SESSION['ctstID'];
+$regType = array();
+$contest = array();
+if ($fail == '')
+{
+  $fail = retrieveExistingRegData($db_conn, $userID, $ctstID, $regType);
+}
+if ($fail == '')
+{
+  $fail = retrieveContestData($db_conn, $ctstID, $contest);
+}
 if ($fail != '')
 {
    echo "<p>" . $fail . "</p>";
 } else
 {
-  $regType = array ();
-  $fail = retrieveExistingRegData($db_conn, $userID, $ctstID, $regType);
    verificationHeader("Welcome,");
 
-   echo "<table class=\"indexMenu\"><tbody><trow><td>\n";
+   echo "<table class=\"indexMenu\"><tbody><trow><td class='userMenu'>\n";
 
-   if (isRegOpen())
+   if (isRegOpen($contest))
    {
-      $reminders = showMenu($db_conn, $regType, $userID);
+      $reminders = showMenu($db_conn, $regType, $contest, $userID, $ctstID);
    } else
    {
-      $contest = $_SESSION['contest'];
       if (!dateAfterRegOpen($contest))
       {
          $reminders = '<li>On-line registration will open on ' . $contest['regOpen'] . '</li>';
@@ -260,18 +271,18 @@ if ($fail != '')
       }
    }
 
-   if ($reminders != '')
-   {
-      echo "<ul class=\"reminders\">".$reminders."</ul>\n";
-   }
-
    $isCompetitor = isSelected($regType, "compType", "competitor");
    if ($isCompetitor)
    {
-      echo "<ul class=\"basicReg\">\n";
+      echo '<div class="afterReg">';
       showPracticeSlots($db_conn, $userID, $ctstID);
-      echo "<li><a href='printRegIAC.php'>Your IAC contest registration forms as PDF.</a></li>\n";
-      echo "</ul>";
+      echo "<p><a href='printRegIAC.php'>Your IAC contest registration forms as PDF.</a></p>\n";
+      echo "</div>\n";
+   }
+
+   if ($reminders != '')
+   {
+      echo "<ul class=\"reminders\">".$reminders."</ul>\n";
    }
 
    echo "<ul class=\"userControl\">\n";
@@ -284,7 +295,7 @@ if ($fail != '')
    echo "<li><a href=\"logout.php\">Logout</a></li>\n";
    echo "</ul>\n";
 
-   echo "</td><td>\n";
+   echo "</td><td class='adminMenu'>\n";
 
    if (isContestOfficial())
    {
