@@ -27,6 +27,10 @@ function setIsDisabledOwner(form, disable)
 function enableAllForPost()
 {
    setIsDisabledOwner(document.forms[0], false);
+   setEnabled(document.getElementById("competitor"), true, false);
+   setEnabled(document.getElementById("team"), true, false);
+   setEnabled(document.getElementById("student"), true, false);
+   setEnabled(document.getElementById("fourMinute"), true, false);
 }
 
 function checkOwnerPilot()
