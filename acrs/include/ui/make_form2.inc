@@ -724,87 +724,87 @@ function Fill_Order_Of_Flight_Template (&$form, $fields, $page)
     }
 }
 
-function Make_Volunteer_Template (&$form, $page)
+function Make_Volunteer_Template (&$form, $page, $offset = 0)
 {
     // Logo
 
-    $form->CForm_Add_Image ($page, 9, 93, 20, "logos/logo.png");
+    $form->CForm_Add_Image ($page, 9, 93 + $offset, 20, "logos/logo.png");
 
     // Header
 
-    $form->CForm_Add_Text_Line ($page, 54, 95, FONT_BOLD, 10, "VOLUNTEER SIGN-UP SHEET");
-    $form->CForm_Add_Underline ($page, 54, 95, 87, 10);
+    $form->CForm_Add_Text_Line ($page, 54, 95 + $offset, FONT_BOLD, 10, "VOLUNTEER SIGN-UP SHEET");
+    $form->CForm_Add_Underline ($page, 54, 95 + $offset, 87, 10);
 
     // Name
 
-    $form->CForm_Add_Text_Line ($page, 35,  104, FONT, 10, "NAME:");
-    $form->CForm_Add_Underline ($page, 46,  104, 86, 10);
-    $form->CForm_Add_Text_Line ($page, 60,  107, FONT, 8, "(please print)");
-    $form->CForm_Add_Text_Line ($page, 90,  104, FONT, 10, "IAC #:");
-    $form->CForm_Add_Underline ($page, 100, 104, 120, 10);
+    $form->CForm_Add_Text_Line ($page, 35,  104 + $offset, FONT, 10, "NAME:");
+    $form->CForm_Add_Underline ($page, 46,  104 + $offset, 86, 10);
+    $form->CForm_Add_Text_Line ($page, 60,  107 + $offset, FONT, 8, "(please print)");
+    $form->CForm_Add_Text_Line ($page, 90,  104 + $offset, FONT, 10, "IAC #:");
+    $form->CForm_Add_Underline ($page, 100, 104 + $offset, 120, 10);
 
-    $form->CForm_Add_Text_Line ($page, 10, 112, FONT, 10, "Are you flying in this contest?");
-    $form->CForm_Add_Checkbox  ($page, 43, 112, 10);
-    $form->CForm_Add_Text_Line ($page, 46, 112, FONT, 10, "Yes");
-    $form->CForm_Add_Checkbox  ($page, 53, 112, 10);
-    $form->CForm_Add_Text_Line ($page, 56, 112, FONT, 10, "No");
-    $form->CForm_Add_Text_Line ($page, 64, 112, FONT, 10, "Emergency Contact:");
-    $form->CForm_Add_Underline ($page, 85, 112, 120, 10);
-    $form->CForm_Add_Text_Line ($page, 10, 118, FONT, 10, "If Yes, what category?");
-    $form->CForm_Add_Checkbox  ($page, 37, 118, 10);
-    $form->CForm_Add_Text_Line ($page, 40, 118, FONT, 10, "Primary");
-    $form->CForm_Add_Checkbox  ($page, 51, 118, 10);
-    $form->CForm_Add_Text_Line ($page, 54, 118, FONT, 10, "Sportsman");
-    $form->CForm_Add_Checkbox  ($page, 69, 118, 10);
-    $form->CForm_Add_Text_Line ($page, 72, 118, FONT, 10, "Intermediate");
-    $form->CForm_Add_Checkbox  ($page, 89, 118, 10);
-    $form->CForm_Add_Text_Line ($page, 92, 118, FONT, 10, "Advanced");
-    $form->CForm_Add_Checkbox  ($page, 106,118, 10);
-    $form->CForm_Add_Text_Line ($page, 109,118, FONT, 10, "Unlimited");
+    $form->CForm_Add_Text_Line ($page, 10, 112 + $offset, FONT, 10, "Are you flying in this contest?");
+    $form->CForm_Add_Checkbox  ($page, 43, 112 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 46, 112 + $offset, FONT, 10, "Yes");
+    $form->CForm_Add_Checkbox  ($page, 53, 112 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 56, 112 + $offset, FONT, 10, "No");
+    $form->CForm_Add_Text_Line ($page, 64, 112 + $offset, FONT, 10, "Emergency Contact:");
+    $form->CForm_Add_Underline ($page, 85, 112 + $offset, 120, 10);
+    $form->CForm_Add_Text_Line ($page, 10, 118 + $offset, FONT, 10, "If Yes, what category?");
+    $form->CForm_Add_Checkbox  ($page, 37, 118 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 40, 118 + $offset, FONT, 10, "Primary");
+    $form->CForm_Add_Checkbox  ($page, 51, 118 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 54, 118 + $offset, FONT, 10, "Sportsman");
+    $form->CForm_Add_Checkbox  ($page, 69, 118 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 72, 118 + $offset, FONT, 10, "Intermediate");
+    $form->CForm_Add_Checkbox  ($page, 89, 118 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 92, 118 + $offset, FONT, 10, "Advanced");
+    $form->CForm_Add_Checkbox  ($page, 106,118 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 109,118 + $offset, FONT, 10, "Unlimited");
     
-    $form->CForm_Add_Text_Line ($page, 10, 124, FONT, 10, "Are you a safety pilot for another competitor?");
-    $form->CForm_Add_Checkbox  ($page, 58, 124, 10);
-    $form->CForm_Add_Text_Line ($page, 61, 124, FONT, 10, "Yes");
-    $form->CForm_Add_Checkbox  ($page, 68, 124, 10);
-    $form->CForm_Add_Text_Line ($page, 71, 124, FONT, 10, "No");
-    $form->CForm_Add_Text_Line ($page, 80, 124, FONT, 10, "For whom?");
-    $form->CForm_Add_Underline ($page, 92, 124, 120, 10);
+    $form->CForm_Add_Text_Line ($page, 10, 124 + $offset, FONT, 10, "Are you a safety pilot for another competitor?");
+    $form->CForm_Add_Checkbox  ($page, 58, 124 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 61, 124 + $offset, FONT, 10, "Yes");
+    $form->CForm_Add_Checkbox  ($page, 68, 124 + $offset, 10);
+    $form->CForm_Add_Text_Line ($page, 71, 124 + $offset, FONT, 10, "No");
+    $form->CForm_Add_Text_Line ($page, 80, 124 + $offset, FONT, 10, "For whom?");
+    $form->CForm_Add_Underline ($page, 92, 124 + $offset, 120, 10);
     
-    $form->CForm_Add_Text_Line ($page, 10, 130, FONT, 10,
+    $form->CForm_Add_Text_Line ($page, 10, 130 + $offset, FONT, 10,
         "Indicate where you would like to help. A contest is run with volunteers - we need every one of you!");
 
     // Position
 
-    $form->CForm_Add_Text_Line ($page, 26, 134, FONT, 10, "POSITION");
-    $form->CForm_Add_Underline ($page, 26, 134, 36, 10);
-    $form->CForm_Add_Text_Line ($page, 76, 134, FONT, 10, "CATEGORY PREFERENCE");
-    $form->CForm_Add_Underline ($page, 76, 134, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  139, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 139, FONT, 10, "Judge");
-    $form->CForm_Add_Underline ($page, 76, 139, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  139, 26, 10);
-    $form->CForm_Add_Underline ($page, 11,  145, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 142, FONT, 10, "Assistant Judge");
-    $form->CForm_Add_Text_Line ($page, 26, 145, FONT, 10, "(Must be able to read aerobatic figures)");
-    $form->CForm_Add_Underline ($page, 76, 145, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  148, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 148, FONT, 10, "Recorder");
-    $form->CForm_Add_Underline ($page, 76, 148, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  151, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 151, FONT, 10, "Boundary Judge");
-    $form->CForm_Add_Underline ($page, 76, 151, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  154, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 154, FONT, 10, "Score Runner");
-    $form->CForm_Add_Underline ($page, 76, 154, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  157, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 157, FONT, 10, "Timer/Radio");
-    $form->CForm_Add_Underline ($page, 76, 157, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  160, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 160, FONT, 10, "Assist Chief");
-    $form->CForm_Add_Underline ($page, 76, 160, 107, 10);
-    $form->CForm_Add_Underline ($page, 11,  163, 26, 10);
-    $form->CForm_Add_Text_Line ($page, 26, 163, FONT, 10, "Deadline");
-    $form->CForm_Add_Underline ($page, 76, 163, 107, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 134 + $offset, FONT, 10, "POSITION");
+    $form->CForm_Add_Underline ($page, 26, 134 + $offset, 36, 10);
+    $form->CForm_Add_Text_Line ($page, 76, 134 + $offset, FONT, 10, "CATEGORY PREFERENCE");
+    $form->CForm_Add_Underline ($page, 76, 134 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  139 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 139 + $offset, FONT, 10, "Judge");
+    $form->CForm_Add_Underline ($page, 76, 139 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  139 + $offset, 26, 10);
+    $form->CForm_Add_Underline ($page, 11,  145 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 142 + $offset, FONT, 10, "Assistant Judge");
+    $form->CForm_Add_Text_Line ($page, 26, 145 + $offset, FONT, 10, "(Must be able to read aerobatic figures)");
+    $form->CForm_Add_Underline ($page, 76, 145 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  148 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 148 + $offset, FONT, 10, "Recorder");
+    $form->CForm_Add_Underline ($page, 76, 148 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  151 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 151 + $offset, FONT, 10, "Boundary Judge");
+    $form->CForm_Add_Underline ($page, 76, 151 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  154 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 154 + $offset, FONT, 10, "Score Runner");
+    $form->CForm_Add_Underline ($page, 76, 154 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  157 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 157 + $offset, FONT, 10, "Timer/Radio");
+    $form->CForm_Add_Underline ($page, 76, 157 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  160 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 160 + $offset, FONT, 10, "Assist Chief");
+    $form->CForm_Add_Underline ($page, 76, 160 + $offset, 107, 10);
+    $form->CForm_Add_Underline ($page, 11,  163 + $offset, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 26, 163 + $offset, FONT, 10, "Deadline");
+    $form->CForm_Add_Underline ($page, 76, 163 + $offset, 107, 10);
 }
 
 function Get_Volunteer_Categories ($fields, $pos, $pos_val)
@@ -833,90 +833,91 @@ function Get_Volunteer_Categories ($fields, $pos, $pos_val)
     return $cat;
 }
 
-function Fill_Volunteer_Template (&$form, $fields, $page)
+function Fill_Volunteer_Template (&$form, $fields, $page, $offset = 0)
 {
-    $form->CForm_Add_Text_Line ($page, 47, 104, FILL_FONT, 10, Value ($fields, "pilot_first_name") . " " . Value ($fields, "pilot_last_name"));
-    $form->CForm_Add_Text_Line ($page, 101, 104, FILL_FONT, 10, Value ($fields, "pilot_iac_number"));
+    $form->CForm_Add_Text_Line ($page, 47, 104 + $offset, FILL_FONT, 10, Value ($fields, "pilot_first_name") . " " . Value ($fields, "pilot_last_name"));
+    $form->CForm_Add_Text_Line ($page, 101, 104 + $offset, FILL_FONT, 10, Value ($fields, "pilot_iac_number"));
 
     $categories = array_merge (
                       explode (",", Value ($fields, "contest_category")),
                       explode (",", Value ($fields, "contest_patch_category")));
-    if (count ($categories) > 0) {
-        $form->CForm_Add_Xmark ($page, 43, 112, 10);
-		foreach ($categories as $category) {
-			switch ($category) {
-				case "Primary":
-					$form->CForm_Add_Xmark ($page, 37, 118, 10);
-					break;
-				case "Sportsman":
-					$form->CForm_Add_Xmark ($page, 51, 118, 10);
-					break;
-				case "Intermediate":
-					$form->CForm_Add_Xmark ($page, 69, 118, 10);
-					break;
-				case "Advanced":
-					$form->CForm_Add_Xmark ($page, 89, 118, 10);
-					break;
-				case "Unlimited":
-					$form->CForm_Add_Xmark ($page, 106, 118, 10);
-					break;
-			}
-		}
+    if ($fields['compType'] == 'competitor' && count ($categories) > 0)
+    {
+      $form->CForm_Add_Xmark ($page, 43, 112 + $offset, 10);
+      foreach ($categories as $category) {
+        switch ($category) {
+          case "Primary":
+            $form->CForm_Add_Xmark ($page, 37, 118 + $offset, 10);
+            break;
+          case "Sportsman":
+            $form->CForm_Add_Xmark ($page, 51, 118 + $offset, 10);
+            break;
+          case "Intermediate":
+            $form->CForm_Add_Xmark ($page, 69, 118 + $offset, 10);
+            break;
+          case "Advanced":
+            $form->CForm_Add_Xmark ($page, 89, 118 + $offset, 10);
+            break;
+          case "Unlimited":
+            $form->CForm_Add_Xmark ($page, 106, 118 + $offset, 10);
+            break;
+        }
+      }
     }
     else {
-        $form->CForm_Add_Xmark ($page, 53, 112, 10);
+        $form->CForm_Add_Xmark ($page, 53, 112 + $offset, 10);
     }
     
-    $form->CForm_Add_Text_Line ($page, 86, 112, FILL_FONT, 10, Value ($fields, "pilot_emergency_contact"));
+    $form->CForm_Add_Text_Line ($page, 86, 112 + $offset, FILL_FONT, 10, Value ($fields, "pilot_emergency_contact"));
     
     $safety_pilot_for = Value ($fields, "volunteer_safety_pilot_for");
     if ($safety_pilot_for != "") {
-        $form->CForm_Add_Xmark ($page, 58, 124, 10);
-        $form->CForm_Add_Text_Line ($page, 93, 124, FILL_FONT, 10, $safety_pilot_for);
+        $form->CForm_Add_Xmark ($page, 58, 124 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 93, 124 + $offset, FILL_FONT, 10, $safety_pilot_for);
     }
     else {
-        $form->CForm_Add_Xmark ($page, 68, 124, 10);
+        $form->CForm_Add_Xmark ($page, 68, 124 + $offset, 10);
     }
 
     $cat = Value ($fields, "volunteer_judge");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 139, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 139, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 139 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 139 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_assist");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 145, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 145, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 145 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 145 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_recorder");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 148, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 148, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 148 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 148 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_boundary");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 151, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 151, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 151 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 151 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_runner");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 154, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 154, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 154 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 154 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_timer");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 157, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 157, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 157 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 157 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_assistChief");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 160, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 160, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 160 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 160 + $offset, FILL_FONT, 10, $cat);
     }
     $cat = Value ($fields, "volunteer_deadline");
     if ($cat != "") {
-        $form->CForm_Add_Xmark ($page, 14, 163, 10);
-        $form->CForm_Add_Text_Line ($page, 76, 163, FILL_FONT, 10, $cat);
+        $form->CForm_Add_Xmark ($page, 14, 163 + $offset, 10);
+        $form->CForm_Add_Text_Line ($page, 76, 163 + $offset, FILL_FONT, 10, $cat);
     }
 }
 
@@ -933,6 +934,14 @@ function Make_one_registration ($fields, $form, $index)
     Make_Volunteer_Template ($form, $page+4);
     Fill_Volunteer_Template ($form, $fields, $page+4);
     Make_Blank ($form, $page+5);
+}
+
+function Make_one_volunteer($fields, $form, $index)
+{
+  $page = ($index - 1) / 2 + 1;
+  $offset = ($index % 2) * -88;
+  Make_Volunteer_Template($form, $page, $offset);
+  Fill_Volunteer_Template($form, $fields, $page, $offset);
 }
 
 function Output_Form($form, $to_browser = TRUE)

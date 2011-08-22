@@ -83,7 +83,7 @@ function endContent()
       with comments or questions related to the display
       or content of this web page.
     </p>
-    <p>This is an open source project supported by 
+    <p>This is an open source project hosted at
     <a href="http://sourceforge.net/projects/acrs" class="footer">SourceForge</a>.</p>
 </div>
 </body>

@@ -21,6 +21,7 @@ function xlateDataForPDF($db_conn, $record)
    $fields['contest_date'] = date('M j', $startDate) . ' - ' . date('M j Y', $endDate);
    $fields['contest_location'] = $record['location'];
    $fields['contest_type'] = ucwords($record['class']);
+   $fields['compType'] = $record['compType'];
    $fields['contest_category'] = ucwords($record['category']);
    $fields['pilot_first_name'] = $record['givenName'];
    $fields['pilot_last_name'] = $record['familyName'];

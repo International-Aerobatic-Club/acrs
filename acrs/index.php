@@ -188,6 +188,7 @@ function showAdminFunctions()
    }
    echo '<p>Volunteer Coordinator:</p>';
    echo "<ul class=\"adminReg\">\n";
+   echo "<li><a href='reportVolIAC.php'>All IAC volunteer forms as PDF.</a></li>\n";
    echo "<li><a href='reportRegSummary.php'>Summary report of registration information.</a></li>\n";
    echo "<li><a href='broadcast.php'>Broadcast email to all registrants.</a></li>\n";
    echo "<li><a href='reportVolunteers.php'>Report volunteers.</a></li>\n";
