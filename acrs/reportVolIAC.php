@@ -20,7 +20,7 @@ if ($fail != '')
    $corrMsg = "<li>Internal: failed access to contest database</li>";
 } else
 {
-   if (!isContestAdmin())
+   if (!isContestOfficial())
    {
       $corrMsg = '<li>Restricted to contest officials.</li>';
    }
