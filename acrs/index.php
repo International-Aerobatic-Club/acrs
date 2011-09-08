@@ -12,8 +12,8 @@ require_once ("practice.php");
 
 function showMenu($db_conn, $regType, $contest, $userID, $ctstID)
 {
-   debugArr('index.showMenu has regType:', $regType);
-   debugArr('index.showMenu has contest:', $contest);
+   //debugArr('index.showMenu has regType:', $regType);
+   //debugArr('index.showMenu has contest:', $contest);
    $needVolunteer = false;
    $isVolunteer = !isSelected($regType, "compType", "regrets");
    if ($isVolunteer)
