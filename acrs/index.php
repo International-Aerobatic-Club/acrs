@@ -162,7 +162,42 @@ function showRegistrants($db_conn)
    }
 }
 
-function showAdminFunctions()
+function showRegPartDownloads($db_conn, $ctstID)
+{
+  $maxPer = 40;
+  $compCount = 0;
+  $query = "SELECT count( regID ) FROM reg_type" .
+   " WHERE ctstID = $ctstID AND compType = 'competitor'";
+  //debug("showRegPartDownloads query is $query");
+  $result = dbQuery($db_conn, $query);
+  if (dbErrorNumber() == 0)
+  {
+     $curRcd = dbFetchRow($result);
+     $compCount = $curRcd[0];
+  }
+  //debug("compCount = $compCount");
+  $pages = ceil($compCount / $maxPer);
+  if (1 < $pages)
+  {
+     $perPage = $maxPer;
+     if ($compCount % $maxPer != 0)
+     {
+       $perPage += ceil(($compCount % $maxPer) / $pages);
+       $pages -= 1;
+     }
+     $offset = 0;
+     echo '<ul>';
+     for ($page = 1; $page <= $pages; ++$page)
+     {
+       echo "<li><a href='reportRegIAC.php?offset=$offset&count=$perPage'>";
+       echo "Part $page</a></li>\n";
+       $offset += $perPage;
+     }
+     echo '</ul>';
+  }
+}
+
+function showAdminFunctions($db_conn, $ctstID)
 {
    if (isContestAdmin())
    {
@@ -180,7 +215,9 @@ function showAdminFunctions()
    {
       echo '<p>Registrar:</p>';
       echo "<ul class=\"adminReg\">\n";
-      echo "<li><a href='reportRegIAC.php'>All IAC registration forms as PDF.</a></li>\n";
+      echo "<li><a href='reportRegIAC.php'>All IAC registration forms as PDF.</a>\n";
+      showRegPartDownloads($db_conn, $ctstID);
+      echo "</li>\n";
       echo "<li><a href='reportRegPhoneList.php'>Spreadsheet importable contact list of competitors only.</a></li>\n";
       echo "<li><a href='exportRegistrants.php'>Spreadsheet importable contact list of all registrants.</a></li>\n";
       echo "<li><a href='exportJaSPer.php'>JaSPer importable list of competitors.</a></li>\n";
@@ -300,7 +337,7 @@ if ($fail != '')
 
    if (isContestOfficial())
    {
-      showAdminFunctions();
+      showAdminFunctions($db_conn, $ctstID);
    }
 
    echo "</td></trow></tbody></table>\n";

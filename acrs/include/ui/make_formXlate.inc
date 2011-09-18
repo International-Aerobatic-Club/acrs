@@ -13,7 +13,7 @@ require_once ("ui/make_form2.inc");
 
 function xlateDataForPDF($db_conn, $record)
 {
-   debugArr('xlateDataForPDF has ', $record);
+   // debugArr('xlateDataForPDF has ', $record);
    $startDate = strtotime($record['startDate']);
    $endDate = strtotime($record['endDate']);
    $fields = array ();
@@ -140,7 +140,7 @@ function xLateVolunteerFields($db_conn, $regID, $ctstID, $userID, &$fields)
       $curRcd = dbFetchAssoc($result);
       while ($curRcd !== false)
       {
-         debugArr('xLateVolunteerFields query result', $curRcd);
+         //debugArr('xLateVolunteerFields query result', $curRcd);
          $volunteer = $curRcd['volunteer'];
          $cat = strtoupper(substr($curRcd['class'], 0, 1)) . '.' . ucwords(substr($curRcd['category'], 0, 3));
          $volTypes = explode(",", $volunteer);
@@ -176,7 +176,8 @@ function writePilots($db_conn, $result)
    Output_Form($form);
 }
 
-function generateIACRegFormPilots($db_conn, $ctstID, $userID, $thisPilotOnly = false)
+function generateIACRegFormPilots($db_conn, $ctstID, $userID,
+  $thisPilotOnly = false, $offset = 0, $count = 0)
 {
    $query = 'select a.userID, f.regID, f.ctstID, b.name, startDate, endDate, location, class, category,' .
     		' givenName, familyName, iacID, address, city, state, country, postalCode,' .
@@ -196,8 +197,13 @@ function generateIACRegFormPilots($db_conn, $ctstID, $userID, $thisPilotOnly = f
     ' and b.ctstID = f.ctstID' .
     ' and e.catID = c.catID' .
     " and f.compType = 'competitor'" .
-    ' order by e.category, a.familyName, a.givenName;';
-   debug('make_formXlate.generateIACRegFormPilots query' . $query);
+    ' order by e.category, a.familyName, a.givenName';
+   if (0 < $count) {
+     $endOffset = $offset + $count;
+     $query .= " limit $offset,$endOffset";
+   }
+   $query .= ';';
+   //debug('make_formXlate.generateIACRegFormPilots query' . $query);
    $fail = '';
    $result = dbQuery($db_conn, $query);
    if ($result === false)

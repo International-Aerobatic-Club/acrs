@@ -27,7 +27,21 @@ if ($fail != '')
 }
 if ($corrMsg == '')
 {
-   $fail = generateIACRegFormPilots($db_conn, $_SESSION['ctstID'], $_SESSION['userID'], false);
+   if (isset($_GET['offset']) && $_GET['offset'])
+   {
+     $offset = $_GET['offset'];
+   } else {
+     $offset = 0;
+   }
+   if (isset($_GET['count']) && $_GET['count'])
+   {
+     $count = $_GET['count'];
+   } else {
+     $count = 0;
+   }
+   //debug("reportRegIAC offset:$offset, count:$count");
+   $fail = generateIACRegFormPilots($db_conn, $_SESSION['ctstID'],
+     $_SESSION['userID'], false, $offset, $count);
    if ($fail != '')
    {
       $corrMsg = '<li>' . $fail . '</li>';
