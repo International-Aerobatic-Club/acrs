@@ -46,7 +46,7 @@ function showRegistrations($db_conn)
     {
         if (0 < dbCountResult($result))
         {
-            echo '<h3>Your are registered to compete and volunteer:</h3>';
+            echo '<h3>You are registered to compete and volunteer:</h3>';
             echo '<table class="contestList">';
             echo '<thead class="contestList">';
             echo '<tr><th>Start</th><th>Contest</th><th>Category</th></tr>';
