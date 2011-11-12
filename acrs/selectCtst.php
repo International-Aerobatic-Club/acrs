@@ -86,7 +86,7 @@ function showVolunteer($db_conn)
     {
         if (0 < dbCountResult($result))
         {
-            echo '<h3>Your are registered to volunteer:</h3>';
+            echo '<h3>You are registered to volunteer:</h3>';
             echo '<table class="contestList">';
             echo '<thead class="contestList">';
             echo '<tr><th>Start</th><th>Contest</th></tr>';
@@ -123,7 +123,7 @@ function showOfficial($db_conn)
     {
         if (0 < dbCountResult($result))
         {
-            echo '<h3>Your are or were a contest official:</h3>';
+            echo '<h3>You are or were a contest official:</h3>';
             echo '<table class="contestList">';
             echo '<thead class="contestList">';
             echo '<tr><th>Start</th><th>Contest</th></tr>';
