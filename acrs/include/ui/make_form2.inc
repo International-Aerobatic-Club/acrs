@@ -926,14 +926,17 @@ function Make_one_registration ($fields, $form, $index)
     $page = 6 * ($index - 1) + 1;
     Make_Entry_Template ($form, $page);
     Fill_Entry_Template ($form, $fields, $page);
-    Make_Tech_Template   ($form, $page+2);
-    Fill_Tech_Template   ($form, $fields, $page+2);
-    Make_Blank ($form, $page+3);
-    Make_Order_Of_Flight_Template ($form, $page+4);
-    Fill_Order_Of_Flight_Template ($form, $fields, $page+4);
-    Make_Volunteer_Template ($form, $page+4);
-    Fill_Volunteer_Template ($form, $fields, $page+4);
-    Make_Blank ($form, $page+5);
+    $page += 2;
+#    Make_Tech_Template   ($form, $page+2);
+#    Fill_Tech_Template   ($form, $fields, $page+2);
+#    Make_Blank ($form, $page+3);
+#    $page += 2;
+    Make_Order_Of_Flight_Template ($form, $page);
+    Fill_Order_Of_Flight_Template ($form, $fields, $page);
+    Make_Volunteer_Template ($form, $page);
+    Fill_Volunteer_Template ($form, $fields, $page);
+    $page += 1;
+    Make_Blank ($form, $page);
 }
 
 function Make_one_volunteer($fields, $form, $index)
