@@ -712,8 +712,8 @@ function retrieveExistingRegData($db_conn, $userID, $ctstID, & $registrant)
       }
     }
   }
-  //debugArr("retrieveExistingRegData has:", $registrant);
-  //debug("...retrieveExistingRegData $fail");
+  debugArr("retrieveExistingRegData has:", $registrant);
+  debug("...retrieveExistingRegData $fail");
   return $fail;
 }
 
