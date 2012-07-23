@@ -50,7 +50,7 @@ function insertOrUpdateJudge($db_conn, $judge)
     //debugArr('addJudge.insertOrUpdateJudge, data is ', $judge);
     if (judgeExists($db_conn, $judge))
     {
-        $query = 'update judge set ' .
+        $query = 'update judge set '; 
         $query .= ' region = ' . enumSQL($judge['region'], $_enumSet_region) . ',';
         $query .= ' givenName = ' . strSQL($judge['givenName'],72). ',';
         $query .= ' familyName = ' . strSQL($judge['familyName'],72). ',';
@@ -91,104 +91,105 @@ function removeJudge($db_conn, $judge)
 
 function validateForAdd($db_conn, &$judge)
 {
-        $givenName = crop($judge['givenName'], 80);
-        $familyName = crop($judge['familyName'], 80);
-        $contactPhone = crop($judge['contactPhone'], 320);
-        $availableDate = crop($judge['availableDate'], 10);
-        // all fields valid, check name against registrants using iacID
-            $query = 'select givenName, familyName from registrant where iacID = ' . strSQL($judge['iacID'], 12);
-            //debug($query);
-            $result = dbQuery($db_conn, $query);
-            if (dbErrorNumber() != 0)
+    $givenName = crop($judge['givenName'], 80);
+    $familyName = crop($judge['familyName'], 80);
+    $contactPhone = crop($judge['contactPhone'], 320);
+    $availableDate = crop($judge['availableDate'], 10);
+    $corrMsg = '';
+    // all fields valid, check name against registrants using iacID
+    $query = 'select givenName, familyName from registrant where iacID = ' . strSQL($judge['iacID'], 12);
+    //debug($query);
+    $result = dbQuery($db_conn, $query);
+    if (dbErrorNumber() != 0)
+    {
+        $corrMsg .= '<it>' . dbErrorText() . '<\it>';
+    } else
+        if (dbCountResult($result) != 0)
+        {
+            // have a record with this iacID
+            $row = dbFetchRow($result);
+            //debug('existing uid is '.$judge['iacID']);
+            if (strtolower(addslashes($givenName)) != strtolower($row[0]) || 
+                strtolower(addslashes($familyName)) != strtolower($row[1]))
             {
-                $corrMsg .= '<it>' . dbErrorText() . '<\it>';
-            } else
-                if (dbCountResult($result) != 0)
-                {
-                    // have a record with this iacID
-                    $row = dbFetchRow($result);
-                    //debug('existing uid is '.$judge['iacID']);
-                    if (strtolower(addslashes($givenName)) != strtolower($row[0]) || 
-                        strtolower(addslashes($familyName)) != strtolower($row[1]))
-                    {
-                        $corrMsg .= '<it>The judge name did not match the information on file for this IAC member number.' .
-                        ' If the information now shown is correct, resubmit as shown;' .
-                        " otherwise, <a href='mailto:" . ADMIN_EMAIL . "'?subject=" . urlencode('subject=id conflict') . "'>write to the administrator</a>.</it>";
-                        $judge['givenName'] = strhtml($row[0]);
-                        $judge['familyName'] = strhtml($row[1]);
-                    }
-                } else
-                {
-                    // do not have a record with this iacID
-                    // check family name
-                    if (strlen($familyName) == 0)
-                    {
-                        $corrMsg .= "<li>Provide a family name.</li>";
-                    }
-                    // check given name
-                    if (strlen($givenName) == 0)
-                    {
-                        $corrMsg .= "<li>Provide a given name.</li>";
-                    }
-                    // check contactPhone
-                    if (strlen($contactPhone) == 0)
-                    {
-                        $corrMsg .= "<li>Provide a contact phone number.</li>";
-                    }
-                    // check available date
-                    if (strlen($availableDate) == 0)
-                    {
-                        $corrMsg .= "<li>Provide an available date.</li>";
-                    }
-                }
-            if (strlen($availableDate) < 6)
-            {
-               $judge['availableDate'] = $availableDate . '/' . $_SESSION['ctst_year'];
+                $corrMsg .= '<it>The judge name did not match the information on file for this IAC member number.' .
+                ' If the information now shown is correct, resubmit as shown;' .
+                " otherwise, <a href='mailto:" . ADMIN_EMAIL . "'?subject=" . urlencode('subject=id conflict') . "'>write to the administrator</a>.</it>";
+                $judge['givenName'] = strhtml($row[0]);
+                $judge['familyName'] = strhtml($row[1]);
             }
-                
-            return $corrMsg;
+        } else
+        {
+            // do not have a record with this iacID
+            // check family name
+            if (strlen($familyName) == 0)
+            {
+                $corrMsg .= "<li>Provide a family name.</li>";
+            }
+            // check given name
+            if (strlen($givenName) == 0)
+            {
+                $corrMsg .= "<li>Provide a given name.</li>";
+            }
+            // check contactPhone
+            if (strlen($contactPhone) == 0)
+            {
+                $corrMsg .= "<li>Provide a contact phone number.</li>";
+            }
+            // check available date
+            if (strlen($availableDate) == 0)
+            {
+                $corrMsg .= "<li>Provide an available date.</li>";
+            }
+        }
+    if (strlen($availableDate) < 6)
+    {
+       $judge['availableDate'] = $availableDate . '/' . $_SESSION['ctst_year'];
+    }
+        
+    return $corrMsg;
 }
 
 function doPost($db_conn, &$judge)
 {
-        //debugArr("judge post data", $judge);
-        //debugArr("session data", $_SESSION);
-        
-        $corrMsg = '';
-        $iacID = crop($judge["iacID"], 12);
-        if (strlen($iacID) == 0)
-        {
-            $corrMsg = "<li>Provide an IAC member number.</li>";
-        }
+  //debugArr("judge post data", $judge);
+  //debugArr("session data", $_SESSION);
+  
+  $corrMsg = '';
+  $iacID = crop($judge["iacID"], 12);
+  if (strlen($iacID) == 0)
+  {
+      $corrMsg = "<li>Provide an IAC member number.</li>";
+  }
 
-        $fail = '';
-        if ($corrMsg == '' && isset($judge['add']))
-        {
-            $event = 'Added judge';
-            $corrMsg = validateForAdd($db_conn, $judge);
-            if ($corrMsg == '')
-            {
-            $fail = insertOrUpdateJudge($db_conn, $judge);
-            }
-        }
-        else if ($corrMsg == '')
-            {
-                $event = 'Removed judge';
-                $fail = removeJudge($db_conn, $judge);
-            }
-        if ($fail != '')
-                {
-                $corrMsg .= "<it>DB error: " . $fail . " processing judge.</it>";
-                }
-        if ($corrMsg == '')
-            {
-                $corrMsg = '<it>' . $event . ' ' . $judge['givenName'] . ' ' . $judge['familyName'] . ' in ' . $judge['region'] . ' region.</it>';
-                $judge['givenName'] = null;
-                $judge['familyName'] = null;
-                $judge['contactPhone'] = null;
-                $judge['iacID'] = null;
-                $judge['availableDate'] = null;
-            }
+  $fail = '';
+  if ($corrMsg == '' && isset($judge['add']))
+  {
+      $event = 'Added judge';
+      $corrMsg = validateForAdd($db_conn, $judge);
+      if ($corrMsg == '')
+      {
+      $fail = insertOrUpdateJudge($db_conn, $judge);
+      }
+  }
+  else if ($corrMsg == '')
+      {
+          $event = 'Removed judge';
+          $fail = removeJudge($db_conn, $judge);
+      }
+  if ($fail != '')
+          {
+          $corrMsg .= "<it>DB error: " . $fail . " processing judge.</it>";
+          }
+  if ($corrMsg == '')
+      {
+          $corrMsg = '<it>' . $event . ' ' . $judge['givenName'] . ' ' . $judge['familyName'] . ' in ' . $judge['region'] . ' region.</it>';
+          $judge['givenName'] = null;
+          $judge['familyName'] = null;
+          $judge['contactPhone'] = null;
+          $judge['iacID'] = null;
+          $judge['availableDate'] = null;
+      }
    return $corrMsg;
 }
 
@@ -223,41 +224,44 @@ function displayJudgeForm($judge)
 
 function displayCurrentBallot($db_conn)
 {
-        $fail = '';
-        $query = "select givenName, familyName, iacID," .
-        " region, availableDate" .
-        " from judge where " .
-        " ctstID = " . intSQL($_SESSION['ctstID']) .
-        " order by region, familyName, givenName";
-        $result = dbQuery($db_conn, $query);
-        if (dbErrorNumber() != 0)
+    $fail = '';
+    $query = "select *" .
+    " from judge where " .
+    " ctstID = " . intSQL($_SESSION['ctstID']) .
+    " order by region, familyName, givenName";
+    debug("displayCurrentBallot query = " . $query);
+    $result = dbQuery($db_conn, $query);
+    if (dbErrorNumber() != 0)
+    {
+        $fail = dbErrorText();
+    } else
+    {
+        $haveTable = false;
+        $curRegion = '';
+        $curRcd = dbFetchAssoc($result);
+        if ($curRcd)
         {
-            $fail = dbErrorText();
-        } else
-        {
-            $curRegion = '';
-            $curRcd = dbFetchAssoc($result);
-            if ($curRcd)
-            {
-                echo "<h3>Ballot of Judges</h3\n";
-                echo "<table class='attJudge'><tbody>\n";
-            }
-            while ($curRcd)
-            {
-                if ($curRcd['region'] != $curRegion)
-                {
-                    $curRegion = $curRcd['region'];
-                    echo '<tr><th class="attJudgeRegion" colspan="3">' . $curRegion . '</th></tr>';
-                }
-                echo '<tr class="attJudge"><td class="attJudge">' . strhtml($curRcd["givenName"]) . ' ' . strhtml($curRcd["familyName"]) . '</td><td>' . $curRcd['iacID'] . '</td><td>' . strhtml($curRcd['contactPhone'],16) . '</td><td>' . datehtml($curRcd['availableDate']) . "</td></tr>\n";
-                $curRcd = dbFetchAssoc($result);
-            }
-            if ($curRegion)
-            {
-                echo "</tbody></table>\n";
-            }
+            $haveTable = true;
+            echo "<h3>Ballot of Judges</h3>\n";
+            echo "<table class='attJudge'><tbody>\n";
         }
-        return $fail;
+        while ($curRcd)
+        {
+            debugArr("displayCurrentBallot query result row", $curRcd);
+            if ($curRcd['region'] != $curRegion)
+            {
+                $curRegion = $curRcd['region'];
+                echo '<tr><th class="attJudgeRegion" colspan="3">' . $curRegion . '</th></tr>';
+            }
+            echo '<tr class="attJudge"><td class="attJudge">' . strhtml($curRcd["givenName"]) . ' ' . strhtml($curRcd["familyName"]) . '</td><td>' . $curRcd['iacID'] . '</td><td>' . strhtml($curRcd['contactPhone'],16) . '</td><td>' . datehtml($curRcd['availableDate']) . "</td></tr>\n";
+            $curRcd = dbFetchAssoc($result);
+        }
+        if ($haveTable)
+        {
+            echo "</tbody></table>\n";
+        }
+    }
+    return $fail;
 }
 
 // page processing
@@ -270,16 +274,24 @@ function processForm($postData)
     {
         $corrMsg = "<li>" . strhtml($fail) . "</li>";
     }
-
+    $judge = null;
     $doForm = true;
-    $judge['region'] = 'southwest';
     if ($corrMsg == '' && (isset ($postData["add"]) || isset ($postData["remove"])))
     {
        $judge = $postData;
        $corrMsg = doPost($db_conn, $judge);
     }
+    else
+    {
+      $judge['region'] = 'southwest';
+      $judge['givenName'] = '';
+      $judge['familyName'] = '';
+      $judge['contactPhone'] = '';
+      $judge['iacID'] = '';
+      $judge['availableDate'] = '';
+    }
 
-        startHead("Judge List");
+      startHead("Judge Ballot");
 ?>   
    <style>
    div.userSubmit img {vertical-align:middle;}
