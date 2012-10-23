@@ -35,8 +35,7 @@ function generate_marker_data($db_conn, $ctstID)
    {
      if (0 < dbCountResult($result))
      {
-       echo "\n<script type='text/javascript'>\n";
-       echo 'records = [';
+       echo 'var records = [';
        $first = true;
        while ($curRcd = dbFetchAssoc($result))
        {
@@ -46,7 +45,6 @@ function generate_marker_data($db_conn, $ctstID)
               "',cat:'" . $curRcd['name'] . "'}";
        }
        echo "];\n";
-       echo "</script>\n";
      }
    }
 }
@@ -54,11 +52,12 @@ function generate_marker_data($db_conn, $ctstID)
 $fail = dbConnect($db_conn);
 $ctstID = $_SESSION['ctstID'];
 startHead("Contest Participant Map");
-if ($fail == '') generate_marker_data($db_conn, $ctstID);
+if ($fail == '') {
 ?>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script type="text/javascript">
   function displayMap() {
+    <?php generate_marker_data($db_conn, $ctstID) ?>
     var mapOptions = {
       center: new google.maps.LatLng(38.68,-96),
       zoom: 5,
@@ -88,6 +87,7 @@ if ($fail == '') generate_marker_data($db_conn, $ctstID);
   window.onload = loadScript;
 </script>
 <?php
+}
 startContent();
 echo '<h1>Contest Participant Map</h1>';
 echo '<a href="index.php">Back</a>';
