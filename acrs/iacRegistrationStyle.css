@@ -115,3 +115,4 @@
   div.afterReg p { margin-bottom:0pt; }
   ul.advancedReg { margin-top:0pt; }
   ul.adminReg { margin-top:0pt; margin-bottom:0pt; }
+  div#map_canvas { height: 800px; width:1400px; }
