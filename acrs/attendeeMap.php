@@ -64,25 +64,34 @@ if ($fail == '') {
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     geocoder = new google.maps.Geocoder();
+    last_position = '';
     function mark_record_list(ra) 
     {
       if (!ra.empty)
       {
+        var cur = 0;
         record = ra[0];
         geocoder.geocode( { 'address': record.zip }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
-            var marker = new google.maps.Marker({
-              map: map,
-              position: results[0].geometry.location,
-              title: record.cat
-            });
+            while (cur < ra.length && ra[cur].zip == record.zip)
+            {
+              var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location,
+                title: ra[cur].cat
+              });
+              cur += 1;
+            }
           } 
           else
           {
             console.log("zip %s returned status %d", record.zip, status);
           }
+          if (cur < ra.length)
+          {
+            setTimeout(function(){mark_record_list(ra.slice(cur));},250);
+          }
         });
-        setTimeout(function(){mark_record_list(ra.slice(1));},250);
       }
     }
     mark_record_list(records);
