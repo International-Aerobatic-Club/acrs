@@ -35,18 +35,18 @@ function generate_marker_data($db_conn, $ctstID)
    {
      if (0 < dbCountResult($result))
      {
-       echo '<script type="text/javascript">';
+       echo "\n<script type='text/javascript'>\n";
        echo 'records = [';
        $first = true;
        while ($curRcd = dbFetchAssoc($result))
        {
-         if (!$first) echo ',';
+         if (!$first) echo ",\n";
          $first = false;
          echo "{zip:'" . $curRcd['postalCode'] .
               "',cat:'" . $curRcd['name'] . "'}";
        }
-       echo '];';
-       echo '</script>';
+       echo "];\n";
+       echo "</script>\n";
      }
    }
 }
@@ -57,37 +57,38 @@ startHead("Contest Participant Map");
 if ($fail == '') generate_marker_data($db_conn, $ctstID);
 ?>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      #map_canvas { height: 800px; width:1400px; }
-    </style>
-    <script type="text/javascript"
-      src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoGeFLs6fqDgfOGVOwThfBqrKouS9TQfQ&sensor=false">
-    </script>
-    <script type="text/javascript">
-      function displayMap() {
-        var mapOptions = {
-          center: new google.maps.LatLng(38.68,-96),
-          zoom: 5,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-        geocoder = new google.maps.Geocoder();
-        records.forEach(function(record) {
-          geocoder.geocode( { 'address': record.zip}, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-              var marker = new google.maps.Marker({
-                map: map,
-                position: results[0].geometry.location,
-                title: record.cat
-              });
-            } 
+<script type="text/javascript">
+  function displayMap() {
+    var mapOptions = {
+      center: new google.maps.LatLng(38.68,-96),
+      zoom: 5,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+    geocoder = new google.maps.Geocoder();
+    records.forEach(function(record) {
+      geocoder.geocode( { 'address': record.zip}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            title: record.cat
           });
-        });
-      }
-    </script>
+        } 
+      });
+    });
+  }
+
+  function loadScript() {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAoGeFLs6fqDgfOGVOwThfBqrKouS9TQfQ&sensor=false&callback=displayMap";
+    document.body.appendChild(script);
+  }
+  window.onload = loadScript;
+</script>
 <?php
-startContent("onload='displayMap()'");
+startContent();
 echo '<h1>Contest Participant Map</h1>';
 echo '<a href="index.php">Back</a>';
 echo '<div id="map_canvas"></div>';
