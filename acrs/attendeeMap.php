@@ -22,7 +22,8 @@ function generate_marker_data($db_conn, $ctstID)
     ' and f.ctstID = ' . $ctstID .
     " and f.compType = 'competitor'" .
     ' and b.regID = f.regID' .
-    ' and e.catID = b.catID';
+    ' and e.catID = b.catID' .
+    ' order by a.postalCode';
     //debug('generate_marker_data:'.$query);
    $result = dbQuery($db_conn, $query);
    if ($result === false)
