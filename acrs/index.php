@@ -112,8 +112,7 @@ function showRegistrants($db_conn)
    {
       $curCat = '';
       $curRcd = dbFetchAssoc($result);
-      if ($curRcd)
-      echo "<h3>Registered Contestants</h3\n";
+      if ($curRcd) echo "<h3>Registered Contestants</h3>\n";
       while ($curRcd)
       {
          if ($curCat != $curRcd['catID'])
@@ -342,6 +341,8 @@ if ($fail != '')
 
    echo "</td></trow></tbody></table>\n";
 
+   echo '<p><a href="attendeeMap.php">Contest Participant Map</a></p>';
+
    showRegistrants($db_conn);
 
    dbClose($db_conn);
@@ -350,7 +351,7 @@ endContent();
 ?>
 <?php
 /*
- Copyright 2008 International Aerobatic Club, Inc.
+ Copyright 2008, 2012 International Aerobatic Club, Inc.
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
