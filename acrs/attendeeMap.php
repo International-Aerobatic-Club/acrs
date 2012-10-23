@@ -86,6 +86,7 @@ if ($fail == '') {
           else
           {
             console.log("zip %s returned status %d", record.zip, status);
+            cur += 1;
           }
           if (cur < ra.length)
           {
