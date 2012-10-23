@@ -41,28 +41,6 @@ function generate_marker_data($db_conn, $ctstID)
        {
          if (!$first) echo ",\n";
          $first = false;
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
-         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
          echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" . $curRcd['name'] . "'}";
        }
        echo "];\n";
