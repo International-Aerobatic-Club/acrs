@@ -43,7 +43,7 @@ function generate_marker_data($db_conn, $ctstID)
          if (!$first) echo ',';
          $first = false;
          echo "{zip:'" . $curRcd['postalCode'] .
-              "',cat:'" . $curRcd['name'] . "Unlimited'}";
+              "',cat:'" . $curRcd['name'] . "'}";
        }
        echo '];';
        echo '</script>';
