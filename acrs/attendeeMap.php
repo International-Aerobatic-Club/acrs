@@ -41,8 +41,29 @@ function generate_marker_data($db_conn, $ctstID)
        {
          if (!$first) echo ",\n";
          $first = false;
-         echo "{zip:'" . $curRcd['postalCode'] .
-              "',cat:'" . $curRcd['name'] . "'}";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" .  $curRcd['name'] . "'},";
+         echo "{zip:'" . $curRcd['postalCode'] .  "',cat:'" . $curRcd['name'] . "'}";
        }
        echo "];\n";
      }
@@ -65,17 +86,28 @@ if ($fail == '') {
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     geocoder = new google.maps.Geocoder();
-    records.forEach(function(record) {
-      geocoder.geocode( { 'address': record.zip}, function(results, status) {
-        if (status == google.maps.GeocoderStatus.OK) {
-          var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            title: record.cat
-          });
-        } 
-      });
-    });
+    function mark_record_list(ra) 
+    {
+      if (!ra.empty)
+      {
+        record = ra[0];
+        geocoder.geocode( { 'address': record.zip }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location,
+              title: record.cat
+            });
+          } 
+          else
+          {
+            console.log("zip %s returned status %d", record.zip, status);
+          }
+        });
+        setTimeout(function(){mark_record_list(ra.slice(1));},250);
+      }
+    }
+    mark_record_list(records);
   }
 
   function loadScript() {
