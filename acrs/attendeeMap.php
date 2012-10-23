@@ -64,7 +64,8 @@ if ($fail == '') {
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
     geocoder = new google.maps.Geocoder();
-    timeout = 250;
+    interval = 350;
+    timeout = interval;
     function mark_record_list(ra) 
     {
       if (!ra.empty)
@@ -72,7 +73,6 @@ if ($fail == '') {
         var cur = 0;
         record = ra[0];
         geocoder.geocode( { 'address': record.zip }, function(results, status) {
-          console.log("zip %s returned status %d", record.zip, status);
           if (status == google.maps.GeocoderStatus.OK) {
             while (cur < ra.length && ra[cur].zip == record.zip)
             {
@@ -83,7 +83,7 @@ if ($fail == '') {
               });
               cur += 1;
             }
-            timeout = 250;
+            timeout = interval;
           } 
           else if (status == google.maps.GeocoderStatus.ZERO_RESULTS)
           {
@@ -94,7 +94,7 @@ if ($fail == '') {
           }
           else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT)
           {
-            timeout = 2 * timeout;
+            timeout += interval;
           }
           else
           {
