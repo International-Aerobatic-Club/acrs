@@ -72,6 +72,8 @@ if ($fail == '') {
         var cur = 0;
         record = ra[0];
         geocoder.geocode( { 'address': record.zip }, function(results, status) {
+          timeout = 250;
+          console.log("zip %s returned status %d", record.zip, status);
           if (status == google.maps.GeocoderStatus.OK) {
             while (cur < ra.length && ra[cur].zip == record.zip)
             {
@@ -83,14 +85,24 @@ if ($fail == '') {
               cur += 1;
             }
           } 
+          else if (status == google.maps.GeocoderStatus.ZERO_RESULTS)
+          {
+            while (cur < ra.length && ra[cur].zip == record.zip)
+            {
+              cur += 1;
+            }
+          }
+          else if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT)
+          {
+            timeout = timeout + 250;
+          }
           else
           {
-            console.log("zip %s returned status %d", record.zip, status);
             cur += 1;
           }
           if (cur < ra.length)
           {
-            setTimeout(function(){mark_record_list(ra.slice(cur));},250);
+            setTimeout(function(){mark_record_list(ra.slice(cur));},timeout);
           }
         });
       }
