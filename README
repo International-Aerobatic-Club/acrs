@@ -1,0 +1,14 @@
+This is a PHP web application developed without a framework.
+It serves to register participants in aerobatic contests held by the
+International Aerobatic Club (IAC).
+It was originally written in 2007 or 2008 as a registration system for one
+contest, the U.S. National Aerobatic Championships.  The next year it was
+extended to support registration for multiple contests.  
+It is now used for most of
+the IAC Regional aerobatic contests.
+Find the operating installation http://www.iacusn.org/acrs/
+
+With such a specific purpose there's little reason to 
+download and install it other than to work on
+the code base.  Helpers are welcome.  If you want to add features or make
+improvements, by all means contact wbreeze, fork, download, mess around.
