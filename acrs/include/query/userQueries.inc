@@ -582,6 +582,8 @@ function doRetrieveRegistration($db_conn, $regID, & $registrant)
       sqlBoolValueToPostData($row['isFirstTime'], 'isFirstTime', $registrant);
       sqlBoolValueToPostData($row['hasVotedJudge'], 'hasVotedJudge', $registrant);
    }
+   sqlCheckNullDefault($row['airworthiness'], 'airworthiness', 
+     $registrant, 'experimental');
    // debug("Leaving doRetrieveRegistration says, $fail ...");
    return $fail;
 }
@@ -712,8 +714,8 @@ function retrieveExistingRegData($db_conn, $userID, $ctstID, & $registrant)
       }
     }
   }
-  debugArr("retrieveExistingRegData has:", $registrant);
-  debug("...retrieveExistingRegData $fail");
+  //debugArr("retrieveExistingRegData has:", $registrant);
+  //debug("...retrieveExistingRegData $fail");
   return $fail;
 }
 
