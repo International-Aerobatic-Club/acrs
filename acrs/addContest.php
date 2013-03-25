@@ -72,10 +72,6 @@ function validatePost($record)
    }
 
    $record['homeURL'] = crop($record['homeURL'], 320);
-   if (strlen($record['homeURL']) == 0)
-   {
-      $corrMsg .= '<li>Provide an announcement web address</li>';
-   }
    $record['regEmail'] = crop($record['regEmail'], 320);
    if (strlen($record['regEmail']) == 0)
    {
@@ -102,7 +98,7 @@ function validatePost($record)
       $record['payEmail'] = crop($record['payEmail'], 320);
       if (strlen($record['payEmail']) == 0)
       {
-         $corrMsg .= '<li>Provide PayPal account identifier</li>';
+         $corrMsg .= '<li>Provide PayPal account email</li>';
       }
    }
    if (boolChecked($record, 'hasPracticeReg'))

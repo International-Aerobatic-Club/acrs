@@ -33,7 +33,8 @@ function addContestForm($record, $action)
    echo "<td class=\"form_text\"><label for=\"in_startDate\">First date of competition flying(MM/DD):</label><input id=\"in_startDate\" name=\"startDate\" value=\"".$record['startDate']."\" maxlength=\"5\" size=\"5\"/></td>\n";
    echo "<td class=\"form_text\"><label for=\"in_endDate\">Last date of competition flying(MM/DD):</label><input id=\"in_endDate\" name=\"endDate\" value=\"".$record['endDate']."\" maxlength=\"5\" size=\"5\"/></td>\n";
    echo "<td/></tr><tr>\n";
-   echo "<td colspan=\"2\"  class=\"form_text\"><label for=\"in_homeURL\">Announcement Web address:</label><input id=\"in_homeURL\" name=\"homeURL\" value=\"".$record['homeURL']."\" maxlength=\"320\" size=\"32\"/></td>\n";
+   echo "<td colspan=\"2\"  class=\"form_text\"><label
+   for=\"in_homeURL\">Announcement Web address (optional):</label><input id=\"in_homeURL\" name=\"homeURL\" value=\"".$record['homeURL']."\" maxlength=\"320\" size=\"32\"/></td>\n";
    echo "</tr><tr>\n";
    echo "<td colspan=\"2\"  class=\"form_text\"><label for=\"in_regEmail\">Registration email contact:</label><input id=\"in_regEmail\" name=\"regEmail\" value=\"".$record['regEmail']."\" maxlength=\"320\" size=\"32\"/></td>\n";
    echo "</tr><tr>\n";
@@ -43,7 +44,7 @@ function addContestForm($record, $action)
    echo "<input class=\"form_select\" id=\"in_hasPayPal_yes\" type=\"radio\" name=\"hasPayPal\" value=\"yes\" ".isSelected($record,'hasPayPal','yes').">yes</input>\n";
    echo "<input class=\"form_select\" id=\"in_hasPayPal_no\" type=\"radio\" name=\"hasPayPal\" value=\"no\" ".isSelected($record,'hasPayPal','no').">no</input>\n";
    echo "</fieldset></td>\n";
-   echo "<td class=\"form_text\"><label for=\"in_payEmail\">PayPal account identifier:</label><input id=\"in_payEmail\" name=\"payEmail\" value=\"".$record['payEmail']."\" maxlength=\"320\" size=\"32\"/></td>\n";
+   echo "<td class=\"form_text\"><label for=\"in_payEmail\">PayPal account email:</label><input id=\"in_payEmail\" name=\"payEmail\" value=\"".$record['payEmail']."\" maxlength=\"320\" size=\"32\"/></td>\n";
    echo "</tr><tr>\n";
    echo "<td class=\"form_select\"><label for=\"in_hasVoteJudge\">Has judge voting?:</label><fieldset id=\"in_hasVoteJudge\" legend=\"Has judge voting?\">\n";
    echo "<input class=\"form_select\" id=\"in_hasVoteJudge_yes\" type=\"radio\" name=\"hasVoteJudge\" value=\"yes\" ".isSelected($record,'hasVoteJudge','yes').">yes</input>\n";
