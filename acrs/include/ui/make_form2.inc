@@ -35,11 +35,12 @@ function Make_Entry_Template (&$form, $page)
 
     $form->CForm_Add_Text_Line   ($page, 45, 8, FONT_BOLD, 12, "INTERNATIONAL AEROBATIC CLUB");
     $form->CForm_Add_Text_Line   ($page, 51, 11, FONT_BOLD, 12, "Official Contest Entry Form");
-    $form->CForm_Add_Double_Line ($page, 21, 17, 128);
+
+    $form->CForm_Add_Double_Line ($page, 8, 27, 128);
 
     // Contest Information
     
-    $y = 20;
+    $y = 30;
 
     $form->CForm_Add_Text_Line   ($page, 8,   $y, FONT_BOLD, 10, "CONTEST:");
     $form->CForm_Add_Text_Line   ($page, 22,  $y, FONT, 10, "Name:");
@@ -78,6 +79,7 @@ function Make_Entry_Template (&$form, $page)
     $form->CForm_Add_Text_Line   ($page, 22,  $y + 20, FONT, 10, "First-Time Competitor:");
     $form->CForm_Add_Checkbox    ($page, 47,  $y + 20, 10);
     $form->CForm_Add_Text_Line   ($page, 51,  $y + 20, FONT, 10, "(mark if, first time flying in chosen contest category)");
+
     $form->CForm_Add_Double_Line ($page, 8,   $y + 25, 128);
 
     // Pilot Information
@@ -94,6 +96,16 @@ function Make_Entry_Template (&$form, $page)
     $form->CForm_Add_Text_Line   ($page, 32,  $y + 8, FONT, 8, "Street");
     $form->CForm_Add_Text_Line   ($page, 72,  $y + 8, FONT, 8, "City");
     $form->CForm_Add_Text_Line   ($page, 104, $y + 8, FONT, 8, "State/Zip");
+    $form->CForm_Add_Text_Line   ($page, 22,  $y + 12, FONT, 10, "Country:");
+    $form->CForm_Add_UnderLine   ($page, 32,  $y + 12, 75, 10);
+    $form->CForm_Add_Text_Line   ($page, 81,  $y + 12, FONT, 10, "U.S. Citizen:");
+    $form->CForm_Add_Checkbox    ($page, 96,  $y + 12, 10);
+    $form->CForm_Add_Text_Line   ($page, 99,  $y + 12, FONT, 10, "Yes");
+    $form->CForm_Add_Checkbox    ($page, 106,  $y + 12, 10);
+    $form->CForm_Add_Text_Line   ($page, 109,  $y + 12, FONT, 10, "No");
+
+    $y = $y + 5;
+
     $form->CForm_Add_Text_Line   ($page, 22,  $y + 12, FONT, 10, "E-mail Address:");
     $form->CForm_Add_UnderLine   ($page, 39,  $y + 12, 80, 10);
     $form->CForm_Add_Text_Line   ($page, 86,  $y + 12, FONT, 10, "Birth Date:");
@@ -114,11 +126,11 @@ function Make_Entry_Template (&$form, $page)
     $form->CForm_Add_Underline   ($page, 45,  $y + 32, 126, 10);
     $form->CForm_Add_Text_Line   ($page, 45,  $y + 35, FONT, 8, "Name");
     $form->CForm_Add_Text_Line   ($page, 86,  $y + 35, FONT, 8, "Phone number(s)");
-    $form->CForm_Add_Double_Line ($page, 8,   $y + 37, 128);
+    $form->CForm_Add_Double_Line ($page, 8,   $y + 39, 128);
 
     // Owner Information
     
-    $y = $y + 40;
+    $y = $y + 42;
 
     $form->CForm_Add_Text_Line   ($page, 8,   $y, FONT_BOLD, 10, "OWNER:");
     $form->CForm_Add_Text_Line   ($page, 22,  $y, FONT, 10, "Name:");
@@ -130,11 +142,11 @@ function Make_Entry_Template (&$form, $page)
     $form->CForm_Add_Text_Line   ($page, 32,  $y + 8, FONT, 8, "Street");
     $form->CForm_Add_Text_Line   ($page, 72,  $y + 8, FONT, 8, "City");
     $form->CForm_Add_Text_Line   ($page, 104, $y + 8, FONT, 8, "State/Zip");
-    $form->CForm_Add_Double_Line ($page, 8,   $y + 10, 128);
+    $form->CForm_Add_Double_Line ($page, 8,   $y + 12, 128);
 
     // Aircraft Information
 
-    $y = $y + 13;
+    $y = $y + 15;
     
     $form->CForm_Add_Text_Line   ($page, 8,   $y, FONT_BOLD, 10, "AIRCRAFT:");
     $form->CForm_Add_Text_Line   ($page, 22,  $y, FONT, 10, "Make/Model:");
@@ -155,62 +167,67 @@ function Make_Entry_Template (&$form, $page)
     $form->CForm_Add_Text_Line   ($page, 46,  $y + 18, FONT, 8, "Company");
     $form->CForm_Add_Text_Line   ($page, 80,  $y + 18, FONT, 8, "Type");
     $form->CForm_Add_Text_Line   ($page, 103, $y + 18, FONT, 8, "Amount");
-    $form->CForm_Add_Double_Line ($page, 8,   $y + 20, 128);
+    $form->CForm_Add_Double_Line ($page, 8,   $y + 22, 128);
 
     // Legalese
+    $page = $page + 1;
     
-    $y = $y + 23;
+    $y = 13;
 
     $form->CForm_Add_Text_Lines ($page, 8, $y, 128, FONT, 10,
        "The undersigned owner and pilot hereby for the entry in the aforementioned contest and, if permitted to participate " .
        "in said contest, agree to the following terms and conditions:");
 
-    $form->CForm_Add_Text_Lines ($page, 8,  $y + 8, 11,  FONT, 9, "1.");
-    $form->CForm_Add_Text_Lines ($page, 12, $y + 8, 128, FONT, 9, "That all statements on this application are true;");
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 8, 11,  FONT, 10, "1.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 8, 128, FONT, 10, "That all statements on this application are true;");
 
-    $form->CForm_Add_Text_Lines ($page, 8,  $y + 13, 11,  FONT, 9, "2.");
-    $form->CForm_Add_Text_Lines ($page, 12, $y + 13, 128, FONT, 9,
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 13, 11,  FONT, 10, "2.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 13, 128, FONT, 10,
         "That the owner, pilot and aforementioned aircraft currently comply and will continue to comply throughout this contest " .
         "with all applicable Federal Aviation Regulations and all IAC rules and regulations;");
 
-    $form->CForm_Add_Text_Lines ($page, 8,  $y + 20, 11,  FONT, 9, "3.");
-    $form->CForm_Add_Text_Lines ($page, 12, $y + 20, 128, FONT, 9,
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 20, 11,  FONT, 10, "3.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 20, 128, FONT, 10,
         "That participation in this contest is not authorized until acceptance is evidenced below by the contest director and the " .
         "entry fee has been paid;");
 
-    $form->CForm_Add_Text_Lines ($page, 8,  $y + 27, 11,  FONT, 9, "4.");
-    $form->CForm_Add_Text_Lines ($page, 12, $y + 27, 128, FONT, 9,
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 27, 11,  FONT, 10, "4.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 27, 128, FONT, 10,
         "That all the requirements of the various contest committees will be immediately compiled with upon request, including " .
         "technical inspections and attendance at all pilot briefings;");
 
-    $y = 8;
+    $y = $y + 34;
     
-    $form->CForm_Add_Text_Lines ($page + 1, 8,  $y,  11, FONT, 9, "5.");
-    $form->CForm_Add_Text_Lines ($page + 1, 12, $y, 128, FONT, 9,
+    $form->CForm_Add_Text_Lines ($page, 8,  $y,  11, FONT, 10, "5.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y, 128, FONT, 10,
         "That the undersigned assign and transfer any and all rights to photograph, tape, film, or in any way reproduce the " .
         "participation of owner, pilot and/or aircraft in this contest to the IAC, its agents, successors, or assigns;");
 
     $y = $y + 7;
     
-    $form->CForm_Add_Text_Lines ($page + 1, 8,  $y, 11,  FONT, 9, "6.");
-    $form->CForm_Add_Text_Lines ($page + 1, 12, $y, 128, FONT, 9,
+    $form->CForm_Add_Text_Lines ($page, 8,  $y, 11,  FONT, 10, "6.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y, 128, FONT, 10,
         "That the undersigned, for themselves, their heirs, administrators, and executors, hereby accept full and complete " .
         "responsibility for and agree to release, indemnify, and hold the IAC, contest officials and sponsors, airport " .
         "owners and operators and any agents thereof harmless from any and all damages or liability whether caused by or " .
         "incurred by the undersigned as a result of their negligence, acts or omissions during participation in this contest;");
 
-    $form->CForm_Add_Text_Lines ($page + 1, 8,  $y + 11, 11,  FONT, 9, "7.");
-    $form->CForm_Add_Text_Lines ($page + 1, 12, $y + 11, 128, FONT, 9,
+    $y = $y + 2;
+
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 11, 11,  FONT, 10, "7.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 11, 128, FONT, 10,
         "That the contest director may at any time and for any reason terminate participation of the owner, pilot, or aircraft " .
         "in this contest, and neither the director nor the IAC shall incur any liability or further duty to the undersigned as " .
         "a result thereof.");
 
-    $form->CForm_Add_Text_Lines ($page + 1, 8,  $y + 19, 11, FONT, 9, "8.");
-    $form->CForm_Add_Text_Lines ($page + 1, 12, $y + 19, 128, FONT, 9,
+    $y = $y + 2;
+
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 19, 11, FONT, 10, "8.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 19, 128, FONT, 10,
         "The International Aerobatic Club, Inc. as well as its chapters, officers, directors, employees, agents, contractors " .
-        "and servants (all hereinafter referred to as �IAC�), are involved in varying degrees with the presentation of this " .
+        "and servants (all hereinafter referred to as \"IAC\"), are involved in varying degrees with the presentation of this " .
         "contest.  The IAC, HOWEVER, HAS ABSOLUTELY NO CONTROL NOR RESPONSIBILITY FOR ANY FLIGHT OR FLIGHT RELATED ACTIVITY " .
-        "RESULTING FROM ANY INDIVIDUAL�S ATTENDANCE AT OR PARTICIPATION IN ANY PHASE OF SAID CONTEST.  ALL FLIGHT OR FLIGHT " .
+        "RESULTING FROM ANY INDIVIDUAL'S ATTENDANCE AT OR PARTICIPATION IN ANY PHASE OF SAID CONTEST.  ALL FLIGHT OR FLIGHT " .
         "RELATED ACTIVITY IS REGULATED BY THE RULES AND REGULATIONS OF THE FEDERAL AVIATION ADMINISTRATION and/or FIELD " .
         "PERSONNEL, INCLUDING BUT IN NO WAY LIMITED TO APPROACH, LANDING, TAXIING, PARKING, TAKEOFF, DEPARTURE, AND " .
         "PARTICIPATION IN SAID CONTEST.  ALL PILOTS OPERATE THEIR AIRCRAFT AS PILOT IN COMMAND, AT THEIR OWN RISK AND EACH " .
@@ -219,39 +236,42 @@ function Make_Entry_Template (&$form, $page)
         "ANY AND ALL EXPENSES, DAMAGES, CAUSE OF ACTION, LOSSES, AND LIABILITY WHATSOEVER, WHETHER TO SAID PILOT OR TO " .
         "ANY PASSENGERS OR OTHER THIRD PARTIES.");
 
-    $form->CForm_Add_Text_Lines ($page + 1, 8,  $y + 47, 11,  FONT, 9, "9.");
-    $form->CForm_Add_Text_Lines ($page + 1, 12, $y + 47, 128, FONT, 9,
+    $y = $y + 9;
+
+    $form->CForm_Add_Text_Lines ($page, 8,  $y + 47, 11,  FONT, 10, "9.");
+    $form->CForm_Add_Text_Lines ($page, 12, $y + 47, 128, FONT, 10,
         "The permitting of participation by contestant ((owner and/or pilot) in no way shall be an approval or certification " .
         "of the structural or mechanical ability of any aircraft or the competency of any pilot to perform the maneuvers " .
         "necessary to participate in said contest.");
 
     // Pilot Signature
 
-    $form->CForm_Add_Line      ($page + 1, 8,  $y + 57, 72);
-    $form->CForm_Add_Text_Line ($page + 1, 8,  $y + 58, FONT, 10, "Pilot's Signature");
-    $form->CForm_Add_Line      ($page + 1, 80, $y + 57, 126);
-    $form->CForm_Add_Text_Line ($page + 1, 80, $y + 58, FONT, 10, "Date");
+    $y = $y + 7;
+
+    $form->CForm_Add_Line      ($page, 8,  $y + 56, 72);
+    $form->CForm_Add_Text_Line ($page, 8,  $y + 57, FONT, 10, "Pilot's Signature");
+    $form->CForm_Add_Line      ($page, 80, $y + 56, 126);
+    $form->CForm_Add_Text_Line ($page, 80, $y + 57, FONT, 10, "Date");
 
     // Owner Signature
 
-    $form->CForm_Add_Line      ($page + 1, 8,  $y + 64, 72);
-    $form->CForm_Add_Text_Line ($page + 1, 8,  $y + 65, FONT, 10, "Owner's Signature");
-    $form->CForm_Add_Line      ($page + 1, 80, $y + 64, 126);
-    $form->CForm_Add_Text_Line ($page + 1, 80, $y + 65, FONT, 10, "Date");
+    $form->CForm_Add_Line      ($page, 8,  $y + 64, 72);
+    $form->CForm_Add_Text_Line ($page, 8,  $y + 65, FONT, 10, "Owner's Signature");
+    $form->CForm_Add_Line      ($page, 80, $y + 64, 126);
+    $form->CForm_Add_Text_Line ($page, 80, $y + 65, FONT, 10, "Date");
 
-    $form->CForm_Add_Text_Line ($page + 1, 8, $y + 71, FONT_BOLD, 10, "ACCEPTED FOR PARTICIPATION:");
+    $form->CForm_Add_Text_Line ($page, 8, $y + 70, FONT_BOLD, 10, "ACCEPTED FOR PARTICIPATION:");
 
     // CD Signature
 
-    $form->CForm_Add_Line      ($page + 1, 8, $y + 78, 72);
-    $form->CForm_Add_Text_Line ($page + 1, 8, $y + 79, FONT, 10, "Contest Director's Signature");
-    $form->CForm_Add_Line      ($page + 1, 80, $y + 78, 126);
-    $form->CForm_Add_Text_Line ($page + 1, 80, $y + 79, FONT, 10, "Date");
+    $form->CForm_Add_Line      ($page, 8, $y + 78, 72);
+    $form->CForm_Add_Text_Line ($page, 8, $y + 79, FONT, 10, "Contest Director's Signature");
+    $form->CForm_Add_Line      ($page, 80, $y + 78, 126);
+    $form->CForm_Add_Text_Line ($page, 80, $y + 79, FONT, 10, "Date");
     
     // Document info
     
-    $form->CForm_Add_Text_Line ($page, 104, 170, FONT, 6, "IAC Official Contest Entry Form - 2010");
-    $form->CForm_Add_Text_Line ($page + 1, 104, 170, FONT, 6, "IAC Official Contest Entry Form - 2010");
+    $form->CForm_Add_Text_Line ($page, 114, 170, FONT, 6, "Tab 3 - Form 01");
 }
 
 function Make_Tech_Template (&$form, $page)
@@ -517,7 +537,8 @@ function Split_Name ($name)
 
 function Fill_Entry_Template (&$form, $fields, $page)
 {
-    $y = 20;
+    $y = 30;
+
     $lines = Split_Name ($fields ["contest_name"]);
 	if (count ($lines) > 1) {
         $form->CForm_Add_Text_Line ($page, 34, $y - 2, FILL_FONT, 10, $lines [0]);
@@ -584,11 +605,14 @@ function Fill_Entry_Template (&$form, $fields, $page)
 	}
 
     $y = $y + 28;
+
     $form->CForm_Add_Text_Line ($page, 32,  $y,     FILL_FONT, 10, Value ($fields, "pilot_first_name") . " " . Value ($fields, "pilot_last_name"));
     $form->CForm_Add_Text_Line ($page, 104, $y,     FILL_FONT, 10, Value ($fields, "pilot_iac_number"));
     $form->CForm_Add_Text_Line ($page, 32,  $y + 5, FILL_FONT, 10, Value ($fields, "pilot_street"));
     $form->CForm_Add_Text_Line ($page, 72,  $y + 5, FILL_FONT, 10, Value ($fields, "pilot_city"));
     $form->CForm_Add_Text_Line ($page, 104, $y + 5, FILL_FONT, 10, Value ($fields, "pilot_state") . " " . Value ($fields, "pilot_zip"));
+    $form->CForm_Add_Text_Line ($page, 33, $y + 12, FILL_FONT, 10, Value ($fields, "pilot_country"));
+    $y = $y + 5;
     $form->CForm_Add_Text_Line ($page, 40,  $y + 12, FILL_FONT, 10, Value ($fields, "pilot_email"));
     $form->CForm_Add_Text_Line ($page, 100, $y + 12, FILL_FONT, 10, Value ($fields, "pilot_birthdate"));
     $form->CForm_Add_Text_Line ($page, 32,  $y + 17, FILL_FONT, 10, Value ($fields, "pilot_phone"));
@@ -600,14 +624,20 @@ function Fill_Entry_Template (&$form, $fields, $page)
     $form->CForm_Add_Text_Line ($page, 45,  $y + 32, FILL_FONT, 10, Value ($fields, "pilot_emergency_contact"));
     $form->CForm_Add_Text_Line ($page, 86,  $y + 32, FILL_FONT, 10, Value ($fields, "pilot_emergency_contact_phone"));
 
-    $y = $y + 40;
+    // Owner Information
+
+    $y = $y + 42;
+
     $form->CForm_Add_Text_Line ($page, 32,  $y, FILL_FONT, 10, Value ($fields, "owner_name"));
     $form->CForm_Add_Text_Line ($page, 100, $y, FILL_FONT, 10, Value ($fields, "owner_phone"));
     $form->CForm_Add_Text_Line ($page, 32,  $y + 5, FILL_FONT, 10, Value ($fields, "owner_street"));
     $form->CForm_Add_Text_Line ($page, 72,  $y + 5, FILL_FONT, 10, Value ($fields, "owner_city"));
     $form->CForm_Add_Text_Line ($page, 104, $y + 5, FILL_FONT, 10, Value ($fields, "owner_state") . " " . Value ($fields, "owner_zip"));
 
-    $y = $y + 13;
+    // Aircraft Information
+
+    $y = $y + 15;
+
     $form->CForm_Add_Text_Line ($page, 38,  $y, FILL_FONT, 10, Value ($fields, "aircraft_make_model"));
     $form->CForm_Add_Text_Line ($page, 104, $y, FILL_FONT, 10, Value ($fields, "aircraft_n_number"));
     if (Value ($fields, "aircraft_grass_root_qualified") == "grass_root_qualified") {

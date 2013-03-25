@@ -29,7 +29,7 @@ function xlateDataForPDF($db_conn, $record)
    $fields['pilot_street'] = $record['address'];
    $fields['pilot_city'] = $record['city'];
    $fields['pilot_state'] = $record['state'];
-   if ($record['country'] != '') $fields['pilot_state'] .= ', ' . $record['country'];
+   $fields['pilot_country'] = $record['country'];
    $fields['pilot_zip'] = $record['postalCode'];
    $fields['pilot_email'] = $record['email'];
    //    $fields['pilot_birthdate'] = $record[''];
@@ -50,7 +50,6 @@ function xlateDataForPDF($db_conn, $record)
    $fields['owner_street'] = $record['ownerAddress'];
    $fields['owner_city'] = $record['ownerCity'];
    $fields['owner_state'] = $record['ownerState'];
-   if ($record['ownerCountry'] != '') $fields['owner_state'] .= ', ' . $record['ownerCountry'];
    $fields['owner_zip'] = $record['ownerPostal'];
    $fields['aircraft_make_model'] = $record['airplaneMake']. ' ' . $record['airplaneModel'];
    $fields['aircraft_n_number'] = $record['airplaneRegID'];
