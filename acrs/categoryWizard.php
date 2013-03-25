@@ -78,6 +78,7 @@ function gliderSelectionForm($record)
     echo "</label><fieldset id=\"in_category\" legend=\"Category\">\n";
     categoryCheck('glider', 'sportsman');
     categoryCheck('glider', 'intermediate');
+    categoryCheck('glider', 'advanced');
     categoryCheck('glider', 'unlimited');
     echo "</fieldset></td>\n";
     echo "<label for=\"in_regFee\">Registration fee:</label>\n";
