@@ -194,7 +194,8 @@ class CForm {
                     case TYPE_TEXT_LINES:
                         $pdf->SetFont ($elem->font_type, $elem->font_style, $elem->font_size*$scale);
                         $pdf->SetXY ($elem->x*$unit, $elem->y*$unit);
-                        $pdf->MultiCell (($elem->x_end - $elem->x)*$unit, $elem->font_size*$scale, $elem->text);
+                        $pdf->MultiCell (($elem->x_end - $elem->x)*$unit,
+                          $elem->font_size*$scale*1.2, $elem->text);
                         break;
 
                     case TYPE_UNDERLINE:
