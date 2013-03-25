@@ -29,7 +29,7 @@ function sendAccountEstablishedEmail($registrant, $newPwd)
     $subject = "Welcome to the contest registration system.";
     $mailContent = 'Welcome, ' . $givenName . ' ' . $familyName . ', to the contest registration system. ';
     $mailContent .= "Here are your login credentials.\n";
-    $mailContent .= "Login ID: " . $accountName . "\n";
+    $mailContent .= "Account name: " . $accountName . "\n";
     $mailContent .= "Password: " . $newPwd . "\n";
     $mailContent .= "Log-in to change your password right away as email is not secure.\n";
     $mailContent .= "\nUse the following link to log-in and change your password:\n\n";
@@ -56,7 +56,7 @@ function sendAccountResetEmail($registrant, $newPwd)
     $mailContent = $givenName . ' ' . $familyName .
     ":\n\nHere are your new login credentials" .
     " for the contest registration system.\n";
-    $mailContent .= "Login ID: " . $accountName . "\n";
+    $mailContent .= "Account name: " . $accountName . "\n";
     $mailContent .= "Password: " . $newPwd . "\n";
     $mailContent .= "Log-in to change your password right away as email is not secure.\n";
     $mailContent .= "\nUse the following link to log-in and change your password:\n";
