@@ -258,154 +258,238 @@ function Make_Tech_Template (&$form, $page)
 {
     // Logo
 
-    $form->CForm_Add_Image ($page, 10, 6, 20, "logos/logo.png");
+    $form->CForm_Add_Image ($page, 8, 6, 20, "logos/logo.png");
 
     // Header
 
-    $form->CForm_Add_Text_Line   ($page, 43, 8, FONT_BOLD, 12, "INTERNATIONAL AEROBATIC CLUB");
-    $form->CForm_Add_Text_Line   ($page, 45, 12, FONT, 12, "Official Contest Technical Inspection");
-    $form->CForm_Add_Double_Line ($page, 8, 19, 124);
+    $form->CForm_Add_Text_Line   ($page, 50, 12, FONT_BOLD, 12, "INTERNATIONAL AEROBATIC CLUB");
+    $form->CForm_Add_Text_Line   ($page, 53, 15, FONT, 12, "Official Technical Inspection Form");
 
-    $form->CForm_Add_Text_Lines  ($page, 8, 21, 124, FONT, 9,
+    $form->CForm_Add_Line($page, 8, 22, 124);
+    $form->CForm_Add_Text_Lines  ($page, 8, 23, 125, FONT, 9,
        "The following checklist is to be used for conducting technical " .
-       "inspections and meets the entrance requirements for contest or " .
+       "inspections at IAC Sonctioned events and meets the entrance " .
+       "requirements for contest or " .
        "rally participation. NOTE: The Technical Inspection comprises a " .
-       "thorough 'walk around' and is not a condition inspection. Proof " .
+       "thorough \"walk around\" and is not a condition inspection. Proof " .
        "of a current Annual or Condition Inspection is considered " .
        "adequate evidence of compliance with all applicable regulatory " .
        "inspections, AD's and Service Bulletins. Removal of cowlings, " .
        "inspection plates, etc., will not be required unless there is " .
        "obvious evidence of an underlying problem. Excessive or unfair " .
        "inspections may be the subject of a Protest.");
-    $form->CForm_Add_Double_Line ($page, 8, 34, 124);
+    $form->CForm_Add_Line ($page, 8, 36, 124);
 
     // Contest Information
 
-    $form->CForm_Add_Text_Line   ($page, 8,   37, FONT_BOLD, 10, "CONTEST:");
-    $form->CForm_Add_Text_Line   ($page, 22,  37, FONT, 10, "Name:");
-    $form->CForm_Add_UnderLine   ($page, 34,  37, 80, 10);
-    $form->CForm_Add_Text_Line   ($page, 86,  37, FONT, 10, "Date:");
-    $form->CForm_Add_UnderLine   ($page, 94,  37, 123, 10);
-    $form->CForm_Add_Text_Line   ($page, 22,  42, FONT, 10, "Location:");
-    $form->CForm_Add_UnderLine   ($page, 34,  42, 80, 10);
-    $form->CForm_Add_Double_Line ($page, 8,   46, 124);
+    $form->CForm_Add_Text_Line   ($page, 8,   38, FONT_BOLD, 10, "CONTEST:");
+    $form->CForm_Add_Text_Line   ($page, 22,  38, FONT, 10, "Name:");
+    $form->CForm_Add_UnderLine   ($page, 34,  38, 123, 10);
+    $form->CForm_Add_Text_Line   ($page, 86,  43, FONT, 10, "Date:");
+    $form->CForm_Add_UnderLine   ($page, 94,  43, 123, 10);
+    $form->CForm_Add_Text_Line   ($page, 22,  43, FONT, 10, "Location:");
+    $form->CForm_Add_UnderLine   ($page, 34,  43, 80, 10);
+    $form->CForm_Add_Line ($page, 8, 47, 124);
 
     // Pilot Information
+    
+    $y = 49;
 
-    $form->CForm_Add_Text_Line   ($page, 8,   48, FONT_BOLD, 10, "PILOT:");
-    $form->CForm_Add_Text_Line   ($page, 22,  48, FONT, 10, "Name:");
-    $form->CForm_Add_UnderLine   ($page, 30,  48, 68, 10);
-    $form->CForm_Add_Text_Line   ($page, 72,  48, FONT, 10, "IAC #:");
-    $form->CForm_Add_UnderLine   ($page, 80,  48, 96, 10);
-    $form->CForm_Add_Text_Line   ($page, 98,  48, FONT, 10, "Please Initial:");
-    $form->CForm_Add_UnderLine   ($page, 112, 48, 123, 10);
-    $form->CForm_Add_Text_Line   ($page, 22,  53, FONT, 10, "Type:");
-    $form->CForm_Add_Checkbox    ($page, 34,  53, 10);
-    $form->CForm_Add_Text_Line   ($page, 37,  53, FONT, 10, "Power");
-    $form->CForm_Add_Checkbox    ($page, 50,  53, 10);
-    $form->CForm_Add_Text_Line   ($page, 53,  53, FONT, 10, "Glider");
-    $form->CForm_Add_Text_Line   ($page, 22,  58, FONT, 10, "Category:");
-    $form->CForm_Add_Checkbox    ($page, 34,  58, 10);
-    $form->CForm_Add_Text_Line   ($page, 37,  58, FONT, 10, "Primary");
-    $form->CForm_Add_Checkbox    ($page, 50,  58, 10);
-    $form->CForm_Add_Text_Line   ($page, 53,  58, FONT, 10, "Sportsman");
-    $form->CForm_Add_Checkbox    ($page, 70,  58, 10);
-    $form->CForm_Add_Text_Line   ($page, 73,  58, FONT, 10, "Intermediate");
-    $form->CForm_Add_Checkbox    ($page, 91,  58, 10);
-    $form->CForm_Add_Text_Line   ($page, 94,  58, FONT, 10, "Advanced");
-    $form->CForm_Add_Checkbox    ($page, 109, 58, 10);
-    $form->CForm_Add_Text_Line   ($page, 112, 58, FONT, 10, "Unlimited");
-    $form->CForm_Add_Double_Line ($page, 8,   62, 124);
+    $form->CForm_Add_Text_Line   ($page, 8,   $y, FONT_BOLD, 10, "PILOT:");
+    $form->CForm_Add_Text_Line   ($page, 22,  $y, FONT, 10, "Name:");
+    $form->CForm_Add_UnderLine   ($page, 30,  $y, 68, 10);
+    $form->CForm_Add_Text_Line   ($page, 72,  $y, FONT, 10, "IAC #:");
+    $form->CForm_Add_UnderLine   ($page, 80,  $y, 96, 10);
+    $form->CForm_Add_Text_Line   ($page, 98,  $y, FONT, 10, "Please Initial:");
+    $form->CForm_Add_UnderLine   ($page, 112, $y, 123, 10);
+    $form->CForm_Add_Text_Line   ($page, 22,  $y+5, FONT, 10, "Type:");
+    $form->CForm_Add_Checkbox    ($page, 34,  $y+5, 10);
+    $form->CForm_Add_Text_Line   ($page, 37,  $y+5, FONT, 10, "Power");
+    $form->CForm_Add_Checkbox    ($page, 50,  $y+5, 10);
+    $form->CForm_Add_Text_Line   ($page, 53,  $y+5, FONT, 10, "Glider");
+    $form->CForm_Add_Text_Line   ($page, 22,  $y+10, FONT, 10, "Category:");
+    $form->CForm_Add_Checkbox    ($page, 34,  $y+10, 10);
+    $form->CForm_Add_Text_Line   ($page, 37,  $y+10, FONT, 10, "Primary");
+    $form->CForm_Add_Checkbox    ($page, 50,  $y+10, 10);
+    $form->CForm_Add_Text_Line   ($page, 53,  $y+10, FONT, 10, "Sportsman");
+    $form->CForm_Add_Checkbox    ($page, 70,  $y+10, 10);
+    $form->CForm_Add_Text_Line   ($page, 73,  $y+10, FONT, 10, "Intermediate");
+    $form->CForm_Add_Checkbox    ($page, 91,  $y+10, 10);
+    $form->CForm_Add_Text_Line   ($page, 94,  $y+10, FONT, 10, "Advanced");
+    $form->CForm_Add_Checkbox    ($page, 109, $y+10, 10);
+    $form->CForm_Add_Text_Line   ($page, 112, $y+10, FONT, 10, "Unlimited");
+    $form->CForm_Add_Line ($page, 8, $y+14, 124);
 
     // Aircraft Information
 
-    $form->CForm_Add_Text_Line   ($page, 8,   64, FONT_BOLD, 10, "AIRCRAFT:");
-    $form->CForm_Add_Text_Line   ($page, 22,  64, FONT, 10, "Make/Model");
-    $form->CForm_Add_UnderLine   ($page, 36,  64, 81, 10);
-    $form->CForm_Add_Text_Line   ($page, 86,  64, FONT, 10, '"N" Number');
-    $form->CForm_Add_UnderLine   ($page, 99,  64, 123, 10);
-    $form->CForm_Add_Double_Line ($page, 8,   68, 124);
+    $y = 65;
+
+    $form->CForm_Add_Text_Line   ($page, 8,   $y, FONT_BOLD, 10, "AIRCRAFT:");
+    $form->CForm_Add_Text_Line   ($page, 22,  $y, FONT, 10, "Make/Model");
+    $form->CForm_Add_UnderLine   ($page, 36,  $y, 81, 10);
+    $form->CForm_Add_Text_Line   ($page, 86,  $y, FONT, 10, '"N" Number');
+    $form->CForm_Add_UnderLine   ($page, 99,  $y, 123, 10);
+    $form->CForm_Add_Line ($page, 8, $y+4, 124);
 
     // Aircraft Paperwork
 
-    $form->CForm_Add_Text_Line   ($page, 8,  71, FONT_BOLD, 10, "AIRCRAFT PAPERWORK");
-    $form->CForm_Add_Checkbox    ($page, 8,  75, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 75, FONT, 10, "IAC Membership Card");
-    $form->CForm_Add_Checkbox    ($page, 67, 75, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 75, FONT, 10, "Certificate of Airworthiness");
-    $form->CForm_Add_Checkbox    ($page, 8,  79, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 79, FONT, 10, "Recreational Pilot Certificate");
-    $form->CForm_Add_Checkbox    ($page, 67, 79, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 79, FONT, 10, "Annual or Condition Inspection (Copy OK)");
-    $form->CForm_Add_Checkbox    ($page, 8,  83, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 83, FONT, 10, "Medical");
-    $form->CForm_Add_Checkbox    ($page, 67, 83, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 83, FONT, 10, "Operating Limitations (Copy OK)");
-    $form->CForm_Add_Checkbox    ($page, 8,  87, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 87, FONT, 10, "Registration");
-    $form->CForm_Add_Checkbox    ($page, 67, 87, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 87, FONT, 10, "Parachute Log - Current Pack (Original - per FAA)");
+    $form->CForm_Add_Text_Line   ($page, 8,  72, FONT_BOLD, 10, 
+      "AIRCRAFT AND PILOT PAPERWORK");
+    $form->CForm_Add_Checkbox    ($page, 8,  76, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, 76, FONT, 10, 
+      "IAC Membership Card or FAI Sporting License");
+    $form->CForm_Add_Checkbox    ($page, 67, 76, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, 76, FONT, 10, "Certificate of Airworthiness");
+    $form->CForm_Add_Checkbox    ($page, 8,  81, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, 81, FONT, 10, "Pilot Certificate");
+    $form->CForm_Add_Checkbox    ($page, 67, 81, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, 81, FONT, 10, 
+      "Annual or Condition Inspection (Copy OK)");
+    $form->CForm_Add_Checkbox    ($page, 8,  86, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, 86, FONT, 10, "Medical (appropriate to aircraft type: LSA, glider, etc.)");
+    $form->CForm_Add_Checkbox    ($page, 67, 86, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, 86, FONT, 10, "Operating Limitations (Copy OK)");
     $form->CForm_Add_Checkbox    ($page, 8,  91, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 91, FONT, 10, "Proof of Insurance (Copy OK)");
+    $form->CForm_Add_Text_Line   ($page, 12, 91, FONT, 10, "Registration");
     $form->CForm_Add_Checkbox    ($page, 67, 91, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 91, FONT, 10, "Weight & Balance (Computed for Competition)");
-    $form->CForm_Add_Double_Line ($page, 8,  94, 124);
+    $form->CForm_Add_Text_Line   ($page, 71, 91, FONT, 10, "Parachute Log showing current pack (180 days)");
+    $form->CForm_Add_Checkbox    ($page, 8,  96, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, 96, FONT, 10, "Proof of Insurance (Copy OK)");
+    $form->CForm_Add_Checkbox    ($page, 67, 96, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, 96, FONT, 10, "Weight & Balance (Copy OK)");
+    $form->CForm_Add_Line ($page, 8, 100, 124);
 
     // Mechnical Condition
 
-    $form->CForm_Add_Text_Line   ($page, 8,  96, FONT_BOLD, 10, "MECHANICAL CONDITION (Check items that are hazardous or may affect safety)");
-    $form->CForm_Add_Checkbox    ($page, 8,  101, 10);
-    $form->CForm_Add_Text_Lines  ($page, 12, 101, 62, FONT, 10, "Cockpit area (Loose objects, seat belts, shoulder harness, canopy security, windscreen, etc.)");
-    $form->CForm_Add_Checkbox    ($page, 67, 101, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 101, FONT, 10, "Cowl (security, evidence of leaks)");
-    $form->CForm_Add_Checkbox    ($page, 8,  107, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 107, FONT, 10, "Play in any tail attach fittings (shake test)");
-    $form->CForm_Add_Checkbox    ($page, 67, 105, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 105, FONT, 10, "Exhaust (cracks, security)");
-    $form->CForm_Add_Checkbox    ($page, 8,  111, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 111, FONT, 10, "Elevator and rudder (freedom of movement)");
-    $form->CForm_Add_Checkbox    ($page, 67, 109, 10);
-    $form->CForm_Add_Text_Lines  ($page, 71, 109, 124, FONT, 10, "Fuel leaks (fuel must be leaking to disqualify; stains should be brought to pilot's attention)");
-    $form->CForm_Add_Checkbox    ($page, 8,  115, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 115, FONT, 10, "Elevator trim condition (excessive play)");
-    $form->CForm_Add_Checkbox    ($page, 67, 115, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 115, FONT, 10, "Excessive oil leaks");
-    $form->CForm_Add_Checkbox    ($page, 8,  119, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 119, FONT, 10, "Tail wires or struts (if installed)");
-    $form->CForm_Add_Checkbox    ($page, 67, 119, 10);
-    $form->CForm_Add_Text_Lines  ($page, 71, 119, 124, FONT, 10, "Unsafe loose of chafed wires or hoses (other hazards observed through cowl openings)");
-    $form->CForm_Add_Checkbox    ($page, 8,  123, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 123, FONT, 10, "Loose or foreign objects in tail");
-    $form->CForm_Add_Checkbox    ($page, 67, 125, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 125, FONT, 10, "Landing gear (condition)");
-    $form->CForm_Add_Checkbox    ($page, 8,  127, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 127, FONT, 10, "Leading edge (condition)");
-    $form->CForm_Add_Checkbox    ($page, 67, 129, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 129, FONT, 10, "Tail wheel - Inflation, steering springs");
-    $form->CForm_Add_Checkbox    ($page, 8,  131, 10);
-    $form->CForm_Add_Text_Lines  ($page, 12, 131, 62, FONT, 10, "Wringles in fuselage fabric, metal or composite surface (structural problems?)");
-    $form->CForm_Add_Checkbox    ($page, 67, 133, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 133, FONT, 10, "Brakes (condition, leaks)");
-    $form->CForm_Add_Checkbox    ($page, 8,  137, 10);
-    $form->CForm_Add_Text_Lines  ($page, 12, 137, 62, FONT, 10, "Condition of wing fabric, metal, or composite covering (wringles, popped rivets, loose tapes, etc.)");
-    $form->CForm_Add_Checkbox    ($page, 67, 137, 10);
-    $form->CForm_Add_Text_Lines  ($page, 71, 137, 124, FONT, 10, "Tires inflation & condition (Zlin 50, Sukoi, Yak-55, etc tires will show high wear. If no chord shows - acceptable.)");
-    $form->CForm_Add_Checkbox    ($page, 8,  144, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 144, FONT, 10, "Ailerons (freedom of movement, excessive play");
-    $form->CForm_Add_Checkbox    ($page, 67, 145, 10);
-    $form->CForm_Add_Text_Line   ($page, 71, 145, FONT, 10, "Wheel pants - if installed (security)");
-    $form->CForm_Add_Checkbox    ($page, 8,  148, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 148, FONT, 10, "Flying wires/struts, (tension, condition, corrosion)");
-    $form->CForm_Add_Checkbox    ($page, 8,  152, 10);
-    $form->CForm_Add_Text_Line   ($page, 12, 152, FONT, 10, "Propeller and spinner (condition, security)");
+    $y = 102;
+
+    $form->CForm_Add_Text_Lines  ($page, 8, $y, 124, FONT_BOLD, 10,
+    "MECHANICAL CONDITION (Inspect all items and mark only those that may ".
+    "affect safety.  Once an item is corrected, note it on page 2)");
+
+    // left column
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+7, 10);
+    $form->CForm_Add_Text_Lines  ($page, 12, $y+7, 62, FONT, 10, 
+      "Cockpit area (loose objects, seat belts, shoulder harness, ".
+      "canopy security, windscreen, etc.)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+14, 10);
+    $form->CForm_Add_Text_Lines  ($page, 12, $y+14, 62, FONT, 10, 
+      "Ailerons (freedom of movement, excessive play, condition of hinges, etc.");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+21, 10);
+    $form->CForm_Add_Text_Lines  ($page, 12, $y+21, 62, FONT, 10, 
+      "Flying and Landing wires / struts -- if applicable ".
+      "(tension, condition, corrosion)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+28, 10);
+    $form->CForm_Add_Text_Lines  ($page, 12, $y+28, 62, FONT, 10, 
+      "Condition of wing fabric, metal, or composite surfaces ".
+      "(wrinkles, popped rivets, loose tapes, etc.)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+37, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, $y+37, FONT, 10, 
+      "Propeller and spinner (condition, security)");
+    
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+42, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, $y+42, FONT, 10, 
+      "Cowl (security)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+47, 10);
+    $form->CForm_Add_Text_Lines  ($page, 12, $y+47, 62, FONT, 10, 
+      "Unsafe loose or chafed wires or hoses (other hazards ".
+      "observed through cowl openings)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+54, 10);
+    $form->CForm_Add_Text_Lines  ($page, 12, $y+54, 62, FONT, 10, 
+      "Fuel leaks (fuel must be leaking to disqualify - ".
+      "stains should be brought to pilot's attention)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  $y+61, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, $y+61, FONT, 10, 
+      "Excessive oil leaks");
+
+    // right column
+    $form->CForm_Add_Checkbox    ($page, 67, $y+7, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+7, FONT, 10, 
+      "Exhaust (cracks, security)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+12, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+12, FONT, 10, 
+      "Landing gear (condition)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+17, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+17, FONT, 10, 
+      "Brakes (condition, fluid leaks)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+22, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+22, FONT, 10, 
+      "Tires (inflation, excessive wear)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+27, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+27, FONT, 10, 
+      "Wheel pants - if installed (security)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+32, 10);
+    $form->CForm_Add_Text_Lines  ($page, 71, $y+32, 124, FONT, 10, 
+      "Condition of fuselage fabric, metal or composite surfaces ".
+      "(wrinkles, popped rivets, loose tapes, etc.)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+39, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+39, FONT, 10, 
+      "Loose or foreign objects in fuselage / tail");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+44, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+44, FONT, 10, 
+      "Tail attach fittings (no play, condition)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+49, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+49, FONT, 10, 
+      "Tail wires or struts (if applicable)");
+      
+    $form->CForm_Add_Checkbox    ($page, 67, $y+54, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+54, FONT, 10, 
+      "Elevator and rudder (freedom of movement)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+59, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+59, FONT, 10, 
+      "Elevator trim (condition, excessive play)");
+
+    $form->CForm_Add_Checkbox    ($page, 67, $y+64, 10);
+    $form->CForm_Add_Text_Line   ($page, 71, $y+64, FONT, 10, 
+      "Tail wheel (condition, inflation, springs, security)");
+}
+
+function Make_Tech_Page2 (&$form, $page)
+{
+    $form->CForm_Add_Text_Lines  ($page, 8, 15, 124, FONT_BOLD, 10,
+    "Items corrected from page 1: (Note each unsafe item and how corrected.  ".
+    "All Unsafe items must be corrected prior to registration.)");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  26, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, 26, FONT, 10, "None Noted");
+
+    $form->CForm_Add_Checkbox    ($page, 8,  33, 10);
+    $form->CForm_Add_Text_Line   ($page, 12, 33, FONT, 10, "Unsafe items noted:");
+    $form->CForm_Add_UnderLine   ($page, 8,  36, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  39, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  42, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  45, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  48, 123, 10);
+
+    $form->CForm_Add_Text_Line   ($page, 8,  56, FONT, 10, "How Corrected:");
+    $form->CForm_Add_UnderLine   ($page, 8,  59, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  62, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  65, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  68, 123, 10);
+    $form->CForm_Add_UnderLine   ($page, 8,  71, 123, 10);
 
     // Signature Line
 
-    $form->CForm_Add_Line        ($page, 8,  160, 64);
-    $form->CForm_Add_Line        ($page, 70, 160, 120);
-    $form->CForm_Add_Text_Line   ($page, 8,  161, FONT, 10, "Technical Inspector");
-    $form->CForm_Add_Text_Line   ($page, 70, 161, FONT, 10, "Date");
-
+    $form->CForm_Add_Line        ($page, 8,  86, 64);
+    $form->CForm_Add_Text_Line   ($page, 8,  87, FONT, 10, "Technical Inspector");
+    $form->CForm_Add_Line        ($page, 70, 86, 100);
+    $form->CForm_Add_Text_Line   ($page, 70, 87, FONT, 10, "Date");
 }
 
 function Split_Name ($name)
@@ -551,52 +635,44 @@ function Fill_Entry_Template (&$form, $fields, $page)
 
 function Fill_Tech_Template (&$form, $fields, $page)
 {
-    $lines = Split_Name (Value ($fields, "contest_name"));
-	if (count ($lines) > 1) {
-        $form->CForm_Add_Text_Line ($page, 34, 35, FILL_FONT, 10, $lines [0]);
-        $form->CForm_Add_Text_Line ($page, 34, 37, FILL_FONT, 10, $lines [1]);
-	}
-	else {
-        $form->CForm_Add_Text_Line ($page, 34, 37, FILL_FONT, 10, Value ($fields, "contest_name"));
-	}
-    $form->CForm_Add_Text_Line ($page, 96, 37, FILL_FONT, 10, Value ($fields, "contest_date"));
-    $form->CForm_Add_Text_Line ($page, 34, 42, FILL_FONT, 10, Value ($fields, "contest_location"));
+    $form->CForm_Add_Text_Line ($page, 34, 38, FILL_FONT, 10, Value ($fields, "contest_name"));
+    $form->CForm_Add_Text_Line ($page, 34, 43, FILL_FONT, 10, Value ($fields, "contest_location"));
+    $form->CForm_Add_Text_Line ($page, 96, 43, FILL_FONT, 10, Value ($fields, "contest_date"));
 
-    $form->CForm_Add_Text_Line ($page, 32, 48, FILL_FONT, 10, Value ($fields, "pilot_first_name") . " " . Value ($fields, "pilot_last_name"));
-    $form->CForm_Add_Text_Line ($page, 80, 48, FILL_FONT, 10, Value ($fields, "pilot_iac_number"));
+    $form->CForm_Add_Text_Line ($page, 32, 49, FILL_FONT, 10, Value ($fields, "pilot_first_name") . " " . Value ($fields, "pilot_last_name"));
+    $form->CForm_Add_Text_Line ($page, 80, 49, FILL_FONT, 10, Value ($fields, "pilot_iac_number"));
 
     switch (Value ($fields, "contest_type")) {
         case "Power":
-            $form->CForm_Add_Xmark ($page, 34, 53, 10);
+            $form->CForm_Add_Xmark ($page, 34, 54, 10);
             break;
         case "Glider":
-            $form->CForm_Add_Xmark ($page, 50, 53, 10);
+            $form->CForm_Add_Xmark ($page, 50, 54, 10);
             break;
     }
     $categories = explode (",", Value ($fields, "contest_category"));
     foreach ($categories as $category) {
 		switch ($category) {
 			case "Primary":
-				$form->CForm_Add_Xmark ($page, 34, 58, 10);
+				$form->CForm_Add_Xmark ($page, 34, 59, 10);
 				break;
 			case "Sportsman":
-				$form->CForm_Add_Xmark ($page, 50, 58, 10);
+				$form->CForm_Add_Xmark ($page, 50, 59, 10);
 				break;
 			case "Intermediate":
-				$form->CForm_Add_Xmark ($page, 70, 58, 10);
+				$form->CForm_Add_Xmark ($page, 70, 59, 10);
 				break;
 			case "Advanced":
-				$form->CForm_Add_Xmark ($page, 91, 58, 10);
+				$form->CForm_Add_Xmark ($page, 91, 59, 10);
 				break;
 			case "Unlimited":
-				$form->CForm_Add_Xmark ($page, 109, 58, 10);
+				$form->CForm_Add_Xmark ($page, 109, 59, 10);
 				break;
 		}
 	}
 
-    $form->CForm_Add_Text_Line ($page, 38, 64, FILL_FONT, 10, Value ($fields, "aircraft_make_model"));
-    $form->CForm_Add_Text_Line ($page, 100, 64, FILL_FONT, 10, Value ($fields, "aircraft_n_number"));
-
+    $form->CForm_Add_Text_Line ($page, 38, 65, FILL_FONT, 10, Value ($fields, "aircraft_make_model"));
+    $form->CForm_Add_Text_Line ($page, 100, 65, FILL_FONT, 10, Value ($fields, "aircraft_n_number"));
 }
 
 function Make_Blank (&$form, $page)
@@ -927,10 +1003,10 @@ function Make_one_registration ($fields, $form, $index)
     Make_Entry_Template ($form, $page);
     Fill_Entry_Template ($form, $fields, $page);
     $page += 2;
-#    Make_Tech_Template   ($form, $page+2);
-#    Fill_Tech_Template   ($form, $fields, $page+2);
-#    Make_Blank ($form, $page+3);
-#    $page += 2;
+    Make_Tech_Template   ($form, $page);
+    Fill_Tech_Template   ($form, $fields, $page);
+    Make_Tech_Page2 ($form, $page+1);
+    $page += 2;
     Make_Order_Of_Flight_Template ($form, $page);
     Fill_Order_Of_Flight_Template ($form, $fields, $page);
     Make_Volunteer_Template ($form, $page);
