@@ -74,7 +74,7 @@ function endContent()
 </div>
 <div class="footer">
 <p>
-      Copyright &copy; 2007 - 2011, International Aerobatic Club.
+      Copyright &copy; 2007 - 2013, International Aerobatic Club.
       All logos, trademarks, pictures, and videos are the property 
       of their respective owners.  Contact
 <?php
@@ -84,7 +84,7 @@ function endContent()
       or content of this web page.
     </p>
     <p>This is an open source project hosted at
-    <a href="http://sourceforge.net/projects/acrs" class="footer">SourceForge</a>.</p>
+    <a href="https://github.com/wbreeze/acrs" class="footer">GitHub.com</a>.</p>
 </div>
 </body>
 </html>
@@ -95,7 +95,7 @@ function endContent()
 ?>
 <?php
 /*
-   Copyright 2008, 2011 International Aerobatic Club, Inc.
+   Copyright 2008, 2011, 2013 International Aerobatic Club, Inc.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
