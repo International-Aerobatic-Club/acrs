@@ -21,8 +21,8 @@ function xlateDataForPDF($db_conn, $record)
    $fields['contest_date'] = date('M j', $startDate) . ' - ' . date('M j Y', $endDate);
    $fields['contest_location'] = $record['location'];
    $fields['contest_type'] = ucwords($record['class']);
-   $fields['compType'] = $record['compType'];
    $fields['contest_category'] = ucwords($record['category']);
+   $fields['comp_type'] = $record['compType'];
    $fields['pilot_first_name'] = $record['givenName'];
    $fields['pilot_last_name'] = $record['familyName'];
    $fields['pilot_iac_number'] = $record['iacID'];
@@ -146,7 +146,7 @@ function xLateVolunteerFields($db_conn, $regID, $ctstID, $userID, &$fields)
          foreach ($volTypes as $volType)
          {
             $vf = $volMap[$volType];
-            if ($fields[$vf] == '')
+            if (!isset($fields[$vf]) || $fields[$vf] == '')
             {
                $fields[$vf] = $cat;
             }
@@ -178,17 +178,20 @@ function writePilots($db_conn, $result)
 function generateIACRegFormPilots($db_conn, $ctstID, $userID,
   $thisPilotOnly = false, $offset = 0, $count = 0)
 {
-   $query = 'select a.userID, f.regID, f.ctstID, b.name, startDate, endDate, location, class, category,' .
-    		' givenName, familyName, iacID, address, city, state, country, postalCode,' .
+   $query = 'select a.userID, f.regID, f.ctstID, b.name,' .
+        ' startDate, endDate, location, class, category,' .
+    		' givenName, familyName,' .
+        ' iacID, address, city, state, country, postalCode,' .
     		' email, contactPhone, c.chapter, faiID, certType, certNumber, safety,' .
-            ' iceName, icePhone1, icePhone2,' .
+        ' iceName, icePhone1, icePhone2,' .
     		' insCompany, liabilityAmt,' .
     		' ownerName, ownerPhone, ownerAddress, ownerCity, ownerState,' .
-    		' ownerCountry, ownerPostal, airplaneMake, airplaneModel, airplaneRegID,' .
-            ' airplaneColors, engineMake, engineModel, engineHP,' .
-    		' airworthiness' .
+    		' ownerCountry, ownerPostal,' .
+        ' airplaneMake, airplaneModel, airplaneRegID,' .
+        ' airplaneColors, engineMake, engineModel, engineHP,' .
+    		' airworthiness, f.compType' .
     		' from registrant a, contest b, registration c, ctst_cat e, reg_type f' .
-            ' where'; 
+        ' where'; 
    if ($thisPilotOnly) $query .= ' a.userID = ' . intSQL($userID) . ' and';
    $query .= ' f.userID = a.userID ' .
     ' and f.ctstID = ' . intSQL($ctstID) .

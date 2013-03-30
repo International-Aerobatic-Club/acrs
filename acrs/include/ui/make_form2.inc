@@ -714,119 +714,143 @@ function Make_Order_Of_Flight_Template (&$form, $page)
 {
     // Logo
 
-    $form->CForm_Add_Image ($page, 9, 13, 20, "logos/logo.png");
+    $form->CForm_Add_Image ($page, 9, 6, 20, "logos/logo.png");
 
     // Header
 
-    $form->CForm_Add_Text_Line ($page, 28, 10, FONT, 10, "ORDER OF FLIGHT WORKSHEET");
+    $form->CForm_Add_Text_Line   ($page, 45, 8, FONT_BOLD, 12, "ORDER OF FLIGHT WORKSHEET");
 
     // Category
 
-    $form->CForm_Add_Text_Line ($page, 28, 15, FONT, 10, "Primary");
-    $form->CForm_Add_Underline ($page, 38, 15, 56, 10);
-    $form->CForm_Add_Text_Line ($page, 70, 15, FONT, 10, "Advanced");
-    $form->CForm_Add_Underline ($page, 82, 15, 99, 10);
-    $form->CForm_Add_Text_Line ($page, 28, 20, FONT, 10, "Sportsman");
-    $form->CForm_Add_Underline ($page, 41, 20, 56, 10);
-    $form->CForm_Add_Text_Line ($page, 70, 20, FONT, 10, "Unlimited");
-    $form->CForm_Add_Underline ($page, 82, 20, 99, 10);
-    $form->CForm_Add_Text_Line ($page, 28, 25, FONT, 10, "Intermediate");
-    $form->CForm_Add_Underline ($page, 43, 25, 56, 10);
-    $form->CForm_Add_Text_Line ($page, 70, 25, FONT, 10, "Glider");
-    $form->CForm_Add_Text_Line ($page, 81, 25, FONT, 10, "S");
-    $form->CForm_Add_Text_Line ($page, 89, 25, FONT, 10, "I");
-    $form->CForm_Add_Text_Line ($page, 97, 25, FONT, 10, "U");
-    $form->CForm_Add_Text_Line ($page, 104, 25, FONT, 10, "(circle one)");
+    $form->CForm_Add_Checkbox  ($page,  9, 21, 10);
+    $form->CForm_Add_Text_Line ($page, 11, 21, FONT_BOLD, 10, "Primary");
+    $form->CForm_Add_Checkbox  ($page, 25, 21, 10);
+    $form->CForm_Add_Text_Line ($page, 27, 21, FONT_BOLD, 10, "Sportsman");
+    $form->CForm_Add_Checkbox  ($page, 47, 21, 10);
+    $form->CForm_Add_Text_Line ($page, 49, 21, FONT_BOLD, 10, "Intermediate");
+    $form->CForm_Add_Checkbox  ($page, 70, 21, 10);
+    $form->CForm_Add_Text_Line ($page, 72, 21, FONT_BOLD, 10, "Advanced");
+    $form->CForm_Add_Checkbox  ($page, 93, 21, 10);
+    $form->CForm_Add_Text_Line ($page, 95, 21, FONT_BOLD, 10, "Unlimited");
+
+    $form->CForm_Add_Checkbox  ($page,  9, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 11, 26, FONT_BOLD, 10, "Glider Sportsman");
+    $form->CForm_Add_Checkbox  ($page, 38, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 40, 26, FONT_BOLD, 10, "Glider Intermediate");
+    $form->CForm_Add_Checkbox  ($page, 70, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 72, 26, FONT_BOLD, 10, "Glider Advanced");
+    $form->CForm_Add_Checkbox  ($page, 99, 26, 10);
+    $form->CForm_Add_Text_Line ($page, 101, 26, FONT_BOLD, 10, "Glider Unlimited");
 
     // Pilot/Aircraft
 
-    $form->CForm_Add_Text_Line ($page,  8, 32, FONT, 10, "Competitor Name");
+    $form->CForm_Add_Text_Line ($page,  8, 32, FONT, 10, "Competitor Name:");
     $form->CForm_Add_Underline ($page, 29, 32, 128, 10);
-    $form->CForm_Add_Text_Line ($page,  8, 38, FONT, 10, "Type Aircraft/N-Number");
-    $form->CForm_Add_Underline ($page, 35, 38, 128, 10);
-    $form->CForm_Add_Text_Line ($page,  8, 44, FONT, 10, "Is Anyone Else Flying This Aircraft?");
-    $form->CForm_Add_Underline ($page, 49, 44, 56, 10);
-    $form->CForm_Add_Text_Line ($page, 58, 44, FONT, 10, "Yes");
-    $form->CForm_Add_Underline ($page, 65, 44, 73, 10);
-    $form->CForm_Add_Text_Line ($page, 75, 44, FONT, 10, "No");
-    $form->CForm_Add_Text_Line ($page,  8, 50, FONT, 10, "Who");
-    $form->CForm_Add_Underline ($page, 14, 50, 56, 10);
-    $form->CForm_Add_Text_Line ($page, 62, 50, FONT, 10, "What Category");
-    $form->CForm_Add_Underline ($page, 80, 50, 128, 10);
+
+    $form->CForm_Add_Text_Line ($page,  8, 38, FONT, 10, "Type Aircraft:");
+    $form->CForm_Add_Underline ($page, 24, 38, 55, 10);
+    $form->CForm_Add_Text_Line ($page, 65, 38, FONT, 10, "N-Number:");
+    $form->CForm_Add_Underline ($page, 78, 38, 128, 10);
+
+    $form->CForm_Add_Text_Line ($page,  8, 44, FONT, 10, 
+      "Is anyone else flying this aircraft today?");
+    $form->CForm_Add_Checkbox  ($page, 68, 44, 10);
+    $form->CForm_Add_Text_Line ($page, 71, 44, FONT, 10, "Yes");
+    $form->CForm_Add_Checkbox  ($page, 83, 44, 10);
+    $form->CForm_Add_Text_Line ($page, 86, 44, FONT, 10, "No");
+
+    $form->CForm_Add_Text_Line ($page,  8, 50, FONT, 10, "Who:");
+    $form->CForm_Add_Underline ($page, 15, 50, 55, 10);
+    $form->CForm_Add_Text_Line ($page, 60, 50, FONT, 10, "What Category:");
+    $form->CForm_Add_Underline ($page, 78, 50, 128, 10);
+
+    $form->CForm_Add_Text_Line ($page,  8, 56, FONT, 10, 
+      "Are you a Safety Pilot for another competitor?");
+    $form->CForm_Add_Checkbox  ($page, 68, 56, 10);
+    $form->CForm_Add_Text_Line ($page, 71, 56, FONT, 10, "Yes");
+    $form->CForm_Add_Checkbox  ($page, 83, 56, 10);
+    $form->CForm_Add_Text_Line ($page, 86, 56, FONT, 10, "No");
+
+    $form->CForm_Add_Text_Line ($page,  8, 62, FONT, 10, "Who:");
+    $form->CForm_Add_Underline ($page, 15, 62, 55, 10);
+    $form->CForm_Add_Text_Line ($page, 60, 62, FONT, 10, "What Category:");
+    $form->CForm_Add_Underline ($page, 78, 62, 128, 10);
 
     // Registrar
 
-    $form->CForm_Add_Text_Line ($page,  8, 56, FONT, 10, "FOR REGISTRAR USE ONLY:");
-    $form->CForm_Add_Text_Line ($page,  8, 62, FONT, 10, "KNOWN");
-    $form->CForm_Add_Underline ($page, 20, 62, 30, 10);
-    $form->CForm_Add_Text_Line ($page, 55, 62, FONT, 10, "UNKNOWN");
-    $form->CForm_Add_Underline ($page, 74, 62, 83, 10);
-    $form->CForm_Add_Text_Line ($page,  8, 68, FONT, 10, "FREE");
-    $form->CForm_Add_Underline ($page, 20, 68, 30, 10);
-    $form->CForm_Add_Text_Line ($page, 55, 68, FONT, 10, "4-MIN");
-    $form->CForm_Add_Underline ($page, 74, 68, 83, 10);
-
-    // Note
-
-    $form->CForm_Add_Text_Lines  ($page, 8, 74, 128, FONT_ITALIC, 11,
-       "Note: Gliders sometimes have more than one Known, Free, or Unknown. Simply use a slash mark on " .
-       "the line above to differentiate the order of flight for each");
+    $form->CForm_Add_Text_Line ($page,  8, 68, FONT_BOLD, 10, "FOR REGISTRAR USE ONLY:");
+    $form->CForm_Add_Text_Line ($page,  8, 74, FONT, 10, "KNOWN");
+    $form->CForm_Add_Underline ($page, 19, 74, 29, 10);
+    $form->CForm_Add_Text_Line ($page, 38, 74, FONT, 10, "UNKNOWN");
+    $form->CForm_Add_Underline ($page, 53, 74, 63, 10);
+    $form->CForm_Add_Text_Line ($page, 70, 74, FONT, 10, "FREE");
+    $form->CForm_Add_Underline ($page, 78, 74, 88, 10);
+    $form->CForm_Add_Text_Line ($page, 99, 74, FONT, 10, "4-MINUTE");
+    $form->CForm_Add_Underline ($page, 115, 74, 125, 10);
 
     $form->CForm_Add_Line ($page, 8, 89, 128);
-
 }
 
 function Fill_Order_Of_Flight_Template (&$form, $fields, $page)
 {
-    $categories = explode (",", Value ($fields, "contest_category"));
-    foreach ($categories as $category) {
-		switch ($category) {
-			case "Primary":
-				$form->CForm_Add_Xmark ($page, 50, 15, 10);
-				break;
-			case "Sportsman":
-				$form->CForm_Add_Xmark ($page, 50, 20, 10);
-				break;
-			case "Intermediate":
-				$form->CForm_Add_Xmark ($page, 50, 25, 10);
-				break;
-			case "Advanced":
-				$form->CForm_Add_Xmark ($page, 88, 15, 10);
-				break;
-			case "Unlimited":
-				$form->CForm_Add_Xmark ($page, 88, 20, 10);
-				break;
-		}
-	}
-    if (Value ($fields, "contest_type") == "Glider") {
-		$categories = explode (",", Value ($fields, "contest_category"));
+  $categories = explode (",", Value ($fields, "contest_category"));
+  if (Value ($fields, "contest_type") == "Glider") {
 		foreach ($categories as $category) {
 			switch ($category) {
 				case "Sportsman":
-					$form->CForm_Add_Circle ($page, 81, 25, 10);
+					$form->CForm_Add_Xmark ($page, 9, 26, 10);
 					break;
 				case "Intermediate":
-					$form->CForm_Add_Circle ($page, 89, 25, 10);
+					$form->CForm_Add_Xmark ($page, 38, 26, 10);
+					break;
+				case "Advanced":
+					$form->CForm_Add_Xmark ($page, 70, 26, 10);
 					break;
 				case "Unlimited":
-					$form->CForm_Add_Circle ($page, 97, 25, 10);
+					$form->CForm_Add_Xmark ($page, 99, 26, 10);
 					break;
 			}
 		}
-    }
+  }
+  else {
+    foreach ($categories as $category) {
+      switch ($category) {
+        case "Primary":
+          $form->CForm_Add_Xmark ($page,  9, 21, 10);
+          break;
+        case "Sportsman":
+          $form->CForm_Add_Xmark ($page, 25, 21, 10);
+          break;
+        case "Intermediate":
+          $form->CForm_Add_Xmark ($page, 47, 21, 10);
+          break;
+        case "Advanced":
+          $form->CForm_Add_Xmark ($page, 70, 21, 10);
+          break;
+        case "Unlimited":
+          $form->CForm_Add_Xmark ($page, 93, 21, 10);
+          break;
+      }
+		}
+	}
 
-    $form->CForm_Add_Text_Line ($page, 30,  32, FILL_FONT, 10, Value ($fields, "pilot_first_name") . " " . Value ($fields, "pilot_last_name"));
-    $form->CForm_Add_Text_Line ($page, 36,  38, FILL_FONT, 10,
-                               Value ($fields, "aircraft_make_model") . "/" .
-                               Value ($fields, "aircraft_n_number"));
+    $form->CForm_Add_Text_Line ($page, 30,  32, FILL_FONT, 10, 
+       Value ($fields, "pilot_first_name") . " " . 
+       Value ($fields, "pilot_last_name"));
+    $form->CForm_Add_Text_Line ($page, 26,  38, FILL_FONT, 10,
+       Value ($fields, "aircraft_make_model"));
+    $form->CForm_Add_Text_Line ($page, 80,  38, FILL_FONT, 10,
+       Value ($fields, "aircraft_n_number"));
 
     if (Value ($fields, "aircraft_other") == "Yes") {
-        $form->CForm_Add_Xmark ($page, 52, 44, 10);
-        $form->CForm_Add_Text_Line ($page, 15,  50, FILL_FONT, 10, Value ($fields, "aircraft_other_who_else"));
-        $form->CForm_Add_Text_Line ($page, 81,  50, FILL_FONT, 10, Value ($fields, "aircraft_other_category"));
+        $form->CForm_Add_Xmark ($page, 68, 44, 10);
+        $form->CForm_Add_Text_Line ($page, 17,  50, FILL_FONT, 10, 
+           Value ($fields, "aircraft_other_who_else"));
+        $form->CForm_Add_Text_Line ($page, 80,  50, FILL_FONT, 10, 
+           Value ($fields, "aircraft_other_category"));
     }
     else {
-        $form->CForm_Add_Xmark ($page, 68, 44, 10);
+        $form->CForm_Add_Xmark ($page, 83, 44, 10);
     }
 }
 
@@ -947,7 +971,7 @@ function Fill_Volunteer_Template (&$form, $fields, $page, $offset = 0)
     $categories = array_merge (
                       explode (",", Value ($fields, "contest_category")),
                       explode (",", Value ($fields, "contest_patch_category")));
-    if ($fields['compType'] == 'competitor' && count ($categories) > 0)
+    if ($fields['comp_type'] == 'competitor' && count ($categories) > 0)
     {
       $form->CForm_Add_Xmark ($page, 43, 112 + $offset, 10);
       foreach ($categories as $category) {
