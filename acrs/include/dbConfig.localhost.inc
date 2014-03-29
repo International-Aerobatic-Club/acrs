@@ -35,7 +35,7 @@ elseif (ACRS_EXEC_MODE == "test_iacusn") {
     DEFINE ("REGISTRATION_URL",  "http://www.iacusn.org/test/acrs/"); // URL of the acrs registration web site root directory, must be end with "/"
     DEFINE ("TEST_EMAIL_SERVER", "wbreeze.com");                    // domain name of email server where test messages are sent
   
-    DEFINE ("DBHOST",            "localhost");                      // database host
+    DEFINE ("DBHOST",            "127.0.0.1");                      // database host
     DEFINE ("DBPREFIX",          "wbreezec_");                      // database name and user name prefix
     DEFINE ("DBNAME",            "iacreg");                         // database name
     DEFINE ("DBUSER",            "sitePHP");                        // database user name
