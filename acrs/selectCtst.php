@@ -189,10 +189,8 @@ startContent();
 echo "<h1>Select a Contest</h1>";
 $fail = dbConnect($db_conn);
 $userID = $_SESSION['userID'];
-if (isset ($_SESSION['ctstID']))
-    $ctstID = $_SESSION['ctstID'];
-else
-    unset ($ctstID);
+unset($ctstID);
+unset($_SESSION['ctstID']);
 
 if ($fail != '')
 {
