@@ -199,6 +199,9 @@ if ($fail != '')
 else
 {
     verificationHeader("Welcome,");
+    echo '<p>This is the Aerobatic Contest Registration System (ACRS).  ';
+    echo 'You can get an overview of ACRS capabilities and features by ';
+    echo 'referring to <a href="docs/ACRS.pdf">this PDF document.</a></p>';
     showContests($db_conn);
     showMenu();
     showRegistrations($db_conn);
