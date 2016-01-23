@@ -4,3 +4,5 @@ upd.log
 sshupd.sh
 testAccounts.txt
 .*.swp
+.DS_Store
+*.sql.gz
