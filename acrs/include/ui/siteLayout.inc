@@ -3,6 +3,7 @@
  *  general HTML page layout functions used for each page
  *
  *  Changes:
+ *    08/13/2014 dcl        updated copyright years in the footer
  *    02/17/2011 dcl        updated copyright years in the footer
  *    02/17/2011 dcl        image and stylesheet paths didn't work for me, so I inserted REGISTRATION_URL to make them absolute.
  *    10/22/10 jim_ward     use system-wide constants from include/config.inc.  Preface title with "ACRS".
@@ -35,7 +36,7 @@ function startContent($bodyAttributes = '')
 <tr class="headline">
 <td class="sideline">
 <?php
-  echo '<img alt="IAC Logo" src="'.REGISTRATION_URL.'logos/iac_logo_130.gif" border="0"/>';
+  echo '<img alt="IAC Logo" src="'.REGISTRATION_URL.'logos/IAC_Shield_Logo_2C_RGB_130.png" border="0"/>';
 ?>
 </td>
 <td class="headline">
@@ -74,7 +75,7 @@ function endContent()
 </div>
 <div class="footer">
 <p>
-      Copyright &copy; 2007 - 2013, International Aerobatic Club.
+      Copyright &copy; 2007 - 2014, International Aerobatic Club.
       All logos, trademarks, pictures, and videos are the property 
       of their respective owners.  Contact
 <?php
