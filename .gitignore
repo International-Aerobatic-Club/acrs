@@ -1,5 +1,6 @@
 debug.log
 email.log
+error.log
 upd.log
 sshupd.sh
 testAccounts.txt
