@@ -2,7 +2,7 @@
      margin-top:0px;
      font-family:Tahoma;color:black;
      border-left-width:12px;
-     border-left-color:#336699;
+     border-left-color:#036;
      border-left-style:solid;
   }
   table.layout {
@@ -12,14 +12,14 @@
   }
   table.layout td { border:0 }
   tr.headline { 
-    background-color:#336699; 
+    background-color:#036; 
     border-bottom-width:5px;
     border-bottom-style:solid;
     border-bottom-color:black; 
     vertical-align:top;
   }
   td.sideline { 
-     background-color:#336699; 
+     background-color:#036; 
      width:130px 
   }
   .content { 
@@ -28,11 +28,11 @@
   }
   div.footer {
      padding-left:20px;
-  	 width:400px;
+     width:400px;
      margin-top:50px;
      font-weight:lighter; 
      font-size:xx-small; 
-     color:#FF4444;
+     color:#C03;
   }
   h1 { 
      font-style:italic; font-weight:bold; text-align:left;
@@ -57,7 +57,7 @@
      margin-top:20px; margin-bottom:20px;
   }
   a.footer {
-     font-weight:lighter; font-size:xx-small; color:#FF4444;
+     font-weight:lighter; font-size:xx-small; color:#C03;
   }
   dt {
      font-weight:bold;
@@ -80,7 +80,7 @@
   }
   td.reportHead {
      font-family:monospace;
-  	 font-weight:bold;
+     font-weight:bold;
   }
   h4.reportHead {
      padding-top:10px;
