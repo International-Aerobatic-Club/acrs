@@ -75,7 +75,7 @@ function endContent()
 </div>
 <div class="footer">
 <p>
-      Copyright &copy; 2007 - 2014, International Aerobatic Club.
+      Copyright &copy; 2007 - 2016, International Aerobatic Club.
       All logos, trademarks, pictures, and videos are the property 
       of their respective owners.  Contact
 <?php
